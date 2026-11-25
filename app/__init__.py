@@ -226,7 +226,7 @@ def create_app(config_object=None):
 
         settings = models.StoreSettings.query.filter_by(business_id=business.id).first()
         if settings:
-            settings.announcement = "Free delivery on electronics orders over ₦150,000"
+            settings.announcement = None
             settings.hero_title = "Technology for better living."
             settings.about_text = "Discover premium smartphones, computing, audio, gaming and smart devices selected for performance and everyday reliability."
             settings.catalogue_eyebrow = "Featured devices"

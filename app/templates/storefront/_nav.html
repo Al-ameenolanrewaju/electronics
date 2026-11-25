@@ -1,7 +1,7 @@
 {% if settings and settings.announcement %}<div class="luxury-announcement">{{ settings.announcement }}</div>{% endif %}
 <nav class="store-nav luxury-nav" aria-label="Main navigation">
   <a class="store-brand luxury-brand" href="{{ url_for('storefront.home') }}" aria-label="{{ business.name }} home">
-    <span class="electronics-wordmark"><strong>{{ business.name|upper }}</strong><em>TECHNOLOGY</em></span>
+    <span class="electronics-wordmark"><strong>{{ business.name|upper }}</strong><em>PREMIUM ELECTRONICS</em></span>
   </a>
   <div class="store-menu luxury-menu" id="store-menu">
     <a href="{{ url_for('storefront.home') }}" aria-current="page">Home</a>

@@ -16,7 +16,7 @@
       </div>
     </div>
     <div class="luxury-hero-image">
-      {% if business.banner_url %}<img src="{{ business.banner_url }}?v={{ business.updated_at.timestamp()|int }}" alt="{{ business.name }} collection">{% else %}<div class="editorial-brand-panel"><span class="editorial-brand-name">{{ business.name }}</span><span class="editorial-brand-caption">{{ settings.tagline if settings and settings.tagline else 'A considered collection' }}</span></div>{% endif %}
+      {% if business.banner_url %}<img src="{{ business.banner_url }}?v={{ business.updated_at.timestamp()|int }}" alt="{{ business.name }} collection" fetchpriority="high">{% elif featured and featured[0].images %}<img src="{{ featured[0].images[0].url }}" alt="{{ featured[0].images[0].alt_text or featured[0].name }}" fetchpriority="high">{% else %}<div class="editorial-brand-panel"><span class="editorial-brand-name">{{ business.name }}</span><span class="editorial-brand-caption">{{ settings.tagline if settings and settings.tagline else 'Premium electronics, selected with care' }}</span></div>{% endif %}
     </div>
   </section>
   <section class="luxury-collection" id="featured">

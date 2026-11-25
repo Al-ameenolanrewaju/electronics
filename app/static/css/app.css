@@ -833,6 +833,28 @@ a { color: inherit; }
   .fashion-store .luxury-product-card .product-photo { aspect-ratio:3/4.15; }
   .fashion-store .luxury-product-info { padding-top:12px; }
   .fashion-store .luxury-product-info h3 { font-size:17px; }
+
+  .electronics-wordmark {
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+    gap:3px;
+    color:#24251f;
+    font-family:var(--serif);
+    line-height:1;
+  }
+  .electronics-wordmark strong {
+    font-size:15px;
+    font-weight:600;
+    letter-spacing:.08em;
+  }
+  .electronics-wordmark em {
+    color:#8d7658;
+    font-family:Inter,"Segoe UI",sans-serif;
+    font-size:6px;
+    font-style:normal;
+    letter-spacing:.23em;
+  }
   .fashion-store .luxury-price { font-size:13px; }
   .fashion-store .product-whatsapp-button {
     width:100%;
