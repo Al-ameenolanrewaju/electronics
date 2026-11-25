@@ -1,5 +1,5 @@
 from flask import Blueprint, g, render_template, request, abort, jsonify
-from sqlalchemy import String, case, cast, func, or_
+from sqlalchemy import case, func, or_, cast, String
 from sqlalchemy.orm import joinedload, selectinload
 
 from .. import db, csrf
@@ -54,47 +54,69 @@ def category_for_slug(business, slug):
     category = Category.query.filter_by(business_id=business.id, slug=slug).first()
     if category:
         return category
-    # Legacy categories may have inconsistent slugs; match a normalized name safely.
     normalized = " ".join(slug.replace("-", " ").split()).casefold()
     candidates = Category.query.filter_by(business_id=business.id).order_by(Category.id).all()
     return next((item for item in candidates if " ".join((item.name or "").split()).casefold() == normalized), None)
 
 
-def render_listing(business, products, selected_category=None, selected_size="", selected_colour="", page=1, page_count=1, filters=None):
+def render_listing(business, products, selected_category=None, selected_size="", selected_colour="", page=1, page_count=1, search_term="", min_price=None, max_price=None, selected_brand="", selected_condition="", spec_key="", spec_value=""):
     settings, categories = storefront_context(business)
-    variant_rows = ProductVariant.query.filter_by(
+    size_values = db.session.query(ProductVariant.size).filter_by(
         business_id=business.id, is_available=True
-    ).filter(ProductVariant.stock_quantity > 0).order_by(ProductVariant.size, ProductVariant.colour).all()
-    sizes = sorted({v.size.strip() for v in variant_rows if v.size and v.size.strip()}, key=str.casefold)
-    colours = sorted({v.colour.strip() for v in variant_rows if v.colour and v.colour.strip()}, key=str.casefold)
-    brands = [
-        brand for (brand,) in db.session.query(Product.brand).filter(
-            Product.business_id == business.id,
-            Product.is_published.is_(True),
-            Product.brand.isnot(None),
-            Product.brand != "",
-        ).distinct().order_by(Product.brand).all()
-    ]
-    pagination_args = request.args.to_dict()
-    pagination_args.pop("page", None)
-    if selected_category:
-        pagination_args["category"] = str(selected_category.id)
+    ).distinct().order_by(ProductVariant.size).all()
+    colour_values = db.session.query(ProductVariant.colour).filter_by(
+        business_id=business.id, is_available=True
+    ).distinct().order_by(ProductVariant.colour).all()
+    sizes = sorted({value.strip() for (value,) in size_values if value and value.strip()}, key=str.casefold)
+    colours = sorted({value.strip() for (value,) in colour_values if value and value.strip()}, key=str.casefold)
+    brands = [value for (value,) in db.session.query(Product.brand).filter(
+        Product.business_id == business.id, Product.is_published.is_(True), Product.brand.isnot(None)
+    ).distinct().order_by(Product.brand).all() if value]
     return render_template(
         "storefront/collection.html", business=business, products=products,
         categories=categories, selected_category=selected_category, settings=settings,
         sizes=sizes, colours=colours, selected_size=selected_size,
         selected_colour=selected_colour, page=page, page_count=page_count,
-        brands=brands, filters=filters or {}, pagination_args=pagination_args,
+        search_term=search_term, min_price=min_price, max_price=max_price,
+        brands=brands, selected_brand=selected_brand, selected_condition=selected_condition,
+        spec_key=spec_key, spec_value=spec_value,
     )
 
 
 @bp.route("/")
 def home():
     business = public_business()
-    products = public_products(business).order_by(func.random()).limit(4).all()
     settings, categories = storefront_context(business)
+    featured = public_products(business).filter_by(featured=True).order_by(
+        Product.created_at.desc(), Product.id.desc()
+    ).limit(4).all()
+    if not featured:
+        featured = public_products(business).order_by(
+            Product.created_at.desc(), Product.id.desc()
+        ).limit(4).all()
+    featured_ids = [product.id for product in featured]
+    arrivals_query = public_products(business).filter_by(new_arrival=True)
+    if featured_ids:
+        arrivals_query = arrivals_query.filter(Product.id.notin_(featured_ids))
+    new_arrivals = arrivals_query.order_by(
+        Product.created_at.desc(), Product.id.desc()
+    ).limit(4).all()
+    displayed_ids = set(featured_ids + [product.id for product in new_arrivals])
+    recent_products = public_products(business).order_by(
+        Product.created_at.desc(), Product.id.desc()
+    ).limit(60).all()
+    products_by_category = {}
+    for product in recent_products:
+        if product.id not in displayed_ids and product.category_id is not None:
+            products_by_category.setdefault(product.category_id, []).append(product)
+    category_sections = []
+    for category in categories:
+        category_products = products_by_category.get(category.id, [])
+        if category_products:
+            category_sections.append({"category": category, "products": category_products[:4]})
     return render_template(
-        "storefront/home.html", business=business, featured=products,
+        "storefront/home.html", business=business, featured=featured,
+        new_arrivals=new_arrivals, category_sections=category_sections,
         settings=settings, categories=categories,
     )
 
@@ -107,58 +129,44 @@ def collection():
     selected_category = None
     selected_size = (request.args.get("size") or "").strip()
     selected_colour = (request.args.get("colour") or "").strip()
-    selected_brand = (request.args.get("brand") or "").strip()
-    search = (request.args.get("q") or "").strip()[:120]
-    minimum_price = request.args.get("min_price", type=float)
-    maximum_price = request.args.get("max_price", type=float)
-    available_only = request.args.get("available") == "1"
-    specification_filters = {
-        "spec_ram": "RAM",
-        "spec_storage": "Storage",
-        "spec_processor": "Processor",
-        "spec_screen_size": "Screen size",
-    }
-    filters = {
-        "q": search,
-        "brand": selected_brand,
-        "min_price": request.args.get("min_price", ""),
-        "max_price": request.args.get("max_price", ""),
-        "available": available_only,
-    }
-    for parameter in specification_filters:
-        filters[parameter] = (request.args.get(parameter) or "").strip()[:80]
+    search_term = (request.args.get("q") or "").strip()[:100]
+    min_price = request.args.get("min_price", type=float)
+    max_price = request.args.get("max_price", type=float)
+    selected_brand = (request.args.get("brand") or "").strip()[:120]
+    selected_condition = (request.args.get("condition") or "").strip()[:40]
+    spec_key = (request.args.get("spec_key") or "").strip()[:80]
+    spec_value = (request.args.get("spec_value") or "").strip()[:100]
     page = max(request.args.get("page", 1, type=int), 1)
     if category_id:
         selected_category = Category.query.filter_by(id=category_id, business_id=business.id).first_or_404()
         same_name_ids = [c.id for c in Category.query.filter_by(business_id=business.id).all()
                          if " ".join((c.name or "").split()).casefold() == " ".join((selected_category.name or "").split()).casefold()]
         query = query.filter(Product.category_id.in_(same_name_ids))
-    if search:
-        term = f"%{search}%"
+    if search_term:
+        pattern = f"%{search_term}%"
         query = query.filter(or_(
-            Product.name.ilike(term),
-            Product.brand.ilike(term),
-            Product.description.ilike(term),
-            cast(Product.specifications, String).ilike(term),
-            Product.category.has(Category.name.ilike(term)),
+            Product.name.ilike(pattern),
+            Product.description.ilike(pattern),
+            Product.category.has(Category.name.ilike(pattern)),
+            Product.brand.ilike(pattern),
+            cast(Product.specifications, String).ilike(pattern),
         ))
     if selected_brand:
         query = query.filter(Product.brand.ilike(selected_brand))
-    price = func.coalesce(Product.discounted_price, Product.regular_price)
-    if minimum_price is not None and minimum_price >= 0:
-        query = query.filter(price >= minimum_price)
-    if maximum_price is not None and maximum_price >= 0:
-        query = query.filter(price <= maximum_price)
-    for parameter, specification_name in specification_filters.items():
-        value = filters[parameter]
-        if value:
-            query = query.filter(Product.specifications[specification_name].as_string().ilike(f"%{value}%"))
+    if selected_condition:
+        query = query.filter(Product.condition.ilike(selected_condition))
+    if spec_key and spec_value:
+        query = query.filter(cast(Product.specifications, String).ilike(f"%{spec_key}%{spec_value}%"))
+    price_value = func.coalesce(Product.discounted_price, Product.regular_price)
+    if min_price is not None and min_price >= 0:
+        query = query.filter(price_value >= min_price)
+    if max_price is not None and max_price >= 0:
+        query = query.filter(price_value <= max_price)
     if selected_size:
         matching = db.session.query(ProductVariant.product_id).filter(
             ProductVariant.business_id == business.id,
             ProductVariant.size.ilike(selected_size),
             ProductVariant.is_available.is_(True),
-            ProductVariant.stock_quantity > 0,
         )
         query = query.filter(Product.id.in_(matching))
     if selected_colour:
@@ -166,21 +174,18 @@ def collection():
             ProductVariant.business_id == business.id,
             ProductVariant.colour.ilike(selected_colour),
             ProductVariant.is_available.is_(True),
-            ProductVariant.stock_quantity > 0,
         )
         query = query.filter(Product.id.in_(matching))
-    if available_only:
-        in_stock = db.session.query(ProductVariant.product_id).filter(
-            ProductVariant.business_id == business.id,
-            ProductVariant.is_available.is_(True),
-            ProductVariant.stock_quantity > 0,
-        )
-        query = query.filter(Product.id.in_(in_stock))
     total = query.count()
-    products = query.order_by(func.random()).offset((page - 1) * PAGE_SIZE).limit(PAGE_SIZE).all()
+    products = query.order_by(Product.created_at.desc(), Product.id.desc()).offset(
+        (page - 1) * PAGE_SIZE
+    ).limit(PAGE_SIZE).all()
     return render_listing(
         business, products, selected_category, selected_size, selected_colour,
-        page, max((total + PAGE_SIZE - 1) // PAGE_SIZE, 1), filters,
+        page, max((total + PAGE_SIZE - 1) // PAGE_SIZE, 1),
+        search_term=search_term, min_price=min_price, max_price=max_price,
+        selected_brand=selected_brand, selected_condition=selected_condition,
+        spec_key=spec_key, spec_value=spec_value,
     )
 
 
@@ -200,10 +205,12 @@ def category(slug):
         ordered = query.order_by(case((Product.id == selected_product_id, 0), else_=1),
                                  Product.created_at.desc(), Product.id.desc())
     else:
-        ordered = query.order_by(func.random())
+        ordered = query.order_by(Product.created_at.desc(), Product.id.desc())
     products = ordered.offset((page - 1) * PAGE_SIZE).limit(PAGE_SIZE).all()
-    return render_listing(business, products, selected_category, page=page,
-                          page_count=max((total + PAGE_SIZE - 1) // PAGE_SIZE, 1))
+    return render_listing(
+        business, products, selected_category, page=page,
+        page_count=max((total + PAGE_SIZE - 1) // PAGE_SIZE, 1),
+    )
 
 
 @bp.route("/product/<string:slug>")
@@ -212,10 +219,17 @@ def product_detail(slug):
     product = public_products(business).filter_by(slug=slug).first_or_404()
     settings, categories = storefront_context(business)
     images = list(product.images or [])
-    variants = [v for v in product.variants if v.is_available and v.stock_quantity > 0]
+    variants = [v for v in product.variants if v.is_available]
+    related_query = public_products(business).filter(Product.id != product.id)
+    if product.category_id:
+        related_query = related_query.filter(Product.category_id == product.category_id)
+    elif product.brand:
+        related_query = related_query.filter(Product.brand.ilike(product.brand))
+    related_products = related_query.order_by(Product.featured.desc(), Product.created_at.desc()).limit(4).all()
     return render_template(
         "storefront/product_detail.html", business=business, product=product,
-        images=images, variants=variants, settings=settings, categories=categories,
+        images=images, variants=variants, related_products=related_products,
+        settings=settings, categories=categories,
     )
 
 
@@ -229,9 +243,8 @@ def wishlist():
 @bp.route("/cart")
 def cart():
     business = public_business()
-    products = public_products(business).order_by(Product.created_at.desc(), Product.id.desc()).limit(4).all()
     settings, categories = storefront_context(business)
     return render_template(
-        "storefront/home.html", business=business, featured=products,
+        "storefront/cart.html", business=business,
         settings=settings, categories=categories,
     )

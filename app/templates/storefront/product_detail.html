@@ -1,10 +1,11 @@
 {% extends "base.html" %}
 {% block title %}{{ product.name }} | {{ business.name }}{% endblock %}
 {% block meta_description %}{{ product.description or product.name }}{% endblock %}
-{% block body_class %}fashion-store{% endblock %}
+{% block body_class %}fashion-store electronics-store{% endblock %}
 {% block body %}
 {% include "storefront/_nav.html" %}
-<main class="product-detail-page premium-product-page">
+<main class="product-detail-page premium-product-page electronics-product-detail">
+  <nav class="electronics-breadcrumb" aria-label="Breadcrumb"><a href="{{ url_for('storefront.home') }}">Home</a><span aria-hidden="true">/</span><a href="{{ url_for('storefront.collection') }}">Shop</a>{% if product.category %}<span aria-hidden="true">/</span><a href="{{ url_for('storefront.category', slug=product.category.slug) }}">{{ product.category.name|trim }}</a>{% endif %}</nav>
   <section class="premium-product-layout" data-product-card
     data-product-id="{{ product.id }}"
     data-product-slug="{{ product.slug }}"
@@ -16,71 +17,69 @@
     data-product-colours="{{ variants|map(attribute='colour')|unique|join('|') }}">
     <div class="premium-product-gallery">
       <div class="premium-product-main-image" data-gallery-main>
-        {% if images %}
-          <img src="{{ images[0].url }}" alt="{{ images[0].alt_text or product.name }}" fetchpriority="high">
-        {% else %}
-          <div class="premium-product-no-image">No product image available</div>
-        {% endif %}
+        {% if images %}<img src="{{ images[0].url }}" alt="{{ images[0].alt_text or product.name }}" fetchpriority="high">
+        {% else %}<div class="premium-product-no-image">Product image coming soon</div>{% endif %}
       </div>
       {% if images|length > 1 %}
-        <div class="premium-product-thumbnails" aria-label="More photos of {{ product.name }}">
-          {% for image in images[:3] %}
-            <button type="button" class="premium-product-thumb{% if loop.first %} is-active{% endif %}"
-              data-gallery-image="{{ image.url }}"
-              data-gallery-alt="{{ image.alt_text or product.name }}"
-              aria-label="Show product image {{ loop.index }}"
-              aria-pressed="{{ 'true' if loop.first else 'false' }}">
-              <img src="{{ image.url }}" alt="" loading="lazy" decoding="async">
-            </button>
-          {% endfor %}
-        </div>
+      <div class="premium-product-thumbnails" aria-label="More photos of {{ product.name }}">
+        {% for image in images %}
+        <button type="button" class="premium-product-thumb{% if loop.first %} is-active{% endif %}" data-gallery-image="{{ image.url }}" data-gallery-alt="{{ image.alt_text or product.name }}" aria-label="Show product image {{ loop.index }}" aria-pressed="{{ 'true' if loop.first else 'false' }}">
+          <img src="{{ image.url }}" alt="" loading="lazy" decoding="async">
+        </button>
+        {% endfor %}
+      </div>
       {% endif %}
     </div>
-
     <div class="premium-product-info">
-      {% if product.category %}<p class="premium-product-category">{{ product.category.name|trim }}</p>{% endif %}
+      {% if product.brand %}<p class="premium-product-category">{{ product.brand }}</p>{% elif product.category %}<p class="premium-product-category">{{ product.category.name|trim }}</p>{% endif %}
       <h1>{{ product.name }}</h1>
-      {% if product.brand %}<p class="premium-product-brand">{{ product.brand }}</p>{% endif %}
-      <p class="premium-product-price">₦{{ "{:,.0f}".format(product.price) }}</p>
-
-      {% if product.description %}
-        <div class="premium-product-description">{{ product.description }}</div>
-      {% endif %}
-
+      <p class="premium-product-price" data-product-current-price>₦{{ "{:,.0f}".format(product.price) }}</p>
+      {% if product.discounted_price is not none %}<p class="electronics-original-price">Regular price <s>₦{{ "{:,.0f}".format(product.regular_price) }}</s></p>{% endif %}
+      {% if product.sku %}<p class="electronics-sku">SKU: {{ product.sku }}</p>{% endif %}
+      {% if product.description %}<div class="premium-product-description">{{ product.description }}</div>{% endif %}
+      {% if product.condition and product.condition != "New" %}<p class="electronics-sku">Condition: {{ product.condition }}</p>{% endif %}
+      {% if product.warranty_info %}<p class="electronics-sku">Warranty: {{ product.warranty_info }}</p>{% endif %}
       {% if product.specifications %}
-        <section class="premium-product-specifications" aria-labelledby="product-specifications-title">
-          <h2 id="product-specifications-title">Specifications</h2>
-          <dl>{% for label, value in product.specifications.items() %}<div><dt>{{ label }}</dt><dd>{{ value }}</dd></div>{% endfor %}</dl>
-        </section>
+      <section class="premium-product-options electronics-specifications" aria-label="Technical specifications">
+        <h2>Technical specifications</h2>
+        <dl>{% for label, value in product.specifications.items() %}<div><dt>{{ label }}</dt><dd>{{ value }}</dd></div>{% endfor %}</dl>
+      </section>
       {% endif %}
 
       {% if variants %}
-        <section class="premium-product-options" aria-label="Available configurations">
-          <h2>Configurations and colours</h2>
-          <div class="premium-product-option-list">
-            {% for variant in variants %}
-              <span class="premium-product-option">
-                {% if variant.size %}<span>{{ variant.size }}</span>{% endif %}
-                {% if variant.size and variant.colour %}<span aria-hidden="true">·</span>{% endif %}
-                {% if variant.colour %}<span>{{ variant.colour }}</span>{% endif %}
-              </span>
-            {% endfor %}
-          </div>
-        </section>
+      <section class="premium-product-options electronics-variant-picker" aria-label="Available device configurations">
+        <label for="product-variant-select">Choose configuration</label>
+        <select id="product-variant-select" data-product-variant required>
+          <option value="" selected disabled>Select configuration and colour</option>
+          {% for variant in variants %}
+          <option value="{{ variant.id }}" data-price="{{ variant.price_override if variant.price_override is not none else product.price }}" data-stock="{{ variant.stock_quantity }}" data-label="{{ variant.size }} · {{ variant.colour }}" {% if variant.stock_quantity <= 0 %}disabled{% endif %}>
+            {{ variant.size }} · {{ variant.colour }} — ₦{{ "{:,.0f}".format(variant.price_override if variant.price_override is not none else product.price) }}{% if variant.stock_quantity <= 0 %} · Out of stock{% else %} · {{ variant.stock_quantity }} available{% endif %}
+          </option>
+          {% endfor %}
+        </select>
+        <p class="electronics-variant-hint">Select the configuration you want before adding this device to your cart.</p>
+      </section>
       {% endif %}
 
-      <div class="premium-product-actions">
-        <button class="luxury-button luxury-button-gold premium-add-cart" type="button" data-add-to-cart>
-          <span aria-hidden="true">＋</span> Add to Cart
-        </button>
-        <button class="wishlist-toggle wishlist-toggle-detail premium-save-later" type="button"
-          data-wishlist-toggle aria-pressed="false">
-          <span aria-hidden="true">♡</span> Save for later
-        </button>
+      <div class="electronics-quantity-picker">
+        <label for="product-quantity">Quantity</label>
+        <input id="product-quantity" type="number" min="1" value="1" inputmode="numeric" data-product-quantity>
       </div>
+      <div class="premium-product-actions">
+        <button class="luxury-button luxury-button-gold premium-add-cart" type="button" data-add-to-cart><span aria-hidden="true">＋</span> Add to Cart</button>
+        <button class="luxury-button luxury-button-outline electronics-buy-now" type="button" data-buy-now>Buy now <span aria-hidden="true">→</span></button>
+        <button class="wishlist-toggle wishlist-toggle-detail premium-save-later" type="button" data-wishlist-toggle aria-pressed="false"><span aria-hidden="true">♡</span> Save for later</button>
+      </div>
+      <div class="electronics-product-assurance"><span>Availability confirmed by the store</span><span>Order securely through WhatsApp</span></div>
     </div>
   </section>
+  {% if related_products %}
+  <section class="luxury-collection electronics-product-section electronics-related-products">
+    <div class="luxury-section-head"><div><span class="eyebrow">You may also like</span><h2>More worth discovering.</h2></div><a class="electronics-text-link" href="{{ url_for('storefront.collection') }}">Shop all devices <span aria-hidden="true">→</span></a></div>
+    <div class="product-grid luxury-product-grid">{% for product in related_products %}{% include "storefront/_product_card.html" %}{% endfor %}</div>
+  </section>
+  {% endif %}
 </main>
 {% include "storefront/_footer.html" %}
 {% endblock %}
-{% block scripts %}<script src="{{ url_for('static', filename='js/storefront.js') }}?v=9" defer></script>{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/storefront.js') }}?v=12" defer></script>{% endblock %}

@@ -855,56 +855,6 @@ a { color: inherit; }
     font-style:normal;
     letter-spacing:.23em;
   }
-  .fashion-store .collection-filters input[type="search"],
-  .fashion-store .collection-filters input[type="number"] {
-    width:100%;
-    min-width:0;
-    min-height:44px;
-    padding:0 6px;
-    border:0;
-    outline:0;
-    background:transparent;
-    color:#2b211a;
-    font:inherit;
-    font-size:13px;
-    letter-spacing:normal;
-  }
-  .fashion-store .collection-filters label.availability-filter {
-    flex-direction:row;
-    justify-content:flex-start;
-    gap:9px;
-  }
-  .fashion-store .collection-filters .clear-filters {
-    border:0;
-    background:transparent;
-    cursor:pointer;
-  }
-  .product-brand,.premium-product-brand {
-    margin:0 0 7px;
-    color:#8d7658;
-    font-size:12px;
-    font-weight:600;
-    letter-spacing:.08em;
-    text-transform:uppercase;
-  }
-  .premium-product-specifications { margin:24px 0; }
-  .premium-product-specifications h2 {
-    margin:0 0 12px;
-    font-family:var(--serif);
-    font-size:23px;
-    font-weight:400;
-  }
-  .premium-product-specifications dl { margin:0; border-top:1px solid #e4dfd6; }
-  .premium-product-specifications dl > div {
-    display:flex;
-    justify-content:space-between;
-    gap:18px;
-    padding:10px 0;
-    border-bottom:1px solid #e4dfd6;
-    font-size:13px;
-  }
-  .premium-product-specifications dt { color:#77736b; font-weight:400; }
-  .premium-product-specifications dd { margin:0; text-align:right; }
   .fashion-store .luxury-price { font-size:13px; }
   .fashion-store .product-whatsapp-button {
     width:100%;
@@ -2045,3 +1995,125 @@ body.wishlist-is-open { overflow:hidden; }
 /* Lightweight feedback while a cached storefront page is being fetched. */
 html.page-is-loading::before { content: ""; position: fixed; z-index: 9999; inset: 0 auto auto 0; width: 34%; height: 2px; background: var(--accent); animation: storefront-load-progress .7s ease-in-out infinite alternate; pointer-events: none; }
 @keyframes storefront-load-progress { from { transform: translateX(0); } to { transform: translateX(195%); } }
+
+/* Electronics storefront extensions: preserve the shared editorial layout while
+   giving category discovery and product shelves a device-first rhythm. */
+.electronics-store .electronics-hero-notes { display:flex; flex-wrap:wrap; gap:10px 22px; margin-top:28px; color:var(--muted); font-size:10px; letter-spacing:.12em; text-transform:uppercase; }
+.electronics-store .electronics-hero-notes span::before { content:"—"; margin-right:8px; color:var(--accent); }
+.electronics-category-rail { max-width:1320px; margin:0 auto; padding:34px 5.5% 12px; }
+.electronics-category-rail-heading { display:flex; align-items:center; justify-content:space-between; gap:18px; margin-bottom:15px; }
+.electronics-category-rail-heading .eyebrow { margin:0; }
+.electronics-category-rail-heading>a,.electronics-text-link { color:var(--ink); text-decoration:none; font-size:11px; letter-spacing:.04em; }
+.electronics-category-rail-heading>a:hover,.electronics-text-link:hover { color:#98754e; }
+.electronics-category-links { display:flex; gap:9px; overflow-x:auto; padding:2px 0 12px; scrollbar-width:thin; scrollbar-color:var(--line) transparent; }
+.electronics-category-links a { flex:0 0 auto; display:inline-flex; align-items:center; gap:18px; min-height:42px; padding:0 15px; border:1px solid var(--line); border-radius:2px; color:var(--ink); background:#fff; text-decoration:none; font-size:11px; transition:background .2s ease,border-color .2s ease,color .2s ease; }
+.electronics-category-links a span { color:var(--muted); }
+.electronics-category-links a:hover { border-color:var(--ink); background:var(--ink); color:#fff; }
+.electronics-category-links a:hover span { color:#fff; }
+.electronics-product-section { max-width:1320px; margin:0 auto; padding-top:55px; }
+.electronics-product-section .luxury-section-head { align-items:flex-end; }
+.electronics-product-section .luxury-section-head h2 { max-width:680px; }
+.electronics-category-section { padding-top:48px; }
+.electronics-store .luxury-product-info .product-category-label { margin:0 0 6px; color:var(--muted); font-size:9px; letter-spacing:.13em; text-transform:uppercase; }
+.electronics-store .luxury-product-info .product-stock-label { margin:5px 0 0; color:var(--muted); font-size:10px; }
+.electronics-store .luxury-product-info .product-discount-price { margin-left:8px; color:var(--muted); font-size:11px; text-decoration:line-through; }
+.electronics-store .product-badge { position:absolute; top:12px; left:12px; z-index:2; padding:6px 9px; color:#fff; background:#262720; font-size:9px; letter-spacing:.1em; text-transform:uppercase; }
+.electronics-store .collection-page-heading { max-width:1320px; }
+.electronics-store .collection-page-heading p { max-width:580px; }
+.electronics-store .collection-filters select { min-width:150px; }
+@media(max-width:760px) {
+  .electronics-category-rail { padding:25px 18px 4px; }
+  .electronics-category-rail-heading { align-items:flex-start; }
+  .electronics-category-rail-heading>a { white-space:nowrap; }
+  .electronics-product-section { padding:38px 18px 0; }
+  .electronics-product-section .luxury-section-head { gap:14px; }
+  .electronics-product-section .luxury-section-head h2 { font-size:clamp(25px,7vw,34px); }
+  .electronics-store .electronics-hero-notes { gap:8px 14px; margin-top:20px; font-size:9px; }
+}
+@media(prefers-reduced-motion:reduce) {
+  .electronics-category-links a { transition:none; }
+}
+
+/* Electronics navigation remains fully usable on compact screens. */
+.electronics-store .menu-toggle { display:none; align-items:center; gap:9px; color:#f5f0e8; cursor:pointer; }
+.electronics-store .menu-toggle span { font-size:17px; }
+.electronics-store .electronics-filters { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); align-items:end; gap:14px; }
+.electronics-store .electronics-filters label { display:flex; flex-direction:column; gap:7px; color:var(--muted); font-size:10px; letter-spacing:.1em; text-transform:uppercase; }
+.electronics-store .electronics-filters input,.electronics-store .electronics-filters select { width:100%; min-height:44px; padding:10px 12px; border:1px solid var(--line); border-radius:0; background:#fff; color:var(--ink); font:inherit; font-size:12px; letter-spacing:0; text-transform:none; }
+.electronics-store .electronics-filter-actions { display:flex; align-items:center; gap:16px; min-height:44px; }
+.electronics-store .electronics-filter-actions .luxury-button { min-height:44px; padding:0 18px; font-size:10px; }
+.electronics-store .electronics-filter-actions .clear-filters { border:0; background:none; color:var(--muted); text-decoration:underline; font-size:11px; }
+.electronics-store .electronics-search-field { grid-column:span 2; }
+@media(max-width:760px) {
+  .electronics-store .luxury-nav { flex-wrap:wrap; min-height:72px; gap:8px 12px; padding:12px 16px; }
+  .electronics-store .luxury-brand { max-width:calc(100% - 135px); overflow:hidden; }
+  .electronics-store .electronics-wordmark { flex-wrap:wrap; gap:4px 8px; }
+  .electronics-store .electronics-wordmark em { font-size:10px; }
+  .electronics-store .menu-toggle { display:inline-flex; margin-left:auto; padding:8px 0 8px 8px; }
+  .electronics-store .luxury-menu { display:none; order:5; width:100%; flex-direction:column; align-items:stretch; gap:0; margin:0; padding:5px 0 0; }
+  .electronics-store .luxury-menu.is-open { display:flex; }
+  .electronics-store .luxury-menu a { padding:12px 2px; border-top:1px solid #302822; font-size:12px; }
+  .electronics-store .luxury-nav-actions { margin-left:auto; }
+  .electronics-store .electronics-filters { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .electronics-store .electronics-search-field { grid-column:1/-1; }
+}
+@media(max-width:420px) {
+  .electronics-store .electronics-filters { grid-template-columns:1fr; }
+  .electronics-store .electronics-search-field { grid-column:auto; }
+  .electronics-store .electronics-filter-actions { justify-content:space-between; }
+}
+
+.electronics-store .electronics-breadcrumb { display:flex; flex-wrap:wrap; gap:9px; max-width:1320px; margin:0 auto; padding:24px 5.5% 0; color:var(--muted); font-size:10px; letter-spacing:.05em; }
+.electronics-store .electronics-breadcrumb a { color:inherit; text-decoration:none; }
+.electronics-store .electronics-breadcrumb a:hover { color:var(--ink); }
+.electronics-store .electronics-variant-picker { display:grid; gap:9px; margin:24px 0 18px; }
+.electronics-store .electronics-variant-picker label,.electronics-store .electronics-quantity-picker label { color:var(--muted); font-size:10px; letter-spacing:.12em; text-transform:uppercase; }
+.electronics-store .electronics-variant-picker select { width:100%; min-height:48px; padding:10px 13px; border:1px solid var(--line); border-radius:0; background:#fff; color:var(--ink); font:inherit; font-size:12px; }
+.electronics-store .electronics-variant-hint,.electronics-store .electronics-sku,.electronics-store .electronics-original-price { margin:0; color:var(--muted); font-size:11px; }
+.electronics-store .electronics-quantity-picker { display:flex; align-items:center; gap:16px; margin:18px 0 22px; }
+.electronics-store .electronics-quantity-picker input { width:78px; min-height:42px; padding:8px 10px; border:1px solid var(--line); border-radius:0; background:#fff; font:inherit; text-align:center; }
+.electronics-store .electronics-product-assurance { display:flex; flex-wrap:wrap; gap:8px 18px; margin-top:24px; padding-top:18px; border-top:1px solid var(--line); color:var(--muted); font-size:10px; }
+.electronics-store .electronics-product-assurance span::before { content:"✓"; margin-right:7px; color:#98754e; }
+.electronics-store .electronics-original-price { margin-top:-10px; margin-bottom:12px; }
+.electronics-store .premium-product-thumbnails { display:grid; grid-template-columns:repeat(auto-fill,minmax(76px,1fr)); gap:10px; }
+.electronics-store .premium-product-thumb { min-width:0; aspect-ratio:1; }
+.electronics-store .premium-product-thumb img { width:100%; height:100%; object-fit:cover; }
+@media(max-width:760px) {
+  .electronics-store .electronics-breadcrumb { padding:18px 18px 0; }
+  .electronics-store .electronics-product-assurance { flex-direction:column; gap:8px; }
+}
+
+.electronics-store .electronics-specifications dl { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:0 24px; margin:0; border-top:1px solid var(--line); }
+.electronics-store .electronics-specifications dl>div { display:flex; justify-content:space-between; gap:14px; padding:12px 0; border-bottom:1px solid var(--line); }
+.electronics-store .electronics-specifications dt { color:var(--muted); font-size:11px; font-weight:400; }
+.electronics-store .electronics-specifications dd { margin:0; color:var(--ink); font-size:11px; text-align:right; }
+@media(max-width:520px) { .electronics-store .electronics-specifications dl { grid-template-columns:1fr; } }
+
+.electronics-promo-banner { display:flex; align-items:center; justify-content:space-between; gap:28px; max-width:1320px; margin:72px auto 12px; padding:54px clamp(24px,6vw,78px); background:#171815; color:#f7f6f2; }
+.electronics-promo-banner .eyebrow { color:#d5b77f; }
+.electronics-promo-banner h2 { max-width:650px; margin:0 0 12px; font-family:var(--serif); font-size:clamp(30px,4vw,48px); font-weight:400; line-height:1.08; }
+.electronics-promo-banner p { max-width:550px; margin:0; color:#c9c5bc; font-size:13px; line-height:1.7; }
+.electronics-promo-banner .luxury-button { flex:0 0 auto; white-space:nowrap; }
+@media(max-width:760px) {
+  .electronics-promo-banner { flex-direction:column; align-items:flex-start; margin:44px 18px 8px; padding:34px 24px; }
+}
+
+.electronics-cart-page { max-width:1320px; min-height:48vh; margin:0 auto; padding:54px 5.5% 88px; }
+.electronics-cart-page .collection-page-heading { max-width:none; margin:0 0 34px; }
+.electronics-cart-intro { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:18px 32px; padding:28px 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+.electronics-cart-intro h2 { margin:0 0 7px; font-family:var(--serif); font-size:clamp(25px,3vw,36px); font-weight:400; }
+.electronics-cart-intro p { max-width:620px; margin:0; color:var(--muted); font-size:12px; line-height:1.7; }
+@media(max-width:760px) { .electronics-cart-page { padding:38px 18px 65px; } .electronics-cart-intro { align-items:flex-start; flex-direction:column; } }
+
+@media(max-width:900px) {
+  .electronics-store .luxury-nav { flex-wrap:wrap; gap:8px 14px; }
+  .electronics-store .luxury-brand { max-width:calc(100% - 150px); overflow:hidden; }
+  .electronics-store .menu-toggle { display:inline-flex; margin-left:auto; padding:8px 0 8px 8px; }
+  .electronics-store .luxury-menu { display:none; order:5; width:100%; flex-direction:column; align-items:stretch; gap:0; margin:0; padding:5px 0 0; }
+  .electronics-store .luxury-menu.is-open { display:flex; }
+  .electronics-store .luxury-menu a { padding:12px 2px; border-top:1px solid #302822; font-size:12px; }
+}
+
+.electronics-store .electronics-buy-now { min-height:48px; padding:0 22px; }
+.electronics-store .premium-product-actions { display:flex; flex-wrap:wrap; gap:10px; }
+@media(max-width:520px) { .electronics-store .premium-product-actions>* { flex:1 1 100%; } }

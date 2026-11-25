@@ -3,8 +3,11 @@
   <a class="store-brand luxury-brand" href="{{ url_for('storefront.home') }}" aria-label="{{ business.name }} home">
     <span class="electronics-wordmark"><strong>{{ business.name|upper }}</strong><em>PREMIUM ELECTRONICS</em></span>
   </a>
+  <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="store-menu">Menu <span aria-hidden="true">☰</span></button>
   <div class="store-menu luxury-menu" id="store-menu">
-    <a href="{{ url_for('storefront.home') }}" aria-current="page">Home</a>
+    <a href="{{ url_for('storefront.home') }}">Home</a>
+    <a href="{{ url_for('storefront.collection') }}">Shop all</a>
+    {% for category in categories[:5] %}<a href="{{ url_for('storefront.category', slug=category.slug) }}">{{ category.name|trim }}</a>{% endfor %}
     {% if business.whatsapp_number %}<a href="https://wa.me/{{ business.whatsapp_number|replace('+','')|replace(' ','')|replace('-','') }}" target="_blank" rel="noopener noreferrer">Contact</a>{% endif %}
   </div>
   <div class="luxury-nav-actions">
