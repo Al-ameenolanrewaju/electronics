@@ -2,7 +2,7 @@
 <article class="product-card luxury-product-card" data-product-card
   data-product-id="{{ product.id }}" data-product-slug="{{ product.slug }}" data-product-name="{{ product.name }}" data-product-price="{{ product.price }}"
   data-product-description="{{ product.description or '' }}"
-  data-category-name="{{ product.category.name|trim if product.category else '' }}"
+  data-category-name="{{ product.category.name|trim if product.category else '' }}" data-product-brand="{{ product.brand or '' }}"
   data-product-sizes="{{ product.variants|selectattr('is_available')|map(attribute='size')|join('|') }}"
   data-product-colours="{{ product.variants|selectattr('is_available')|map(attribute='colour')|join('|') }}">
   <div class="product-photo">
@@ -14,6 +14,7 @@
   </div>
   <div class="luxury-product-info">
     <a class="product-card-title-link" href="{{ url_for('storefront.product_detail', slug=product.slug) }}"><h3>{{ product.name }}</h3></a>
+    {% if product.brand %}<p class="product-brand">{{ product.brand }}</p>{% endif %}
     <p class="luxury-price">₦{{ "{:,.0f}".format(product.price) }}</p>
     <button class="product-whatsapp-button add-to-cart-button" type="button" data-add-to-cart aria-pressed="false"><span aria-hidden="true">🛒</span> Add to Cart</button>
   </div>

@@ -21,13 +21,19 @@ bp = Blueprint("owner", __name__, url_prefix="/dashboard")
 class CategoryForm(FlaskForm):
     name = StringField("Name", validators=[DataRequired(), Length(max=120)])
     slug = StringField("Slug", validators=[DataRequired(), Length(max=140), Regexp(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")])
-    gender = SelectField("Gender", choices=[("Men", "Men"), ("Women", "Women"), ("Unisex", "Unisex")], default="Unisex", validate_choice=False)
+    gender = SelectField(
+        "Category group",
+        choices=[("All", "All devices"), ("Personal", "Personal"), ("Home", "Home")],
+        default="All",
+        validate_choice=False,
+    )
     submit = SubmitField("Save category")
 
 
 class ProductForm(FlaskForm):
     name = StringField("Product name", validators=[DataRequired(), Length(max=180)])
     slug = StringField("Slug", validators=[Optional(), Length(max=200), Regexp(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")])
+    brand = StringField("Brand", validators=[Optional(), Length(max=120)])
     regular_price = DecimalField(
         "Price",
         places=2,
@@ -40,10 +46,11 @@ class ProductForm(FlaskForm):
     )
     category_id = StringField("Category")
     gender = StringField("Gender", default="Unisex", validators=[Optional(), Length(max=20)])
-    fashion_type = StringField("Fashion type", validators=[Optional(), Length(max=30)])
+    fashion_type = StringField("Product type", default="Device", validators=[Optional(), Length(max=30)])
     sku = StringField("SKU", validators=[Optional(), Length(max=100)])
     description = TextAreaField("Description")
-    sizes = StringField("Available sizes")
+    specifications = TextAreaField("Technical specifications")
+    sizes = StringField("Available configurations")
     colours = StringField("Available colours")
     is_published = BooleanField("Published")
     submit = SubmitField("Save product")
@@ -106,6 +113,45 @@ def _split_options(value):
     ))
 
 
+def _parse_specifications(value):
+    specifications = {}
+    canonical_names = {
+        "ram": "RAM",
+        "memory": "RAM",
+        "storage": "Storage",
+        "storage capacity": "Storage",
+        "processor": "Processor",
+        "cpu": "Processor",
+        "screen": "Screen size",
+        "screen size": "Screen size",
+        "colour": "Colour",
+        "color": "Colour",
+        "operating system": "Operating system",
+        "os": "Operating system",
+    }
+    for line in (value or "").splitlines():
+        if not line.strip():
+            continue
+        if ":" not in line:
+            raise ValueError("Enter each specification as Label: value.")
+        name, spec_value = (part.strip() for part in line.split(":", 1))
+        if not name or not spec_value:
+            raise ValueError("Specification labels and values cannot be blank.")
+        if len(name) > 80 or len(spec_value) > 180:
+            raise ValueError("Specification labels are limited to 80 characters and values to 180.")
+        canonical = canonical_names.get(name.casefold(), name)
+        if canonical.casefold() in {key.casefold() for key in specifications}:
+            raise ValueError(f"Specification '{canonical}' was entered more than once.")
+        if len(specifications) >= 30:
+            raise ValueError("A product can have at most 30 specifications.")
+        specifications[canonical] = spec_value
+    return specifications
+
+
+def _format_specifications(specifications):
+    return "\n".join(f"{key}: {value}" for key, value in (specifications or {}).items())
+
+
 def _sync_product_variants(product, sizes, colours):
     # Size and colour are independent product attributes. Keep a blank
     # counterpart when only one is supplied so that colour-only or
@@ -128,7 +174,7 @@ def _sync_product_variants(product, sizes, colours):
                     product_id=product.id,
                     size=size,
                     colour=colour,
-                    stock_quantity=1,
+                    stock_quantity=0,
                     is_available=True,
                 ))
     for variant in list(product.variants):
@@ -201,6 +247,13 @@ def dashboard():
 def products():
     form = ProductForm()
     if form.validate_on_submit():
+        try:
+            specifications = _parse_specifications(form.specifications.data)
+        except ValueError as error:
+            flash(str(error), "danger")
+            items = Product.query.filter_by(business_id=current_user.business_id).order_by(Product.created_at.desc()).all()
+            categories = Category.query.filter_by(business_id=current_user.business_id).order_by(Category.name).all()
+            return render_template("owner/products.html", form=form, items=items, categories=categories), 200
         name = form.name.data.strip()
         base_slug = slugify(form.slug.data or name) or "product"
         slug = base_slug
@@ -231,7 +284,9 @@ def products():
             category_id=category_id,
             name=name,
             slug=slug,
+            brand=form.brand.data.strip() if form.brand.data else None,
             description=form.description.data,
+            specifications=specifications,
             regular_price=form.regular_price.data,
             discounted_price=form.discounted_price.data,
             gender=form.gender.data or "Unisex",
@@ -275,9 +330,16 @@ def edit_product(product_id):
         form.category_id.data = str(product.category_id or "")
         form.slug.data = product.slug
         form.is_published.data = bool(product.is_published)
+        form.specifications.data = _format_specifications(product.specifications)
         form.sizes.data = ", ".join(dict.fromkeys(v.size for v in product.variants if v.size))
         form.colours.data = ", ".join(dict.fromkeys(v.colour for v in product.variants if v.colour))
     if form.validate_on_submit():
+        try:
+            specifications = _parse_specifications(form.specifications.data)
+        except ValueError as error:
+            flash(str(error), "danger")
+            categories = Category.query.filter_by(business_id=current_user.business_id).order_by(Category.name).all()
+            return render_template("owner/product_edit.html", form=form, product=product, categories=categories), 200
         if form.discounted_price.data is not None and form.discounted_price.data > form.regular_price.data:
             flash("Discounted price cannot exceed regular price.", "danger")
             categories = Category.query.filter_by(business_id=current_user.business_id).order_by(Category.name).all()
@@ -308,6 +370,8 @@ def edit_product(product_id):
                 return render_template("owner/product_edit.html", form=form, product=product, categories=categories), 200
             category_id = category.id
         product.category_id = category_id
+        product.brand = form.brand.data.strip() if form.brand.data else None
+        product.specifications = specifications
         product.gender = form.gender.data or "Unisex"
         product.fashion_type = form.fashion_type.data or "Ready-to-wear"
         product.description = form.description.data

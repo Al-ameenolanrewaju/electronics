@@ -144,6 +144,11 @@
   function normalizeFilterValue(value) {
     return String(value || "").trim().toLocaleLowerCase().replace(/\s+/g, " ");
   }
+  function collectionFilterUrl(form) {
+    const target = new URL(form.action || location.pathname, location.href);
+    target.search = new URLSearchParams(new FormData(form)).toString();
+    return target.href;
+  }
   function applyCollectionFilters(form) {
     const grid = document.querySelector("[data-collection-products]");
     if (!grid) return;
@@ -347,19 +352,17 @@
     document.addEventListener("change", event => {
       const form = event.target.closest("[data-collection-filters]");
       if (!form) return;
-      if (event.target.matches("[data-filter-category]")) {
-        const option = event.target.selectedOptions[0];
-        navigateTo(option && option.value && option.dataset.categoryUrl ? option.dataset.categoryUrl : "/collection");
-        return;
-      }
-      applyCollectionFilters(form);
+      navigateTo(collectionFilterUrl(form));
     });
     document.addEventListener("reset", event => {
       const form = event.target.closest("[data-collection-filters]");
-      if (form) window.requestAnimationFrame(() => applyCollectionFilters(form));
+      if (form) window.requestAnimationFrame(() => navigateTo(form.action || "/collection"));
     });
     document.addEventListener("submit", event => {
-      if (event.target.matches("[data-collection-filters]")) event.preventDefault();
+      if (event.target.matches("[data-collection-filters]")) {
+        event.preventDefault();
+        navigateTo(collectionFilterUrl(event.target));
+      }
     });
     document.addEventListener("keydown", event => {
       if (event.key !== "Escape") return;

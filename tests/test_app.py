@@ -449,6 +449,68 @@ def test_storefront_filters_and_product_pages(app, client):
     assert dashboard.status_code == 200
 
 
+def test_electronics_search_brand_price_specification_and_stock_filters(app, client):
+    business_id, _ = make_tenant(app)
+    phone_id = make_product(
+        app,
+        business_id,
+        name="Nova X Phone",
+        slug="nova-x-phone",
+        regular_price=240000,
+        brand="Nova",
+        specifications={"RAM": "12 GB", "Storage": "256 GB", "Processor": "Snapdragon 8"},
+    )
+    make_product(
+        app,
+        business_id,
+        name="Nova Book",
+        slug="nova-book",
+        regular_price=900000,
+        brand="Nova",
+        specifications={"RAM": "16 GB", "Storage": "1 TB", "Processor": "Intel Core i7"},
+    )
+    with app.app_context():
+        db.session.add(ProductVariant(
+            business_id=business_id,
+            product_id=phone_id,
+            size="256 GB",
+            colour="Black",
+            stock_quantity=3,
+            is_available=True,
+        ))
+        db.session.commit()
+
+    search = client.get("/collection?q=Snapdragon", base_url="http://store-a.test")
+    assert search.status_code == 200
+    assert b"Nova X Phone" in search.data
+    assert b"Nova Book" not in search.data
+
+    filtered = client.get(
+        "/collection?brand=Nova&min_price=200000&max_price=300000&spec_ram=12&spec_storage=256&available=1",
+        base_url="http://store-a.test",
+    )
+    assert filtered.status_code == 200
+    assert b"Nova X Phone" in filtered.data
+    assert b"Nova Book" not in filtered.data
+    detail = client.get("/product/nova-x-phone", base_url="http://store-a.test")
+    assert b"Specifications" in detail.data
+    assert b"Snapdragon 8" in detail.data
+
+
+def test_electronics_preview_seed_is_reusable_and_does_not_duplicate(app):
+    business_id, _ = make_tenant(app)
+    runner = app.test_cli_runner()
+    first = runner.invoke(args=["seed-electronics"])
+    assert first.exit_code == 0, first.output
+    second = runner.invoke(args=["seed-electronics"])
+    assert second.exit_code == 0, second.output
+    with app.app_context():
+        assert Product.query.filter_by(business_id=business_id).count() == 12
+        product = Product.query.filter_by(business_id=business_id, slug="nova-pro-15").one()
+        assert product.brand == "Samsung"
+        assert product.specifications["RAM"] == "12 GB"
+
+
 def test_cart_and_checkout_use_server_price_stock_and_snapshot(app, client):
     make_tenant(app)
     assert client.post("/cart/add", base_url="http://store-a.test").status_code == 404
@@ -1131,12 +1193,14 @@ def test_add_product_page_exposes_all_supported_fields_and_saves_them(app, clien
     login_owner(client)
     page = client.get("/dashboard/products", base_url="http://store-a.test")
     assert page.status_code == 200
-    for label in [b"Category", b"Audience", b"Product type"]:
+    for label in [b"Category", b"Product line", b"Product type", b"Brand", b"Technical specifications"]:
         assert label in page.data
     response = client.post("/dashboard/products", data={
         "name": "Everyday Abaya", "slug": "everyday-abaya", "regular_price": "15000",
         "discounted_price": "", "category_id": str(category_id), "gender": "Women",
-        "fashion_type": "Custom-made", "sku": "ABA-01", "is_published": "y", "sizes": "M, L", "colours": "Black, Navy",
+        "fashion_type": "Custom-made", "sku": "ABA-01", "brand": "Nova",
+        "specifications": "RAM: 8 GB\nStorage: 128 GB",
+        "is_published": "y", "sizes": "128 GB, 256 GB", "colours": "Black, Blue",
     }, base_url="http://store-a.test")
     assert response.status_code == 302
     with app.app_context():
@@ -1144,8 +1208,28 @@ def test_add_product_page_exposes_all_supported_fields_and_saves_them(app, clien
         assert product.category_id == category_id
         assert product.gender == "Women"
         assert product.fashion_type == "Custom-made"
+        assert product.brand == "Nova"
+        assert product.specifications == {"RAM": "8 GB", "Storage": "128 GB"}
         assert product.is_published
-        assert ProductVariant.query.filter_by(product_id=product.id).count() == 4
+        variants = ProductVariant.query.filter_by(product_id=product.id).all()
+        assert len(variants) == 4
+        assert all(variant.stock_quantity == 0 for variant in variants)
+
+
+def test_product_specifications_reject_malformed_entries(app, client):
+    business_id, _ = make_tenant(app)
+    login_owner(client)
+    response = client.post("/dashboard/products", data={
+        "name": "Unclear Specs Device",
+        "regular_price": "1000",
+        "brand": "Nova",
+        "specifications": "RAM 8 GB",
+        "is_published": "y",
+    }, base_url="http://store-a.test")
+    assert response.status_code == 200
+    assert b"Enter each specification as Label: value." in response.data
+    with app.app_context():
+        assert Product.query.filter_by(business_id=business_id, name="Unclear Specs Device").count() == 0
 
 
 def test_edit_product_updates_category_audience_and_product_type(app, client):

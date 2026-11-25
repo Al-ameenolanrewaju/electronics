@@ -5,26 +5,52 @@
 {% include "storefront/_nav.html" %}
 <main class="collection-page">
   <header class="collection-page-heading"><span class="eyebrow">The electronics collection</span><h1>{% if selected_category %}{{ selected_category.name|trim }}{% else %}Discover every device.{% endif %}</h1><p>Explore premium electronics and add your favourite gadgets to your cart.</p></header>
-  <form class="collection-filters" data-collection-filters aria-label="Filter products">
+  <form class="collection-filters" data-collection-filters method="get" action="{{ url_for('storefront.collection') }}" aria-label="Filter products">
+    <label>Search devices
+      <input type="search" name="q" value="{{ filters.q }}" placeholder="Name, brand or specification">
+    </label>
     <label>Category
       <select name="category" data-filter-category>
         <option value="">All categories</option>
         {% for category in categories %}<option value="{{ category.id }}" data-category-name="{{ category.name|trim }}" data-category-url="{{ url_for('storefront.category', slug=category.slug) }}" {% if selected_category and selected_category.id == category.id %}selected{% endif %}>{{ category.name|trim }}</option>{% endfor %}
       </select>
     </label>
-    <label>Size
-      <select name="size" data-filter-size><option value="">All sizes</option>{% for size in sizes %}<option value="{{ size }}" {% if selected_size|lower == size|lower %}selected{% endif %}>{{ size }}</option>{% endfor %}</select>
+    <label>Brand
+      <select name="brand"><option value="">All brands</option>{% for brand in brands %}<option value="{{ brand }}" {% if filters.brand|lower == brand|lower %}selected{% endif %}>{{ brand }}</option>{% endfor %}</select>
+    </label>
+    <label>Configuration
+      <select name="size" data-filter-size><option value="">All configurations</option>{% for size in sizes %}<option value="{{ size }}" {% if selected_size|lower == size|lower %}selected{% endif %}>{{ size }}</option>{% endfor %}</select>
     </label>
     <label>Colour
       <select name="colour" data-filter-colour><option value="">All colours</option>{% for colour in colours %}<option value="{{ colour }}" {% if selected_colour|lower == colour|lower %}selected{% endif %}>{{ colour }}</option>{% endfor %}</select>
     </label>
+    <label>Min price
+      <input type="number" name="min_price" min="0" step="1" value="{{ filters.min_price }}" placeholder="₦0">
+    </label>
+    <label>Max price
+      <input type="number" name="max_price" min="0" step="1" value="{{ filters.max_price }}" placeholder="No limit">
+    </label>
+    <label>RAM
+      <input type="search" name="spec_ram" value="{{ filters.spec_ram }}" placeholder="e.g. 8 GB">
+    </label>
+    <label>Storage
+      <input type="search" name="spec_storage" value="{{ filters.spec_storage }}" placeholder="e.g. 256 GB">
+    </label>
+    <label>Processor
+      <input type="search" name="spec_processor" value="{{ filters.spec_processor }}" placeholder="e.g. Core i7">
+    </label>
+    <label>Screen size
+      <input type="search" name="spec_screen_size" value="{{ filters.spec_screen_size }}" placeholder="e.g. 6.7 inch">
+    </label>
+    <label class="availability-filter"><input type="checkbox" name="available" value="1" {% if filters.available %}checked{% endif %}> In stock</label>
     <button class="clear-filters" type="reset" data-clear-filters>Clear filters</button>
+    <button class="clear-filters" type="submit">Apply filters</button>
   </form>
-  <div class="collection-result-count" data-filter-result-count aria-live="polite">{{ products|length }} pieces</div>
+  <div class="collection-result-count" data-filter-result-count aria-live="polite">{{ products|length }} devices</div>
   <div class="product-grid luxury-product-grid collection-product-grid" data-collection-products>
-    {% for product in products %}{% include "storefront/_product_card.html" %}{% endfor %}<div class="catalogue-empty-state" data-filter-empty hidden><h3>No matching pieces found.</h3><p>Try another category, size or colour.</p></div>
+    {% for product in products %}{% include "storefront/_product_card.html" %}{% endfor %}<div class="catalogue-empty-state" data-filter-empty hidden><h3>No matching devices found.</h3><p>Adjust your search or filters to see more electronics.</p></div>
   </div>
-  {% if page_count > 1 %}<nav class="catalogue-pagination" aria-label="Collection pages">{% if page > 1 %}<a href="{{ url_for('storefront.category', slug=selected_category.slug, page=page-1) if selected_category else url_for('storefront.collection', page=page-1) }}">Previous</a>{% endif %}<span>Page {{ page }} of {{ page_count }}</span>{% if page < page_count %}<a href="{{ url_for('storefront.category', slug=selected_category.slug, page=page+1) if selected_category else url_for('storefront.collection', page=page+1) }}">Next</a>{% endif %}</nav>{% endif %}
+  {% if page_count > 1 %}<nav class="catalogue-pagination" aria-label="Collection pages">{% if page > 1 %}<a href="{{ url_for('storefront.collection', page=page-1, **pagination_args) }}">Previous</a>{% endif %}<span>Page {{ page }} of {{ page_count }}</span>{% if page < page_count %}<a href="{{ url_for('storefront.collection', page=page+1, **pagination_args) }}">Next</a>{% endif %}</nav>{% endif %}
 </main>
 {% include "storefront/_footer.html" %}
 {% endblock %}

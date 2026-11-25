@@ -855,6 +855,56 @@ a { color: inherit; }
     font-style:normal;
     letter-spacing:.23em;
   }
+  .fashion-store .collection-filters input[type="search"],
+  .fashion-store .collection-filters input[type="number"] {
+    width:100%;
+    min-width:0;
+    min-height:44px;
+    padding:0 6px;
+    border:0;
+    outline:0;
+    background:transparent;
+    color:#2b211a;
+    font:inherit;
+    font-size:13px;
+    letter-spacing:normal;
+  }
+  .fashion-store .collection-filters label.availability-filter {
+    flex-direction:row;
+    justify-content:flex-start;
+    gap:9px;
+  }
+  .fashion-store .collection-filters .clear-filters {
+    border:0;
+    background:transparent;
+    cursor:pointer;
+  }
+  .product-brand,.premium-product-brand {
+    margin:0 0 7px;
+    color:#8d7658;
+    font-size:12px;
+    font-weight:600;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+  }
+  .premium-product-specifications { margin:24px 0; }
+  .premium-product-specifications h2 {
+    margin:0 0 12px;
+    font-family:var(--serif);
+    font-size:23px;
+    font-weight:400;
+  }
+  .premium-product-specifications dl { margin:0; border-top:1px solid #e4dfd6; }
+  .premium-product-specifications dl > div {
+    display:flex;
+    justify-content:space-between;
+    gap:18px;
+    padding:10px 0;
+    border-bottom:1px solid #e4dfd6;
+    font-size:13px;
+  }
+  .premium-product-specifications dt { color:#77736b; font-weight:400; }
+  .premium-product-specifications dd { margin:0; text-align:right; }
   .fashion-store .luxury-price { font-size:13px; }
   .fashion-store .product-whatsapp-button {
     width:100%;

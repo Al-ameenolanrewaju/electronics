@@ -40,15 +40,23 @@
     <div class="premium-product-info">
       {% if product.category %}<p class="premium-product-category">{{ product.category.name|trim }}</p>{% endif %}
       <h1>{{ product.name }}</h1>
+      {% if product.brand %}<p class="premium-product-brand">{{ product.brand }}</p>{% endif %}
       <p class="premium-product-price">₦{{ "{:,.0f}".format(product.price) }}</p>
 
       {% if product.description %}
         <div class="premium-product-description">{{ product.description }}</div>
       {% endif %}
 
+      {% if product.specifications %}
+        <section class="premium-product-specifications" aria-labelledby="product-specifications-title">
+          <h2 id="product-specifications-title">Specifications</h2>
+          <dl>{% for label, value in product.specifications.items() %}<div><dt>{{ label }}</dt><dd>{{ value }}</dd></div>{% endfor %}</dl>
+        </section>
+      {% endif %}
+
       {% if variants %}
-        <section class="premium-product-options" aria-label="Available product options">
-          <h2>Available options</h2>
+        <section class="premium-product-options" aria-label="Available configurations">
+          <h2>Configurations and colours</h2>
           <div class="premium-product-option-list">
             {% for variant in variants %}
               <span class="premium-product-option">

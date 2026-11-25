@@ -174,28 +174,30 @@ def create_app(config_object=None):
             categories[name] = category
 
         catalogue = [
-            ("Nova Pro 15", "Smartphones", 420000, "6.7-inch OLED, 256GB storage, 12GB RAM", "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=1200&q=85", "256 GB"),
-            ("AeroBook 14", "Laptops", 760000, "Intel Core i7, 16GB RAM, 512GB SSD", "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=1200&q=85", "512 GB"),
-            ("Slate Pad 11", "Tablets", 330000, "11-inch display, 8GB RAM, 128GB storage", "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?auto=format&fit=crop&w=1200&q=85", "128 GB"),
-            ("Pulse Watch S", "Smartwatches", 185000, "AMOLED display, heart-rate and GPS", "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=1200&q=85", "42 mm"),
-            ("Studio Quiet Pro", "Headphones", 145000, "Active noise cancellation, 40-hour battery", "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=1200&q=85", "Wireless"),
-            ("Room Audio Mini", "Speakers", 98000, "Compact wireless speaker with rich stereo sound", "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?auto=format&fit=crop&w=1200&q=85", "Bluetooth"),
-            ("FrameMirror X", "Cameras", 520000, "Full-frame sensor, 4K video, fast autofocus", "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=1200&q=85", "Mirrorless"),
-            ("Arc Controller", "Gaming Accessories", 85000, "Wireless precision controller for PC and console", "https://images.unsplash.com/photo-1592840496694-26d035b52b48?auto=format&fit=crop&w=1200&q=85", "Wireless"),
-            ("Vista 55 OLED", "Televisions", 890000, "55-inch 4K OLED, smart streaming and HDR", "https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?auto=format&fit=crop&w=1200&q=85", "55 inch"),
-            ("Volt Pocket 20", "Power Banks", 35000, "20,000mAh high-speed portable battery", "https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?auto=format&fit=crop&w=1200&q=85", "20,000 mAh"),
-            ("Charge Trio 65", "Chargers and Cables", 42000, "65W USB-C fast charger with braided cable", "https://images.unsplash.com/photo-1583863788434-e58a36330cf0?auto=format&fit=crop&w=1200&q=85", "65W"),
-            ("SwiftDrive 1TB", "Storage Devices", 115000, "Portable 1TB NVMe SSD, USB-C 10Gbps", "https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?auto=format&fit=crop&w=1200&q=85", "1 TB"),
+            ("Nova Pro 15", "Smartphones", "Samsung", 420000, "6.7-inch OLED, 256GB storage, 12GB RAM", "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=1200&q=85", "256 GB", {"RAM": "12 GB", "Storage": "256 GB", "Screen size": "6.7 inch", "Processor": "Octa-core", "Operating system": "Android"}),
+            ("AeroBook 14", "Laptops", "Apple", 760000, "Apple M-series processor, 16GB RAM, 512GB SSD", "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=1200&q=85", "512 GB", {"Processor": "Apple M-series", "RAM": "16 GB", "Storage": "512 GB SSD", "Screen size": "14 inch", "Operating system": "macOS"}),
+            ("Slate Pad 11", "Tablets", "Apple", 330000, "11-inch display, 8GB RAM, 128GB storage", "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?auto=format&fit=crop&w=1200&q=85", "128 GB", {"RAM": "8 GB", "Storage": "128 GB", "Screen size": "11 inch", "Operating system": "iPadOS"}),
+            ("Pulse Watch S", "Smartwatches", "Samsung", 185000, "AMOLED display, heart-rate and GPS", "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=1200&q=85", "42 mm", {"Screen size": "42 mm", "Connectivity": "Bluetooth, GPS", "Battery life": "Up to 40 hours"}),
+            ("Studio Quiet Pro", "Headphones", "Sony", 145000, "Active noise cancellation, 40-hour battery", "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=1200&q=85", "Wireless", {"Connectivity": "Bluetooth 5.2", "Battery life": "40 hours", "Noise cancellation": "Active"}),
+            ("Room Audio Mini", "Speakers", "JBL", 98000, "Compact wireless speaker with rich stereo sound", "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?auto=format&fit=crop&w=1200&q=85", "Bluetooth", {"Connectivity": "Bluetooth", "Battery life": "12 hours", "Audio features": "Stereo sound"}),
+            ("FrameMirror X", "Cameras", "Canon", 520000, "Full-frame sensor, 4K video, fast autofocus", "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=1200&q=85", "Mirrorless", {"Sensor": "Full-frame", "Video": "4K", "Connectivity": "Wi-Fi, Bluetooth"}),
+            ("Arc Controller", "Gaming Accessories", "8BitDo", 85000, "Wireless precision controller for PC and console", "https://images.unsplash.com/photo-1592840496694-26d035b52b48?auto=format&fit=crop&w=1200&q=85", "Wireless", {"Connectivity": "Wireless Bluetooth", "Compatibility": "PC and console"}),
+            ("Vista 55 OLED", "Televisions", "LG", 890000, "55-inch 4K OLED, smart streaming and HDR", "https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?auto=format&fit=crop&w=1200&q=85", "55 inch", {"Screen size": "55 inch", "Resolution": "4K UHD", "Display": "OLED", "Smart TV": "Yes"}),
+            ("Volt Pocket 20", "Power Banks", "Anker", 35000, "20,000mAh high-speed portable battery", "https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?auto=format&fit=crop&w=1200&q=85", "20,000 mAh", {"Capacity": "20,000 mAh", "Fast charging": "Yes"}),
+            ("Charge Trio 65", "Chargers and Cables", "Anker", 42000, "65W USB-C fast charger with braided cable", "https://images.unsplash.com/photo-1583863788434-e58a36330cf0?auto=format&fit=crop&w=1200&q=85", "65W", {"Power output": "65 W", "Connector": "USB-C"}),
+            ("SwiftDrive 1TB", "Storage Devices", "SanDisk", 115000, "Portable 1TB NVMe SSD, USB-C 10Gbps", "https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?auto=format&fit=crop&w=1200&q=85", "1 TB", {"Storage": "1 TB", "Interface": "USB-C 10Gbps", "Type": "NVMe SSD"}),
         ]
 
-        for index, (name, category_name, price, description, image_url, configuration) in enumerate(catalogue):
+        for index, (name, category_name, brand, price, description, image_url, configuration, specifications) in enumerate(catalogue):
             slug = slugify(name)
             product = models.Product(
                 business_id=business.id,
                 category_id=categories[category_name].id,
                 name=name,
                 slug=slug,
+                brand=brand,
                 description=description,
+                specifications=specifications,
                 regular_price=price,
                 discounted_price=price if index % 4 else int(price * 0.9),
                 gender="Unisex",

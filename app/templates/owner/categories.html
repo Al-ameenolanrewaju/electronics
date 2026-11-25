@@ -36,12 +36,12 @@
             {{ form.hidden_tag() }}
             <div class="mb-3">
               {{ form.name.label(class="form-label fw-semibold small") }}
-              {{ form.name(class="form-control", placeholder="e.g. Jalabiya", autocomplete="off") }}
+              {{ form.name(class="form-control", placeholder="e.g. Smartphones", autocomplete="off") }}
               {% for error in form.name.errors %}<div class="small text-danger mt-1">{{ error }}</div>{% endfor %}
             </div>
             <div class="mb-3">
               {{ form.slug.label(class="form-label fw-semibold small") }}
-              {{ form.slug(class="form-control", placeholder="e.g. jalabiya", autocomplete="off") }}
+              {{ form.slug(class="form-control", placeholder="e.g. smartphones", autocomplete="off") }}
               <div class="form-text">Use lowercase letters and hyphens.</div>
               {% for error in form.slug.errors %}<div class="small text-danger mt-1">{{ error }}</div>{% endfor %}
             </div>
