@@ -61,11 +61,14 @@ def category_for_slug(business, slug):
 
 def render_listing(business, products, selected_category=None, selected_size="", selected_colour="", page=1, page_count=1, search_term="", min_price=None, max_price=None, selected_brand="", selected_condition="", spec_key="", spec_value=""):
     settings, categories = storefront_context(business)
-    variant_rows = ProductVariant.query.filter_by(
+    size_values = db.session.query(ProductVariant.size).filter_by(
         business_id=business.id, is_available=True
-    ).order_by(ProductVariant.size, ProductVariant.colour).all()
-    sizes = sorted({v.size.strip() for v in variant_rows if v.size and v.size.strip()}, key=str.casefold)
-    colours = sorted({v.colour.strip() for v in variant_rows if v.colour and v.colour.strip()}, key=str.casefold)
+    ).distinct().order_by(ProductVariant.size).all()
+    colour_values = db.session.query(ProductVariant.colour).filter_by(
+        business_id=business.id, is_available=True
+    ).distinct().order_by(ProductVariant.colour).all()
+    sizes = sorted({value.strip() for (value,) in size_values if value and value.strip()}, key=str.casefold)
+    colours = sorted({value.strip() for (value,) in colour_values if value and value.strip()}, key=str.casefold)
     brands = [value for (value,) in db.session.query(Product.brand).filter(
         Product.business_id == business.id, Product.is_published.is_(True), Product.brand.isnot(None)
     ).distinct().order_by(Product.brand).all() if value]
