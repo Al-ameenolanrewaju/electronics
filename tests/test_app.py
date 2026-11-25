@@ -1224,8 +1224,8 @@ def test_product_gallery_accepts_multiple_valid_images(app, client):
         "name": "Dual Photo Device", "slug": "dual-photo-device", "regular_price": "250000",
         "category_id": "0", "is_published": "y",
         "images": [
-            (BytesIO(b"\\xff\\xd8\\xff" + b"\\x00" * 20), "front.jpg"),
-            (BytesIO(b"\\xff\\xd8\\xff" + b"\\x01" * 20), "back.jpg"),
+            (BytesIO(b"\xff\xd8\xff" + b"\x00" * 20), "front.jpg"),
+            (BytesIO(b"\xff\xd8\xff" + b"\x01" * 20), "back.jpg"),
         ],
     }, base_url="http://store-a.test", content_type="multipart/form-data")
     assert response.status_code == 302
