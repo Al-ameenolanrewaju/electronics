@@ -2113,3 +2113,7 @@ html.page-is-loading::before { content: ""; position: fixed; z-index: 9999; inse
   .electronics-store .luxury-menu.is-open { display:flex; }
   .electronics-store .luxury-menu a { padding:12px 2px; border-top:1px solid #302822; font-size:12px; }
 }
+
+.electronics-store .electronics-buy-now { min-height:48px; padding:0 22px; }
+.electronics-store .premium-product-actions { display:flex; flex-wrap:wrap; gap:10px; }
+@media(max-width:520px) { .electronics-store .premium-product-actions>* { flex:1 1 100%; } }

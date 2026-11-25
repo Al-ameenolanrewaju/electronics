@@ -387,6 +387,25 @@
       if (wishButton) { event.preventDefault(); toggleWishlist(wishButton); return; }
       const wishlistTrigger = event.target.closest("[data-wishlist-open]");
       if (wishlistTrigger) { event.preventDefault(); openWishlistDrawer(); return; }
+      const buyButton = event.target.closest("[data-buy-now]");
+      if (buyButton) {
+        event.preventDefault();
+        const card = buyButton.closest("[data-product-card]");
+        const selector = card && card.querySelector("[data-product-variant]");
+        if (selector && !selector.value) { window.alert("Please choose a device configuration first."); selector.focus(); return; }
+        const option = selector && selector.selectedOptions ? selector.selectedOptions[0] : null;
+        const variantId = option ? String(option.value) : "";
+        const productId = card ? String(card.dataset.productId) : "";
+        const alreadyAdded = readCart().some(item => String(item.id) === productId && String(item.variantId || "") === variantId);
+        if (!alreadyAdded) {
+          const addButton = card && card.querySelector("[data-add-to-cart]");
+          if (addButton) toggleCart(addButton);
+          const added = readCart().some(item => String(item.id) === productId && String(item.variantId || "") === variantId);
+          if (!added) return;
+        }
+        checkout();
+        return;
+      }
       const button = event.target.closest("[data-add-to-cart]");
       if (button) { event.preventDefault(); toggleCart(button); return; }
       if (event.target.closest("[data-drawer-tab=\"wishlist\"]")) { event.preventDefault(); openWishlistDrawer(); return; }
