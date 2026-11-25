@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block title %}Products{% endblock %}
 {% block body %}
-<nav class="navbar bg-white border-bottom px-3"><a class="navbar-brand fw-bold" href="{{ url_for('owner.dashboard') }}">Sulex</a><div class="d-flex gap-2"><a class="btn btn-sm btn-outline-dark" href="{{ url_for('owner.product_image_library') }}">Photo library</a><a class="btn btn-sm btn-outline-dark" href="{{ url_for('owner.settings') }}">Store settings / WhatsApp</a><a class="btn btn-sm btn-dark" href="{{ url_for('owner.dashboard') }}">Dashboard</a></div></nav>
+<nav class="navbar bg-white border-bottom px-3"><a class="navbar-brand fw-bold" href="{{ url_for('owner.dashboard') }}">Electronics Store</a><div class="d-flex gap-2"><a class="btn btn-sm btn-outline-dark" href="{{ url_for('owner.product_image_library') }}">Photo library</a><a class="btn btn-sm btn-outline-dark" href="{{ url_for('owner.settings') }}">Store settings / WhatsApp</a><a class="btn btn-sm btn-dark" href="{{ url_for('owner.dashboard') }}">Dashboard</a></div></nav>
 <main class="container py-4" style="max-width:900px">
   {% for category,message in get_flashed_messages(with_categories=true) %}<div class="alert alert-{{ category }}">{{ message }}</div>{% endfor %}
   <h1 class="h3 mb-4">Products</h1>

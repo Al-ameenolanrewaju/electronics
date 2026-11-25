@@ -1,7 +1,7 @@
 {% if settings and settings.announcement %}<div class="luxury-announcement">{{ settings.announcement }}</div>{% endif %}
 <nav class="store-nav luxury-nav" aria-label="Main navigation">
   <a class="store-brand luxury-brand" href="{{ url_for('storefront.home') }}" aria-label="{{ business.name }} home">
-    <img src="{{ url_for('static', filename='images/sulex-logo.svg') }}?v=2" alt="SULEX Fashion Store">
+    <span class="electronics-wordmark"><strong>{{ business.name|upper }}</strong><em>TECHNOLOGY</em></span>
   </a>
   <div class="store-menu luxury-menu" id="store-menu">
     <a href="{{ url_for('storefront.home') }}" aria-current="page">Home</a>
@@ -26,7 +26,7 @@
 <aside class="cart-drawer" id="store-cart-drawer" role="dialog" aria-modal="true" aria-labelledby="cart-drawer-title" aria-hidden="true" hidden>
   <div class="cart-drawer-header"><div><span class="eyebrow">Your selection</span><h2 id="cart-drawer-title">Your cart <span data-cart-drawer-count>(0)</span></h2></div><button class="cart-close" type="button" data-cart-close aria-label="Close cart">×</button></div>
   <div class="drawer-tabs" role="tablist" aria-label="Shopping lists"><button type="button" class="drawer-tab" data-drawer-tab="wishlist" role="tab">♡ Saved for later <span data-wishlist-tab-count>(0)</span></button><button type="button" class="drawer-tab is-active" data-drawer-tab="cart" role="tab" aria-selected="true">▱ Your cart <span data-cart-tab-count>(0)</span></button></div>
-  <div class="cart-drawer-body"><div id="cart-items" class="cart-items" aria-live="polite"></div><div class="cart-empty" id="cart-empty"><span class="cart-empty-mark" aria-hidden="true">✳</span><h3>Your cart is waiting.</h3><p>You haven’t added any pieces yet. Find something you love.</p><button class="text-link-button" type="button" data-cart-close>Continue shopping</button></div></div>
+  <div class="cart-drawer-body"><div id="cart-items" class="cart-items" aria-live="polite"></div><div class="cart-empty" id="cart-empty"><span class="cart-empty-mark" aria-hidden="true">✳</span><h3>Your cart is waiting.</h3><p>You haven’t added any gadgets yet. Find a device you love.</p><button class="text-link-button" type="button" data-cart-close>Continue shopping</button></div></div>
   <div class="cart-drawer-footer" id="cart-summary" hidden><div class="cart-subtotal-line"><span>Subtotal</span><strong id="cart-subtotal">₦0</strong></div><p>Delivery and availability will be confirmed when you place your order.</p><div class="drawer-cart-actions"><button type="button" class="drawer-secondary-action" data-cart-clear>Clear cart</button><button class="luxury-button luxury-button-gold cart-checkout-button" type="button" id="whatsapp-checkout">Continue on WhatsApp <span aria-hidden="true">↗</span></button></div></div>
 </aside>
 <div class="wishlist-overlay" data-wishlist-overlay hidden></div>

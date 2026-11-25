@@ -4,10 +4,10 @@
 {% block body %}
 {% include "storefront/_nav.html" %}
 <main class="cart-page">
-  <header class="collection-page-heading"><span class="eyebrow">Your selection</span><h1>Your bag.</h1><p>Review your pieces before sending your order to {{ business.name }}.</p></header>
+  <header class="collection-page-heading"><span class="eyebrow">Your selection</span><h1>Your bag.</h1><p>Review your gadgets before sending your order to {{ business.name }}.</p></header>
   <div id="cart-items" class="cart-items" aria-live="polite"></div>
   <div class="cart-summary" id="cart-summary" hidden><div><span>Subtotal</span><strong id="cart-subtotal">₦0</strong></div><button class="luxury-button luxury-button-gold" type="button" id="whatsapp-checkout">Continue on WhatsApp ↗</button></div>
-  <div class="cart-empty" id="cart-empty"><h2>Your bag is waiting.</h2><p>You haven't added any pieces yet.</p><a class="luxury-button luxury-button-gold" href="{{ url_for('storefront.collection') }}">Explore the collection</a></div>
+  <div class="cart-empty" id="cart-empty"><h2>Your bag is waiting.</h2><p>You haven't added any gadgets yet.</p><a class="luxury-button luxury-button-gold" href="{{ url_for('storefront.collection') }}">Explore the catalogue</a></div>
 </main>
 {% include "storefront/_footer.html" %}
 {% endblock %}

@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block title %}Edit {{ product.name }}{% endblock %}
 {% block body %}
-<nav class="navbar bg-white border-bottom px-3"><a class="navbar-brand fw-bold" href="{{ url_for('owner.dashboard') }}">Sulex</a><a class="btn btn-sm btn-dark" href="{{ url_for('owner.products') }}">Products</a></nav>
+<nav class="navbar bg-white border-bottom px-3"><a class="navbar-brand fw-bold" href="{{ url_for('owner.dashboard') }}">Electronics Store</a><a class="btn btn-sm btn-dark" href="{{ url_for('owner.products') }}">Products</a></nav>
 <main class="container py-4" style="max-width:900px">
   {% for category,message in get_flashed_messages(with_categories=true) %}<div class="alert alert-{{ category }}">{{ message }}</div>{% endfor %}
   <h1 class="h3 mb-4">Edit {{ product.name }}</h1>
@@ -13,8 +13,8 @@
     <div class="col-md-4 mb-3"><label class="form-label">Sale price (₦)</label>{{ form.discounted_price(class="form-control form-control-lg") }}</div>
     <div class="col-md-4 mb-3"><label class="form-label">SKU</label>{{ form.sku(class="form-control") }}</div>
     <div class="col-md-4 mb-3"><label class="form-label" for="{{ form.category_id.id }}">Category</label><select class="form-select" id="{{ form.category_id.id }}" name="{{ form.category_id.name }}"><option value="">Uncategorised</option>{% for category in categories %}<option value="{{ category.id }}" {% if form.category_id.data|string == category.id|string %}selected{% endif %}>{{ category.name }}{% if category.gender %} · {{ category.gender }}{% endif %}</option>{% endfor %}</select></div>
-    <div class="col-md-4 mb-3"><label class="form-label" for="{{ form.gender.id }}">Audience</label><select class="form-select" id="{{ form.gender.id }}" name="{{ form.gender.name }}"><option value="Unisex" {% if (form.gender.data or 'Unisex') == 'Unisex' %}selected{% endif %}>Unisex</option><option value="Men" {% if form.gender.data == 'Men' %}selected{% endif %}>Men</option><option value="Women" {% if form.gender.data == 'Women' %}selected{% endif %}>Women</option></select></div>
-    <div class="col-md-4 mb-3"><label class="form-label" for="{{ form.fashion_type.id }}">Product type</label><select class="form-select" id="{{ form.fashion_type.id }}" name="{{ form.fashion_type.name }}"><option value="Ready-to-wear" {% if (form.fashion_type.data or 'Ready-to-wear') == 'Ready-to-wear' %}selected{% endif %}>Ready-to-wear</option><option value="Custom-made" {% if form.fashion_type.data == 'Custom-made' %}selected{% endif %}>Custom-made</option></select></div>
+    <div class="col-md-4 mb-3"><label class="form-label" for="{{ form.gender.id }}">Product line</label><select class="form-select" id="{{ form.gender.id }}" name="{{ form.gender.name }}"><option value="Unisex" {% if (form.gender.data or 'Unisex') == 'Unisex' %}selected{% endif %}>All devices</option><option value="Men" {% if form.gender.data == 'Men' %}selected{% endif %}>Personal</option><option value="Women" {% if form.gender.data == 'Women' %}selected{% endif %}>Home</option></select></div>
+    <div class="col-md-4 mb-3"><label class="form-label" for="{{ form.fashion_type.id }}">Product type</label><select class="form-select" id="{{ form.fashion_type.id }}" name="{{ form.fashion_type.name }}"><option value="Ready-to-wear" {% if (form.fashion_type.data or 'Ready-to-wear') == 'Ready-to-wear' %}selected{% endif %}>Device</option><option value="Custom-made" {% if form.fashion_type.data == 'Custom-made' %}selected{% endif %}>Accessory</option></select></div>
 
     </div>
     <div class="mb-3"><label class="form-label">Description</label>{{ form.description(class="form-control", rows=4) }}</div>

@@ -5,14 +5,14 @@
 {% block body %}
 {% include "storefront/_nav.html" %}
 <main>
-  <section class="luxury-hero">
+  <section class="luxury-hero electronics-hero">
     <div class="luxury-hero-copy">
       <span class="eyebrow">{{ settings.tagline if settings and settings.tagline else 'The ' ~ business.name ~ ' collection' }}</span>
-      <h1>{% if settings and settings.hero_title %}{{ settings.hero_title }}{% else %}Pieces to wear,<br><em>and wear again.</em>{% endif %}</h1>
-      <p>{{ (settings.about_text if settings and settings.about_text else business.description) or 'Pieces made to be remembered. Discover pieces selected with care, check available sizes and colours, and speak with us directly on WhatsApp.' }}</p>
+      <h1>{% if settings and settings.hero_title %}{{ settings.hero_title }}{% else %}Technology for<br><em>better living.</em>{% endif %}</h1>
+      <p>{{ (settings.about_text if settings and settings.about_text else business.description) or 'Discover premium smartphones, computing, audio, gaming and smart devices selected for performance and everyday reliability.' }}</p>
       <div class="hero-actions">
         {% if business.whatsapp_number %}<a class="luxury-button luxury-button-gold" href="https://wa.me/{{ business.whatsapp_number|replace('+','')|replace(' ','')|replace('-','') }}" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">◉</span> Chat on WhatsApp</a>{% endif %}
-        <a class="luxury-button luxury-button-outline" href="{{ url_for('storefront.collection') }}">{{ settings.hero_cta if settings and settings.hero_cta else 'Explore Collection' }} <span aria-hidden="true">→</span></a>
+        <a class="luxury-button luxury-button-outline" href="{{ url_for('storefront.collection') }}">{{ settings.hero_cta if settings and settings.hero_cta else 'Shop Devices' }} <span aria-hidden="true">→</span></a>
       </div>
     </div>
     <div class="luxury-hero-image">
@@ -20,7 +20,7 @@
     </div>
   </section>
   <section class="luxury-collection" id="featured">
-    <div class="luxury-section-head"><div><span class="eyebrow">{{ settings.catalogue_eyebrow if settings and settings.catalogue_eyebrow else 'The collection' }}</span><h2>{{ settings.catalogue_title if settings and settings.catalogue_title else 'Pieces to wear, and wear again.' }}</h2></div></div>
+    <div class="luxury-section-head"><div><span class="eyebrow">{{ settings.catalogue_eyebrow if settings and settings.catalogue_eyebrow else 'Featured devices' }}</span><h2>{{ settings.catalogue_title if settings and settings.catalogue_title else 'Essential technology, beautifully selected.' }}</h2></div></div>
     <div class="product-grid luxury-product-grid">
       {% for product in featured %}{% include "storefront/_product_card.html" %}{% else %}
       <div class="catalogue-empty-state"><h3>{{ settings.empty_title if settings and settings.empty_title else 'A new collection is on its way.' }}</h3><p>{{ settings.empty_text if settings and settings.empty_text else 'Our pieces will appear here as soon as they are added.' }}</p></div>

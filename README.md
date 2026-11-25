@@ -1,7 +1,7 @@
-# WhatsApp Clothing Catalogue
+# Electronics Store Catalogue
 
-A simple, single-business clothing catalogue built with Flask. Customers can
-browse products, view photos and available sizes/colours, then send an order
+A premium single-business electronics catalogue built with Flask. Customers can
+browse products, view photos and available configurations/colours, then send an order
 request directly to the shop's WhatsApp number. Customers do not need accounts,
 and the application does not take payments.
 
@@ -15,7 +15,7 @@ py -3 -m venv .venv
 .\\.venv\\Scripts\\Activate.ps1
 python -m pip install -r requirements.txt
 $env:SECRET_KEY = "replace-with-a-random-secret-at-least-32-characters"
-$env:DATABASE_URL = "sqlite:///clothing_store.db"
+$env:DATABASE_URL = "sqlite:///electronics_store.db"
 $env:COOKIE_SECURE = "false"
 python -m flask --app "app:create_app()" db upgrade
 python -m flask --app "app:create_app()" run
@@ -36,8 +36,8 @@ from app import db
 from app.models import Business, User
 
 shop = Business(
-    name="Your Clothing Store",
-    slug="your-shop",
+    name="Your Electronics Store",
+    slug="your-electronics-store",
     description="Your store description",
     whatsapp_number="2348012345678",
 )

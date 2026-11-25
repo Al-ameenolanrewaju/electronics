@@ -18,7 +18,7 @@ csrf = CSRFProtect()
 
 def create_app(config_object=None):
     app = Flask(__name__)
-    database_url = os.getenv("DATABASE_URL", "sqlite:///clothing_store.db").strip()
+    database_url = os.getenv("DATABASE_URL", "sqlite:///electronics_store.db").strip()
     if database_url.startswith("postgres://"):
         database_url = database_url.replace("postgres://", "postgresql+psycopg://", 1)
     elif database_url.startswith("postgresql://"):
@@ -121,18 +121,20 @@ def create_app(config_object=None):
                 db.session.add(models.StoreSettings(business_id=business.id))
 
             if not models.Category.query.filter_by(business_id=business.id).first():
-                defaults = {
-                    "Men": ["Shirts", "Trousers", "Native Wear", "Senator Outfits", "Agbada", "Kaftans", "Jackets", "Shoes", "Accessories"],
-                    "Women": ["Dresses", "Abayas", "Hijabs", "Jilbabs", "Two-Piece Outfits", "Skirts", "Blouses", "Trousers", "Accessories"],
-                }
-                for gender, names in defaults.items():
-                    for category_name in names:
-                        category_slug = slugify(f"{gender}-{category_name}")
+                defaults = [
+                    "Smartphones", "Laptops", "Desktop Computers", "Tablets",
+                    "Smartwatches", "Headphones", "Speakers", "Cameras",
+                    "Gaming Consoles", "Gaming Accessories", "Televisions",
+                    "Monitors", "Keyboards and Mice", "Power Banks",
+                    "Chargers and Cables", "Storage Devices", "Home Appliances", "Accessories",
+                ]
+                for category_name in defaults:
+                        category_slug = slugify(category_name)
                         db.session.add(models.Category(
                             business_id=business.id,
                             name=category_name,
                             slug=category_slug,
-                            gender=gender,
+                            gender="All",
                         ))
             db.session.commit()
             print(f"Store {store_name} and owner account created successfully.")
@@ -140,10 +142,106 @@ def create_app(config_object=None):
             db.session.rollback()
             raise RuntimeError("Store bootstrap encountered an existing database record; no partial setup was saved.")
 
+    @app.cli.command("seed-electronics")
+    def seed_electronics():
+        """Add a one-time electronics preview catalogue to an empty store."""
+        from .utils import slugify
+
+        business = models.Business.query.filter_by(status="ACTIVE").order_by(models.Business.id.asc()).first()
+        if business is None:
+            raise RuntimeError("Create a store and owner first with bootstrap-store.")
+        if models.Product.query.filter_by(business_id=business.id).first():
+            print("Electronics preview catalogue already exists.")
+            return
+
+        category_names = [
+            "Smartphones", "Laptops", "Tablets", "Smartwatches",
+            "Headphones", "Speakers", "Cameras", "Gaming Accessories",
+            "Televisions", "Power Banks", "Chargers and Cables", "Storage Devices",
+        ]
+        categories = {}
+        for name in category_names:
+            category = models.Category.query.filter_by(business_id=business.id, name=name).first()
+            if category is None:
+                category = models.Category(
+                    business_id=business.id,
+                    name=name,
+                    slug=slugify(name),
+                    gender="All",
+                )
+                db.session.add(category)
+                db.session.flush()
+            categories[name] = category
+
+        catalogue = [
+            ("Nova Pro 15", "Smartphones", 420000, "6.7-inch OLED, 256GB storage, 12GB RAM", "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=1200&q=85", "256 GB"),
+            ("AeroBook 14", "Laptops", 760000, "Intel Core i7, 16GB RAM, 512GB SSD", "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=1200&q=85", "512 GB"),
+            ("Slate Pad 11", "Tablets", 330000, "11-inch display, 8GB RAM, 128GB storage", "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?auto=format&fit=crop&w=1200&q=85", "128 GB"),
+            ("Pulse Watch S", "Smartwatches", 185000, "AMOLED display, heart-rate and GPS", "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=1200&q=85", "42 mm"),
+            ("Studio Quiet Pro", "Headphones", 145000, "Active noise cancellation, 40-hour battery", "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=1200&q=85", "Wireless"),
+            ("Room Audio Mini", "Speakers", 98000, "Compact wireless speaker with rich stereo sound", "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?auto=format&fit=crop&w=1200&q=85", "Bluetooth"),
+            ("FrameMirror X", "Cameras", 520000, "Full-frame sensor, 4K video, fast autofocus", "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=1200&q=85", "Mirrorless"),
+            ("Arc Controller", "Gaming Accessories", 85000, "Wireless precision controller for PC and console", "https://images.unsplash.com/photo-1592840496694-26d035b52b48?auto=format&fit=crop&w=1200&q=85", "Wireless"),
+            ("Vista 55 OLED", "Televisions", 890000, "55-inch 4K OLED, smart streaming and HDR", "https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?auto=format&fit=crop&w=1200&q=85", "55 inch"),
+            ("Volt Pocket 20", "Power Banks", 35000, "20,000mAh high-speed portable battery", "https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?auto=format&fit=crop&w=1200&q=85", "20,000 mAh"),
+            ("Charge Trio 65", "Chargers and Cables", 42000, "65W USB-C fast charger with braided cable", "https://images.unsplash.com/photo-1583863788434-e58a36330cf0?auto=format&fit=crop&w=1200&q=85", "65W"),
+            ("SwiftDrive 1TB", "Storage Devices", 115000, "Portable 1TB NVMe SSD, USB-C 10Gbps", "https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?auto=format&fit=crop&w=1200&q=85", "1 TB"),
+        ]
+
+        for index, (name, category_name, price, description, image_url, configuration) in enumerate(catalogue):
+            slug = slugify(name)
+            product = models.Product(
+                business_id=business.id,
+                category_id=categories[category_name].id,
+                name=name,
+                slug=slug,
+                description=description,
+                regular_price=price,
+                discounted_price=price if index % 4 else int(price * 0.9),
+                gender="Unisex",
+                fashion_type="Device",
+                featured=index < 6,
+                new_arrival=True,
+                is_published=True,
+                sku=f"EL-{index + 1:03d}",
+            )
+            db.session.add(product)
+            db.session.flush()
+            db.session.add(models.ProductImage(
+                business_id=business.id,
+                product_id=product.id,
+                url=image_url,
+                alt_text=name,
+                sort_order=0,
+            ))
+            db.session.add(models.ProductVariant(
+                business_id=business.id,
+                product_id=product.id,
+                size=configuration,
+                colour="Black",
+                sku=f"EL-{index + 1:03d}-BK",
+                stock_quantity=12,
+                is_available=True,
+            ))
+
+        settings = models.StoreSettings.query.filter_by(business_id=business.id).first()
+        if settings:
+            settings.announcement = "Free delivery on electronics orders over ₦150,000"
+            settings.hero_title = "Technology for better living."
+            settings.about_text = "Discover premium smartphones, computing, audio, gaming and smart devices selected for performance and everyday reliability."
+            settings.catalogue_eyebrow = "Featured devices"
+            settings.catalogue_title = "Essential technology, beautifully selected."
+            settings.seo_title = f"{business.name} | Premium Electronics"
+            settings.seo_description = "Shop premium smartphones, laptops, audio, gaming and smart devices."
+
+        db.session.commit()
+        print(f"Added {len(catalogue)} electronics preview products.")
+
     @app.cli.command("bootstrap-sulex")
     def bootstrap_sulex():
         """Create the original Sulex store and owner from private environment variables."""
         from sqlalchemy.exc import IntegrityError
+        from .utils import slugify
 
         owner_email = os.getenv("SULEX_OWNER_EMAIL", "").strip().lower()
         owner_password = os.getenv("SULEX_OWNER_PASSWORD", "")
@@ -187,19 +285,22 @@ def create_app(config_object=None):
                 db.session.add(models.StoreSettings(business_id=business.id))
 
             if not models.Category.query.filter_by(business_id=business.id).first():
-                defaults = {
-                    "Men": ["Shirts", "Trousers", "Native Wear", "Senator Outfits", "Agbada", "Kaftans", "Jackets", "Shoes", "Accessories"],
-                    "Women": ["Dresses", "Abayas", "Hijabs", "Jilbabs", "Two-Piece Outfits", "Skirts", "Blouses", "Trousers", "Accessories"],
-                }
-                for gender, names in defaults.items():
-                    for category_name in names:
-                        slug = "-".join((gender + "-" + category_name).lower().replace("&", " ").split())
-                        db.session.add(models.Category(
-                            business_id=business.id,
-                            name=category_name,
-                            slug=slug,
-                            gender=gender,
-                        ))
+                defaults = [
+                    "Smartphones", "Laptops", "Desktop Computers", "Tablets",
+                    "Smartwatches", "Headphones", "Speakers", "Cameras",
+                    "Gaming Consoles", "Gaming Accessories", "Televisions",
+                    "Monitors", "Keyboards and Mice", "Power Banks",
+                    "Chargers and Cables", "Storage Devices", "Home Appliances",
+                    "Accessories",
+                ]
+                for category_name in defaults:
+                    slug = slugify(category_name)
+                    db.session.add(models.Category(
+                        business_id=business.id,
+                        name=category_name,
+                        slug=slug,
+                        gender="All",
+                    ))
             db.session.commit()
             print("Sulex store and owner account created successfully.")
         except IntegrityError:

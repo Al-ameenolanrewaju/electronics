@@ -61,8 +61,13 @@ class DomainForm(FlaskForm):
 
 
 DEFAULT_CATEGORIES = {
-    "Men": ["Shirts", "Trousers", "Native Wear", "Senator Outfits", "Agbada", "Kaftans", "Jackets", "Shoes", "Accessories"],
-    "Women": ["Dresses", "Abayas", "Hijabs", "Jilbabs", "Two-Piece Outfits", "Skirts", "Blouses", "Trousers", "Accessories"],
+    "All": [
+        "Smartphones", "Laptops", "Desktop Computers", "Tablets",
+        "Smartwatches", "Headphones", "Speakers", "Cameras",
+        "Gaming Consoles", "Gaming Accessories", "Televisions",
+        "Monitors", "Keyboards and Mice", "Power Banks",
+        "Chargers and Cables", "Storage Devices", "Home Appliances", "Accessories",
+    ],
 }
 
 

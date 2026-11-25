@@ -168,7 +168,7 @@
       if (show) visible += 1;
     });
     const count = form.parentElement.querySelector("[data-filter-result-count]");
-    if (count) count.textContent = visible + (visible === 1 ? " piece" : " pieces");
+    if (count) count.textContent = visible + (visible === 1 ? " device" : " devices");
     const empty = grid.querySelector("[data-filter-empty]");
     if (empty) empty.hidden = visible !== 0;
   }
