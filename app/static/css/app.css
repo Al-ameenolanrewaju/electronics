@@ -2104,3 +2104,12 @@ html.page-is-loading::before { content: ""; position: fixed; z-index: 9999; inse
 .electronics-cart-intro h2 { margin:0 0 7px; font-family:var(--serif); font-size:clamp(25px,3vw,36px); font-weight:400; }
 .electronics-cart-intro p { max-width:620px; margin:0; color:var(--muted); font-size:12px; line-height:1.7; }
 @media(max-width:760px) { .electronics-cart-page { padding:38px 18px 65px; } .electronics-cart-intro { align-items:flex-start; flex-direction:column; } }
+
+@media(max-width:900px) {
+  .electronics-store .luxury-nav { flex-wrap:wrap; gap:8px 14px; }
+  .electronics-store .luxury-brand { max-width:calc(100% - 150px); overflow:hidden; }
+  .electronics-store .menu-toggle { display:inline-flex; margin-left:auto; padding:8px 0 8px 8px; }
+  .electronics-store .luxury-menu { display:none; order:5; width:100%; flex-direction:column; align-items:stretch; gap:0; margin:0; padding:5px 0 0; }
+  .electronics-store .luxury-menu.is-open { display:flex; }
+  .electronics-store .luxury-menu a { padding:12px 2px; border-top:1px solid #302822; font-size:12px; }
+}
