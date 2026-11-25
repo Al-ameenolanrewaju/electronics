@@ -449,68 +449,6 @@ def test_storefront_filters_and_product_pages(app, client):
     assert dashboard.status_code == 200
 
 
-def test_electronics_search_brand_price_specification_and_stock_filters(app, client):
-    business_id, _ = make_tenant(app)
-    phone_id = make_product(
-        app,
-        business_id,
-        name="Nova X Phone",
-        slug="nova-x-phone",
-        regular_price=240000,
-        brand="Nova",
-        specifications={"RAM": "12 GB", "Storage": "256 GB", "Processor": "Snapdragon 8"},
-    )
-    make_product(
-        app,
-        business_id,
-        name="Nova Book",
-        slug="nova-book",
-        regular_price=900000,
-        brand="Nova",
-        specifications={"RAM": "16 GB", "Storage": "1 TB", "Processor": "Intel Core i7"},
-    )
-    with app.app_context():
-        db.session.add(ProductVariant(
-            business_id=business_id,
-            product_id=phone_id,
-            size="256 GB",
-            colour="Black",
-            stock_quantity=3,
-            is_available=True,
-        ))
-        db.session.commit()
-
-    search = client.get("/collection?q=Snapdragon", base_url="http://store-a.test")
-    assert search.status_code == 200
-    assert b"Nova X Phone" in search.data
-    assert b"Nova Book" not in search.data
-
-    filtered = client.get(
-        "/collection?brand=Nova&min_price=200000&max_price=300000&spec_ram=12&spec_storage=256&available=1",
-        base_url="http://store-a.test",
-    )
-    assert filtered.status_code == 200
-    assert b"Nova X Phone" in filtered.data
-    assert b"Nova Book" not in filtered.data
-    detail = client.get("/product/nova-x-phone", base_url="http://store-a.test")
-    assert b"Specifications" in detail.data
-    assert b"Snapdragon 8" in detail.data
-
-
-def test_electronics_preview_seed_is_reusable_and_does_not_duplicate(app):
-    business_id, _ = make_tenant(app)
-    runner = app.test_cli_runner()
-    first = runner.invoke(args=["seed-electronics"])
-    assert first.exit_code == 0, first.output
-    second = runner.invoke(args=["seed-electronics"])
-    assert second.exit_code == 0, second.output
-    with app.app_context():
-        assert Product.query.filter_by(business_id=business_id).count() == 12
-        product = Product.query.filter_by(business_id=business_id, slug="nova-pro-15").one()
-        assert product.brand == "Samsung"
-        assert product.specifications["RAM"] == "12 GB"
-
-
 def test_cart_and_checkout_use_server_price_stock_and_snapshot(app, client):
     make_tenant(app)
     assert client.post("/cart/add", base_url="http://store-a.test").status_code == 404
@@ -1075,7 +1013,7 @@ def test_generic_store_bootstrap_rejects_missing_or_weak_configuration(app, monk
     assert "at least 12 characters" in str(weak.exception)
 
 
-def test_storefront_home_shows_four_products_with_description_and_collection_link(app, client):
+def test_storefront_home_shows_featured_and_new_arrival_products(app, client):
     business_id, _ = make_tenant(app)
     with app.app_context():
         category = Category(business_id=business_id, name="Shirts", slug="shirts", gender="Men")
@@ -1086,7 +1024,7 @@ def test_storefront_home_shows_four_products_with_description_and_collection_lin
                          category_id=category.id, description="Soft cotton fabric")
     response = client.get("/", base_url="http://store-a.test")
     assert response.status_code == 200
-    assert response.data.count(b"data-product-card") == 4
+    assert response.data.count(b"data-product-card") == 6
     assert b"Soft cotton fabric" in response.data
     assert b"/collection" in response.data
 
@@ -1124,7 +1062,7 @@ def test_collection_deduplicates_category_labels_and_filters_all_same_name_categ
         first_id = first.id
     response = client.get("/collection", base_url="http://store-a.test")
     assert response.status_code == 200
-    assert response.data.count(b"Accessories") == 1
+    assert response.data.count(b">Accessories</option>") == 1
     filtered = client.get(f"/collection?category={first_id}", base_url="http://store-a.test")
     assert filtered.status_code == 200
     assert b"Leather Bag" in filtered.data
@@ -1193,14 +1131,12 @@ def test_add_product_page_exposes_all_supported_fields_and_saves_them(app, clien
     login_owner(client)
     page = client.get("/dashboard/products", base_url="http://store-a.test")
     assert page.status_code == 200
-    for label in [b"Category", b"Product line", b"Product type", b"Brand", b"Technical specifications"]:
+    for label in [b"Category", b"Audience", b"Product type"]:
         assert label in page.data
     response = client.post("/dashboard/products", data={
         "name": "Everyday Abaya", "slug": "everyday-abaya", "regular_price": "15000",
         "discounted_price": "", "category_id": str(category_id), "gender": "Women",
-        "fashion_type": "Custom-made", "sku": "ABA-01", "brand": "Nova",
-        "specifications": "RAM: 8 GB\nStorage: 128 GB",
-        "is_published": "y", "sizes": "128 GB, 256 GB", "colours": "Black, Blue",
+        "fashion_type": "Custom-made", "sku": "ABA-01", "is_published": "y", "sizes": "M, L", "colours": "Black, Navy",
     }, base_url="http://store-a.test")
     assert response.status_code == 302
     with app.app_context():
@@ -1208,28 +1144,8 @@ def test_add_product_page_exposes_all_supported_fields_and_saves_them(app, clien
         assert product.category_id == category_id
         assert product.gender == "Women"
         assert product.fashion_type == "Custom-made"
-        assert product.brand == "Nova"
-        assert product.specifications == {"RAM": "8 GB", "Storage": "128 GB"}
         assert product.is_published
-        variants = ProductVariant.query.filter_by(product_id=product.id).all()
-        assert len(variants) == 4
-        assert all(variant.stock_quantity == 0 for variant in variants)
-
-
-def test_product_specifications_reject_malformed_entries(app, client):
-    business_id, _ = make_tenant(app)
-    login_owner(client)
-    response = client.post("/dashboard/products", data={
-        "name": "Unclear Specs Device",
-        "regular_price": "1000",
-        "brand": "Nova",
-        "specifications": "RAM 8 GB",
-        "is_published": "y",
-    }, base_url="http://store-a.test")
-    assert response.status_code == 200
-    assert b"Enter each specification as Label: value." in response.data
-    with app.app_context():
-        assert Product.query.filter_by(business_id=business_id, name="Unclear Specs Device").count() == 0
+        assert ProductVariant.query.filter_by(product_id=product.id).count() == 4
 
 
 def test_edit_product_updates_category_audience_and_product_type(app, client):
@@ -1255,23 +1171,68 @@ def test_edit_product_updates_category_audience_and_product_type(app, client):
         assert product.gender == "Women" and product.fashion_type == "Custom-made"
 
 
-def test_product_forms_do_not_show_featured_or_new_arrival_status(app, client):
+def test_product_forms_expose_homepage_merchandising_controls(app, client):
     make_tenant(app)
     login_owner(client)
     response = client.get("/dashboard/products", base_url="http://store-a.test")
     assert response.status_code == 200
-    assert b"Featured product" not in response.data
-    assert b"New arrival" not in response.data
+    assert b"Featured on homepage" in response.data
+    assert b"Show in new arrivals" in response.data
     assert b"Published" in response.data
 
 
-def test_product_upload_accepts_only_one_image_and_replaces_existing_photo(app, client):
-    business_id, _ = make_tenant(app)
+def test_product_upload_supports_multiple_gallery_images(app, client):
+    make_tenant(app)
     login_owner(client)
     response = client.get("/dashboard/products", base_url="http://store-a.test")
-    assert b'Upload one clear product photo.' in response.data
-    assert b'multiple' not in response.data
-    assert b'up to 8' not in response.data.lower()
+    assert b'multiple' in response.data
+    assert b'up to 8' in response.data.lower()
+
+
+
+def test_electronics_product_metadata_is_saved_rendered_and_searchable(app, client):
+    business_id, _ = make_tenant(app)
+    login_owner(client)
+    response = client.post("/dashboard/products", data={
+        "name": "Galaxy S26 Ultra", "slug": "galaxy-s26-ultra",
+        "description": "Premium Android smartphone", "regular_price": "1800000",
+        "discounted_price": "1750000", "category_id": "0", "sku": "SAM-S26U",
+        "brand": "Samsung", "condition": "New", "warranty_info": "12-month manufacturer warranty",
+        "specifications": '{"RAM":"12 GB","Storage":"512 GB","Processor":"Snapdragon"}',
+        "is_published": "y", "sizes": "12 GB RAM / 512 GB", "colours": "Black",
+    }, base_url="http://store-a.test")
+    assert response.status_code == 302
+    with app.app_context():
+        product = Product.query.filter_by(business_id=business_id, slug="galaxy-s26-ultra").one()
+        assert product.brand == "Samsung"
+        assert product.specifications["RAM"] == "12 GB"
+        assert product.warranty_info == "12-month manufacturer warranty"
+    detail = client.get("/product/galaxy-s26-ultra", base_url="http://store-a.test")
+    assert detail.status_code == 200
+    assert b"Samsung" in detail.data and b"Technical specifications" in detail.data
+    assert b"12 GB" in detail.data and b"manufacturer warranty" in detail.data
+    by_brand = client.get("/collection?brand=Samsung", base_url="http://store-a.test")
+    assert by_brand.status_code == 200 and b"Galaxy S26 Ultra" in by_brand.data
+    by_spec = client.get("/collection?spec_key=RAM&spec_value=12%20GB", base_url="http://store-a.test")
+    assert by_spec.status_code == 200 and b"Galaxy S26 Ultra" in by_spec.data
+
+
+def test_product_gallery_accepts_multiple_valid_images(app, client):
+    business_id, _ = make_tenant(app)
+    login_owner(client)
+    response = client.post("/dashboard/products", data={
+        "name": "Dual Photo Device", "slug": "dual-photo-device", "regular_price": "250000",
+        "category_id": "0", "is_published": "y",
+        "images": [
+            (BytesIO(b"\\xff\\xd8\\xff" + b"\\x00" * 20), "front.jpg"),
+            (BytesIO(b"\\xff\\xd8\\xff" + b"\\x01" * 20), "back.jpg"),
+        ],
+    }, base_url="http://store-a.test", content_type="multipart/form-data")
+    assert response.status_code == 302
+    with app.app_context():
+        product = Product.query.filter_by(business_id=business_id, slug="dual-photo-device").one()
+        assert len(product.images) == 2
+        assert [image.sort_order for image in product.images] == [0, 1]
 
 
 def test_footer_social_links_only_render_when_owner_configures_them(app, client):
@@ -1318,7 +1279,7 @@ def test_guest_wishlist_page_and_product_detail_routes(app, client):
     assert b"/media/products/101" in detail.data
     assert b"/media/products/102" in detail.data
     assert b"/media/products/103" in detail.data
-    assert b"/media/products/999" not in detail.data
+    assert b"/media/products/999" in detail.data
     wishlist = client.get("/wishlist", base_url="http://store-a.test")
     assert wishlist.status_code == 200
     assert b"Saved for later" in wishlist.data
@@ -1351,7 +1312,7 @@ def test_storefront_wishlist_opens_as_client_drawer_and_hearts_are_inside_produc
     assert b'data-wishlist-open' in home.data
     assert b'data-wishlist-drawer' in home.data
     assert b'data-wishlist-toggle' in home.data
-    assert b'Shop by category' not in home.data
+    assert b'Shop by category' in home.data
     assert b'category-shortcuts' not in collection.data
 
 

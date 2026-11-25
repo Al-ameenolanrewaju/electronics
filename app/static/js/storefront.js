@@ -15,7 +15,7 @@
     catch (_) { return []; }
   };
   function productSnapshot(card) {
-    const image = card.querySelector(".product-photo img, .product-detail-main-image img");
+    const image = card.querySelector(".product-photo img, .product-detail-main-image img, .premium-product-main-image img");
     return { id:String(card.dataset.productId), slug:card.dataset.productSlug || "", name:card.dataset.productName || "Product",
       price:Number(card.dataset.productPrice) || 0, description:card.dataset.productDescription || "",
       category:card.dataset.categoryName || card.dataset.productCategory || "", image:image ? image.currentSrc || image.src : "",
@@ -130,12 +130,15 @@
     document.querySelectorAll("[data-wishlist-tab-count]").forEach(el => { el.textContent = readWishlist().length; });
   }
   function renderProductButtons(cart) {
-    const ids = new Set(cart.map(item => String(item.id)));
     document.querySelectorAll("[data-product-card]").forEach(card => {
       const button = card.querySelector("[data-add-to-cart]");
       if (!button) return;
-      const added = ids.has(String(card.dataset.productId));
-      button.textContent = added ? "Remove from cart" : "Add to cart";
+      const id = String(card.dataset.productId);
+      const selector = card.querySelector("[data-product-variant]");
+      const variantId = selector ? String(selector.value || "") : "";
+      const added = cart.some(item => String(item.id) === id && String(item.variantId || "") === variantId);
+      const hasOptions = !selector && (card.dataset.productSizes || card.dataset.productColours);
+      button.textContent = added ? "Remove from cart" : (hasOptions ? "Choose options" : "Add to cart");
       button.classList.toggle("is-added", added);
       button.setAttribute("aria-pressed", added ? "true" : "false");
     });
@@ -144,22 +147,31 @@
   function normalizeFilterValue(value) {
     return String(value || "").trim().toLocaleLowerCase().replace(/\s+/g, " ");
   }
-  function collectionFilterUrl(form) {
-    const target = new URL(form.action || location.pathname, location.href);
-    target.search = new URLSearchParams(new FormData(form)).toString();
-    return target.href;
-  }
   function applyCollectionFilters(form) {
     const grid = document.querySelector("[data-collection-products]");
     if (!grid) return;
     const categorySelect = form.querySelector("[data-filter-category]");
     const sizeSelect = form.querySelector("[data-filter-size]");
     const colourSelect = form.querySelector("[data-filter-colour]");
+    const brandSelect = form.querySelector('select[name="brand"]');
+    const conditionSelect = form.querySelector('select[name="condition"]');
+    const specKeySelect = form.querySelector('select[name="spec_key"]');
+    const specValueInput = form.querySelector('input[name="spec_value"]');
+    const searchInput = form.querySelector('input[name="q"]');
+    const minInput = form.querySelector('input[name="min_price"]');
+    const maxInput = form.querySelector('input[name="max_price"]');
     const selectedCategory = categorySelect && categorySelect.selectedOptions[0]
       ? normalizeFilterValue(categorySelect.selectedOptions[0].dataset.categoryName)
       : "";
     const selectedSize = normalizeFilterValue(sizeSelect && sizeSelect.value);
     const selectedColour = normalizeFilterValue(colourSelect && colourSelect.value);
+    const selectedBrand = normalizeFilterValue(brandSelect && brandSelect.value);
+    const selectedCondition = normalizeFilterValue(conditionSelect && conditionSelect.value);
+    const selectedSpecKey = normalizeFilterValue(specKeySelect && specKeySelect.value);
+    const selectedSpecValue = normalizeFilterValue(specValueInput && specValueInput.value);
+    const searchTerm = normalizeFilterValue(searchInput && searchInput.value);
+    const minPrice = minInput && minInput.value !== "" ? Number(minInput.value) : null;
+    const maxPrice = maxInput && maxInput.value !== "" ? Number(maxInput.value) : null;
     const cards = Array.from(grid.querySelectorAll("[data-product-card]"));
     let visible = 0;
     cards.forEach(card => {
@@ -168,12 +180,21 @@
       const colours = String(card.dataset.productColours || "").split("|").map(normalizeFilterValue);
       const sizeMatch = !selectedSize || sizes.includes(selectedSize);
       const colourMatch = !selectedColour || colours.includes(selectedColour);
-      const show = categoryMatch && sizeMatch && colourMatch;
+      const searchable = normalizeFilterValue([card.dataset.productName, card.dataset.productDescription, card.dataset.categoryName, card.dataset.productBrand, card.dataset.productSpecifications].join(" "));
+      const searchMatch = !searchTerm || searchable.includes(searchTerm);
+      const price = Number(card.dataset.productPrice) || 0;
+      const minMatch = minPrice === null || (Number.isFinite(minPrice) && price >= minPrice);
+      const maxMatch = maxPrice === null || (Number.isFinite(maxPrice) && price <= maxPrice);
+      const brandMatch = !selectedBrand || normalizeFilterValue(card.dataset.productBrand) === selectedBrand;
+      const conditionMatch = !selectedCondition || normalizeFilterValue(card.dataset.productCondition) === selectedCondition;
+      const specs = normalizeFilterValue(card.dataset.productSpecifications);
+      const specMatch = !selectedSpecValue || (specs.includes(selectedSpecValue) && (!selectedSpecKey || specs.includes(selectedSpecKey)));
+      const show = categoryMatch && sizeMatch && colourMatch && searchMatch && minMatch && maxMatch && brandMatch && conditionMatch && specMatch;
       card.hidden = !show;
       if (show) visible += 1;
     });
     const count = form.parentElement.querySelector("[data-filter-result-count]");
-    if (count) count.textContent = visible + (visible === 1 ? " device" : " devices");
+    if (count) count.textContent = visible + (visible === 1 ? " device" : " devices") + " on this page";
     const empty = grid.querySelector("[data-filter-empty]");
     if (empty) empty.hidden = visible !== 0;
   }
@@ -210,19 +231,44 @@
     const card = button.closest("[data-product-card]");
     if (!card) return;
     const id = String(card.dataset.productId);
-    const cart = readCart();
-    if (cart.some(item => String(item.id) === id)) {
-      saveCart(cart.filter(item => String(item.id) !== id));
+    const variantSelect = card.querySelector("[data-product-variant]");
+    if (!variantSelect && (card.dataset.productSizes || card.dataset.productColours)) {
+      const detailLink = card.querySelector(".product-card-image-link");
+      if (detailLink) window.location.href = detailLink.href;
       return;
     }
-    const image = card.querySelector(".product-photo img, .product-detail-main-image img");
+    const selectedOption = variantSelect && variantSelect.selectedOptions ? variantSelect.selectedOptions[0] : null;
+    if (variantSelect && (!selectedOption || !selectedOption.value)) {
+      window.alert("Please choose a device configuration first.");
+      variantSelect.focus();
+      return;
+    }
+    const variantId = selectedOption ? String(selectedOption.value) : "";
+    const variantLabel = selectedOption ? (selectedOption.dataset.label || selectedOption.textContent.trim()) : "";
+    const stock = selectedOption ? Number(selectedOption.dataset.stock) : null;
+    const quantityInput = card.querySelector("[data-product-quantity]");
+    const quantity = Math.max(1, parseInt(quantityInput && quantityInput.value, 10) || 1);
+    if (stock !== null && Number.isFinite(stock) && quantity > stock) {
+      window.alert("Only " + stock + " of this configuration are currently available.");
+      return;
+    }
+    const cart = readCart();
+    const existing = cart.find(item => String(item.id) === id && String(item.variantId || "") === variantId);
+    if (existing) {
+      saveCart(cart.filter(item => !(String(item.id) === id && String(item.variantId || "") === variantId)));
+      return;
+    }
+    const image = card.querySelector(".product-photo img, .product-detail-main-image img, .premium-product-main-image img");
     cart.push({
       id,
+      variantId,
+      variantLabel,
       name: card.dataset.productName,
-      price: Number(card.dataset.productPrice),
+      price: selectedOption ? (Number(selectedOption.dataset.price) || Number(card.dataset.productPrice)) : Number(card.dataset.productPrice),
       description: card.dataset.productDescription || "",
       image: image ? image.src : "",
-      quantity: 1
+      quantity,
+      maxStock: stock
     });
     saveCart(cart);
   }
@@ -249,7 +295,7 @@
       const info = document.createElement("div");
       info.className = "cart-item-info";
       const name = document.createElement("h3");
-      name.textContent = item.name;
+      name.textContent = item.name + (item.variantLabel ? " · " + item.variantLabel : "");
       const price = document.createElement("p");
       price.className = "cart-item-price";
       price.textContent = money(item.price);
@@ -259,15 +305,15 @@
       decrease.type = "button"; decrease.textContent = "−"; decrease.setAttribute("aria-label", "Decrease " + item.name + " quantity");
       decrease.disabled = Number(item.quantity) <= 1;
       decrease.setAttribute("aria-disabled", decrease.disabled ? "true" : "false");
-      decrease.addEventListener("click", () => changeQuantity(item.id, -1));
+      decrease.addEventListener("click", () => changeQuantity(item.id, -1, item.variantId));
       const quantity = document.createElement("span");
       quantity.textContent = item.quantity;
       const increase = document.createElement("button");
       increase.type = "button"; increase.textContent = "+"; increase.setAttribute("aria-label", "Increase " + item.name + " quantity");
-      increase.addEventListener("click", () => changeQuantity(item.id, 1));
+      increase.addEventListener("click", () => changeQuantity(item.id, 1, item.variantId));
       const remove = document.createElement("button");
       remove.type = "button"; remove.className = "cart-remove"; remove.textContent = "Remove";
-      remove.addEventListener("click", () => removeItem(item.id));
+      remove.addEventListener("click", () => removeItem(item.id, item.variantId));
       controls.append(decrease, quantity, increase, remove);
       info.append(name, price, controls);
       const total = document.createElement("strong");
@@ -279,15 +325,22 @@
     const subtotal = document.getElementById("cart-subtotal");
     if (subtotal) subtotal.textContent = money(cart.reduce((sum, item) => sum + item.price * item.quantity, 0));
   }
-  function changeQuantity(id, delta) {
+  function changeQuantity(id, delta, variantId) {
     const cart = readCart();
-    const item = cart.find(entry => String(entry.id) === String(id));
+    const item = cart.find(entry => String(entry.id) === String(id) && String(entry.variantId || "") === String(variantId || ""));
     if (!item) return;
     const currentQuantity = Math.max(1, Number(item.quantity) || 1);
-    item.quantity = Math.max(1, currentQuantity + delta);
+    const nextQuantity = Math.max(1, currentQuantity + delta);
+    if (item.maxStock !== null && item.maxStock !== undefined && Number.isFinite(Number(item.maxStock)) && Number(item.maxStock) >= 0 && nextQuantity > Number(item.maxStock)) {
+      window.alert("Only " + item.maxStock + " of this configuration are currently available.");
+      return;
+    }
+    item.quantity = nextQuantity;
     saveCart(cart);
   }
-  function removeItem(id) { saveCart(readCart().filter(item => String(item.id) !== String(id))); }
+  function removeItem(id, variantId) {
+    saveCart(readCart().filter(item => !(String(item.id) === String(id) && String(item.variantId || "") === String(variantId || ""))));
+  }
   function clearWishlist() { localStorage.setItem(WISH_KEY, "[]"); updateWishlist([]); renderWishlistPage([]); renderWishlistDrawer(); }
   function moveWishlistToCart() {
     const saved = readWishlist(); if (!saved.length) return;
@@ -300,7 +353,7 @@
     const phone = (window.STORE_WHATSAPP || "").replace(/[^0-9]/g, "");
     if (!phone) { window.alert("This store has not added a WhatsApp number yet."); return; }
     if (!cart.length) return;
-    const lines = cart.map(item => "- " + item.name + " × " + item.quantity + " — " + money(item.price * item.quantity));
+    const lines = cart.map(item => "- " + item.name + (item.variantLabel ? " (" + item.variantLabel + ")" : "") + " × " + item.quantity + " — " + money(item.price * item.quantity));
     const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
     const message = "Hello " + (window.STORE_NAME || "") + ", I would like to order:\n" + lines.join("\n") + "\n\nSubtotal: " + money(total) + "\nPlease confirm availability.";
     window.open("https://wa.me/" + phone + "?text=" + encodeURIComponent(message), "_blank", "noopener");
@@ -349,19 +402,40 @@
     document.querySelectorAll("[data-cart-close]").forEach(button => button.addEventListener("click", closeCart));
     const overlay = document.querySelector("[data-cart-overlay]");
     if (overlay) overlay.addEventListener("click", closeCart);
-    document.addEventListener("change", event => {
+    document.addEventListener("submit", event => {
       const form = event.target.closest("[data-collection-filters]");
       if (!form) return;
-      navigateTo(collectionFilterUrl(form));
+      event.preventDefault();
+      const params = new URLSearchParams(new FormData(form));
+      navigateTo(form.action + "?" + params.toString());
+    });
+    document.addEventListener("change", event => {
+      if (event.target.matches("[data-product-variant]")) {
+        const option = event.target.selectedOptions[0];
+        const card = event.target.closest("[data-product-card]");
+        const price = card && card.querySelector("[data-product-current-price]");
+        const quantity = card && card.querySelector("[data-product-quantity]");
+        if (option && price) price.textContent = money(Number(option.dataset.price) || Number(card.dataset.productPrice));
+        if (quantity && option) { quantity.max = option.dataset.stock || ""; quantity.value = "1"; }
+        renderProductButtons(readCart());
+      }
+      const form = event.target.closest("[data-collection-filters]");
+      if (!form) return;
+      if (event.target.matches("[data-filter-category]")) {
+        form.requestSubmit();
+        return;
+      }
+      applyCollectionFilters(form);
     });
     document.addEventListener("reset", event => {
       const form = event.target.closest("[data-collection-filters]");
-      if (form) window.requestAnimationFrame(() => navigateTo(form.action || "/collection"));
+      if (form) window.requestAnimationFrame(() => applyCollectionFilters(form));
     });
-    document.addEventListener("submit", event => {
-      if (event.target.matches("[data-collection-filters]")) {
-        event.preventDefault();
-        navigateTo(collectionFilterUrl(event.target));
+    document.addEventListener("input", event => {
+      const form = event.target.closest("[data-collection-filters]");
+      if (!form) return;
+      if (event.target.matches('input[name="q"], input[name="min_price"], input[name="max_price"]')) {
+        applyCollectionFilters(form);
       }
     });
     document.addEventListener("keydown", event => {
@@ -386,6 +460,7 @@
     const cart = readCart(), wishlist = readWishlist();
     updateWishlist(wishlist); renderWishlistPage(wishlist);
     updateCount(cart); renderCart(); renderProductButtons(cart);
+    if (location.pathname === "/cart") openCart();
     const form = document.querySelector("[data-collection-filters]");
     if (form) applyCollectionFilters(form);
   }

@@ -6,9 +6,7 @@ request directly to the shop's WhatsApp number. Customers do not need accounts,
 and the application does not take payments.
 
 The private dashboard is for one shop owner to manage products, categories,
-images, inventory and store details. Product records include a brand and
-category-relevant specifications; variants store configuration, colour, price
-override and stock.
+images, inventory and store details.
 
 ## Local setup (Windows PowerShell)
 
@@ -89,32 +87,57 @@ The repository Procfile also sets the web start command to
 Command saved, it must match this command because dashboard settings override
 the Procfile.
 
-## Electronics catalogue data
-
-The owner dashboard's product form accepts technical specifications as one
-`Label: value` entry per line (for example `RAM: 8 GB` and `Storage: 256 GB`).
-Only specifications entered for a product are shown on its details page.
-Brand, category, price and common specifications can be combined in catalogue
-filters. Use the variant inventory page to set actual stock; new configurations
-start at zero stock.
-
-For a fresh preview store, `python -m flask --app "app:create_app()" seed-electronics`
-adds a one-time catalogue of sample products. It does nothing if the store
-already has products.
-
 ## Customer ordering
 
-1. Customer browses the catalogue and adds products to the locally saved cart.
-2. The cart opens a WhatsApp message with the selected products and subtotal.
-3. The shop owner confirms availability, delivery and payment directly with
+1. Customer opens the catalogue and chooses a device.
+2. Customer selects an available configuration, colour and quantity.
+3. The **Order on WhatsApp** link opens a message addressed to the shop,
+   containing the selected product, variant, quantity, price and product URL.
+4. The shop owner confirms availability, delivery and payment directly with
    the customer in WhatsApp.
 
-WhatsApp checkout does not create an order record, reserve stock, or deduct
-inventory. The owner confirms the order and updates stock from the dashboard.
-The existing order-related tables remain available for compatibility.
+The catalogue does not reserve stock or deduct inventory when a customer opens
+WhatsApp. The owner updates inventory from the dashboard after handling the
+order. Existing legacy cart/order routes and database tables are retained during
+this simplification to avoid destructive database changes; they are no longer
+part of the customer-facing navigation or product-order flow.
 
 ## Tests
 
 ```powershell
 python -m pytest -q
 ```
+
+
+## Electronics product data
+
+Products support optional brand, condition, warranty information and category-specific
+technical specifications. Specifications are stored as a JSON object so each product
+shows only the fields relevant to its category. For example:
+
+```json
+{
+  "RAM": "12 GB",
+  "Storage": "512 GB",
+  "Processor": "Snapdragon",
+  "Screen size": "6.8 inches",
+  "Battery": "5000 mAh"
+}
+```
+
+Use the product editor to enter a JSON object; do not add clothing-specific fields.
+The existing variant `size` value is presented as a device configuration in the
+storefront, while `colour`, price override, availability and stock remain managed
+through the existing variant inventory screen. Product galleries accept up to eight
+validated JPEG, PNG or WebP images and keep the first image as the cover.
+
+The additive migration `e3f1a7c2d901` adds nullable electronics metadata columns to
+the existing product table. It does not delete or rewrite existing product, customer,
+order or image records. Apply it using the normal deployment migration step:
+
+```bash
+python -m flask --app "app:create_app()" db upgrade
+```
+
+Existing orders remain WhatsApp handoffs: the catalogue does not collect online
+payments or reserve stock when a customer opens WhatsApp.

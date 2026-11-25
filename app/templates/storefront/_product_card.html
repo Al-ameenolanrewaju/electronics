@@ -1,21 +1,31 @@
 {% set cover_image = product.images|first %}
+{% set available_variants = product.variants|selectattr('is_available')|list %}
+{% set stock_count = available_variants|sum(attribute='stock_quantity') %}
 <article class="product-card luxury-product-card" data-product-card
   data-product-id="{{ product.id }}" data-product-slug="{{ product.slug }}" data-product-name="{{ product.name }}" data-product-price="{{ product.price }}"
   data-product-description="{{ product.description or '' }}"
-  data-category-name="{{ product.category.name|trim if product.category else '' }}" data-product-brand="{{ product.brand or '' }}"
-  data-product-sizes="{{ product.variants|selectattr('is_available')|map(attribute='size')|join('|') }}"
-  data-product-colours="{{ product.variants|selectattr('is_available')|map(attribute='colour')|join('|') }}">
+  data-product-brand="{{ product.brand or '' }}" data-product-condition="{{ product.condition or 'New' }}" data-product-specifications="{{ product.specifications|tojson }}"
+  data-category-name="{{ product.category.name|trim if product.category else '' }}"
+  data-product-sizes="{{ available_variants|map(attribute='size')|join('|') }}"
+  data-product-colours="{{ available_variants|map(attribute='colour')|join('|') }}"
+  data-product-stock="{{ stock_count }}">
   <div class="product-photo">
     <a class="product-card-image-link" href="{{ url_for('storefront.product_detail', slug=product.slug) }}" aria-label="View {{ product.name }}">
       {% if cover_image %}<img src="{{ cover_image.url }}" alt="{{ cover_image.alt_text or product.name }}" loading="lazy" decoding="async">
-      {% else %}<div class="fashion-placeholder"><span>Photo coming soon</span></div>{% endif %}
+      {% else %}<div class="fashion-placeholder"><span>Product image coming soon</span></div>{% endif %}
     </a>
+    {% if product.new_arrival %}<span class="product-badge">New arrival</span>{% elif product.discounted_price is not none %}<span class="product-badge">Special offer</span>{% endif %}
     <button class="product-favourite wishlist-toggle" type="button" data-wishlist-toggle aria-pressed="false" aria-label="Save {{ product.name }} for later">♡</button>
   </div>
   <div class="luxury-product-info">
+    {% if product.brand %}<p class="product-category-label">{{ product.brand }}</p>{% elif product.category %}<p class="product-category-label">{{ product.category.name|trim }}</p>{% endif %}
     <a class="product-card-title-link" href="{{ url_for('storefront.product_detail', slug=product.slug) }}"><h3>{{ product.name }}</h3></a>
-    {% if product.brand %}<p class="product-brand">{{ product.brand }}</p>{% endif %}
-    <p class="luxury-price">₦{{ "{:,.0f}".format(product.price) }}</p>
-    <button class="product-whatsapp-button add-to-cart-button" type="button" data-add-to-cart aria-pressed="false"><span aria-hidden="true">🛒</span> Add to Cart</button>
+    {% if product.condition and product.condition != "New" %}<p class="product-stock-label">{{ product.condition }}</p>{% endif %}
+    {% if product.specifications %}{% set key_spec = product.specifications|dictsort|first %}<p class="product-stock-label">{{ key_spec[0] }}: {{ key_spec[1] }}</p>{% endif %}
+    {% set product_colours = available_variants|map(attribute='colour')|select|unique|list %}
+    {% if product_colours %}<p class="product-stock-label">Colours: {{ product_colours|join(', ') }}</p>{% endif %}
+    <p class="luxury-price">₦{{ "{:,.0f}".format(product.price) }}{% if product.discounted_price is not none %}<span class="product-discount-price">₦{{ "{:,.0f}".format(product.regular_price) }}</span>{% endif %}</p>
+    {% if available_variants %}<p class="product-stock-label">{% if stock_count > 0 %}{{ stock_count }} available across configurations{% else %}Currently out of stock{% endif %}</p>{% endif %}
+    <button class="product-whatsapp-button add-to-cart-button" type="button" data-add-to-cart aria-pressed="false"><span aria-hidden="true">＋</span> Add to Cart</button>
   </div>
 </article>
