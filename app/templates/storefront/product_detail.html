@@ -5,7 +5,6 @@
 {% block body %}
 {% include "storefront/_nav.html" %}
 <main class="product-detail-page premium-product-page electronics-product-detail">
-  <nav class="electronics-breadcrumb" aria-label="Breadcrumb"><a href="{{ url_for('storefront.home') }}">Home</a><span aria-hidden="true">/</span><a href="{{ url_for('storefront.collection') }}">Shop</a>{% if product.category %}<span aria-hidden="true">/</span><a href="{{ url_for('storefront.category', slug=product.category.slug) }}">{{ product.category.name|trim }}</a>{% endif %}</nav>
   <section class="premium-product-layout" data-product-card
     data-product-id="{{ product.id }}"
     data-product-slug="{{ product.slug }}"
