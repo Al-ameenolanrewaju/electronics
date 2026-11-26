@@ -12,7 +12,7 @@
   <div class="product-photo">
     <a class="product-card-image-link" href="{{ url_for('storefront.product_detail', slug=product.slug) }}" aria-label="View {{ product.name }}">
       {% if cover_image %}<img src="{{ cover_image.url }}" alt="{{ cover_image.alt_text or product.name }}" loading="lazy" decoding="async">
-      {% else %}<div class="fashion-placeholder"><span>Product image coming soon</span></div>{% endif %}
+      {% else %}<div class="electronics-placeholder"><span>Product image coming soon</span></div>{% endif %}
     </a>
     {% if product.new_arrival %}<span class="product-badge">New arrival</span>{% elif product.discounted_price is not none %}<span class="product-badge">Special offer</span>{% endif %}
     <button class="product-favourite wishlist-toggle" type="button" data-wishlist-toggle aria-pressed="false" aria-label="Save {{ product.name }} for later">♡</button>

@@ -12,7 +12,7 @@ a { color: inherit; }
 .login-shell { min-height: 100vh; background: var(--paper); }
 .login-card { width: min(440px, calc(100% - 32px)); }
 .brand-preview { width: 120px; height: 120px; object-fit: contain; border: 1px solid var(--line); padding: 8px; }
-.fashion-store { background: #fff; color: var(--ink); }
+.electronics-store { background: #fff; color: var(--ink); }
 .announcement-bar { min-height: 30px; padding: 7px 12px; color: white; background: var(--brand-color, #25251f); text-align: center; font-size: 10px; letter-spacing: .14em; text-transform: uppercase; }
 .store-nav { min-height: 76px; display: flex; align-items: center; gap: 30px; border-bottom: 1px solid var(--line); background: #fff; }
 .store-brand { max-width: 190px; text-decoration: none; font-family: var(--serif); font-size: 24px; font-weight: 600; letter-spacing: .02em; }
@@ -181,7 +181,7 @@ a { color: inherit; }
 }
 
 /* ANJTOM-inspired luxury catalogue theme */
-.fashion-store { --ink:#f5f0e8; --paper:#15110f; --muted:#aaa096; --line:#39302a; --accent:#d0a75f; background:#15110f; color:#f5f0e8; }
+.electronics-store { --ink:#f5f0e8; --paper:#15110f; --muted:#aaa096; --line:#39302a; --accent:#d0a75f; background:#15110f; color:#f5f0e8; }
 .luxury-nav { position:sticky; top:0; z-index:50; min-height:108px; justify-content:space-between; padding:18px max(8vw,24px); border-bottom:1px solid #302822; background:rgba(21,17,15,.97); }
 .electronics-wordmark { display:flex; align-items:baseline; gap:10px; color:#f5f0e8; }
 .electronics-wordmark strong { font-size:.72em; letter-spacing:.08em; }
@@ -202,11 +202,11 @@ a { color: inherit; }
 .luxury-hero-copy p { max-width:650px; color:#c6bdb2; font-size:18px; line-height:1.7; }
 .luxury-hero-image { min-height:440px; height: min(44vw,570px); padding:16px; border:1px solid #3b3026; background:#1c1713; }
 .luxury-hero-image img { width:100%; height:100%; object-fit:cover; }
-.fashion-placeholder { display:flex; min-height:100%; width:100%; align-items:center; justify-content:center; position:relative; overflow:hidden; background:linear-gradient(145deg,#211a14,#15110f); color:#c9a96e; }
-.fashion-placeholder:before { content:""; width:28%; height:60%; border:2px solid #b99a66; border-radius:48% 48% 8% 8%; opacity:.8; }
-.fashion-placeholder span { position:absolute; bottom:18px; left:18px; padding:8px 10px; border:1px solid #55442e; color:#c8bca8; font-size:11px; letter-spacing:.1em; text-transform:uppercase; }
-.fashion-placeholder-hero:before { width:30%; height:70%; border-color:#d0b47e; }
-.fashion-placeholder-hero span { top:18px; bottom:auto; left:18px; font-size:12px; }
+.electronics-placeholder { display:flex; min-height:100%; width:100%; align-items:center; justify-content:center; position:relative; overflow:hidden; background:linear-gradient(145deg,#211a14,#15110f); color:#c9a96e; }
+.electronics-placeholder:before { content:""; width:28%; height:60%; border:2px solid #b99a66; border-radius:48% 48% 8% 8%; opacity:.8; }
+.electronics-placeholder span { position:absolute; bottom:18px; left:18px; padding:8px 10px; border:1px solid #55442e; color:#c8bca8; font-size:11px; letter-spacing:.1em; text-transform:uppercase; }
+.electronics-placeholder-hero:before { width:30%; height:70%; border-color:#d0b47e; }
+.electronics-placeholder-hero span { top:18px; bottom:auto; left:18px; font-size:12px; }
 .hero-actions { display:flex; flex-wrap:wrap; gap:16px; margin-top:34px; }
 .luxury-button { display:inline-flex; min-height:64px; align-items:center; justify-content:center; padding:0 28px; font-size:16px; font-weight:700; letter-spacing:.02em; text-decoration:none; }
 .luxury-button-gold { border:1px solid #d2aa68; background:#d2aa68; color:#17110b; }
@@ -225,7 +225,7 @@ a { color: inherit; }
 .luxury-product-card { border-right:1px solid var(--line); border-bottom:1px solid var(--line); }
 .luxury-product-card .product-photo { aspect-ratio:1.12/1; background:#201a15; }
 .luxury-product-card .product-photo img { object-fit:cover; }
-.luxury-product-card .fashion-placeholder:before { width:22%; height:55%; border-radius:42% 42% 3% 3%; }
+.luxury-product-card .electronics-placeholder:before { width:22%; height:55%; border-radius:42% 42% 3% 3%; }
 .luxury-product-info { padding:20px 22px 26px; }
 .luxury-product-info .product-category { margin:0 0 10px; color:#d5b77f; font-size:12px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; }
 .luxury-product-info h3 { margin:0 0 10px; font-size:clamp(20px,2.3vw,30px); font-weight:750; }
@@ -277,7 +277,7 @@ a { color: inherit; }
 
 
 /* Sulex catalogue refinement: editorial, light, responsive and catalogue-first */
-.fashion-store {
+.electronics-store {
   --ink:#22231f; --paper:#f6f3ed; --muted:#77766f; --line:#e4dfd6; --accent:#a9875d;
   background:#fbfaf7; color:#22231f;
 }
@@ -294,10 +294,10 @@ a { color: inherit; }
 .luxury-hero-copy p { color:#66645d; font-size:16px; }
 .luxury-hero-image { min-height:420px; height:min(42vw,520px); padding:0; border:0; background:#e6e0d6; }
 .luxury-hero-image img { display:block; }
-.fashion-placeholder { background:linear-gradient(145deg,#e8e1d6,#d9d0c2); color:#8d7658; }
-.fashion-placeholder:before { border-color:#a88a65; }
-.fashion-placeholder span { border-color:#c8b69d; color:#76644d; }
-.fashion-placeholder-hero:before { border-color:#a88a65; }
+.electronics-placeholder { background:linear-gradient(145deg,#e8e1d6,#d9d0c2); color:#8d7658; }
+.electronics-placeholder:before { border-color:#a88a65; }
+.electronics-placeholder span { border-color:#c8b69d; color:#76644d; }
+.electronics-placeholder-hero:before { border-color:#a88a65; }
 .luxury-button { min-height:54px; font-size:13px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; }
 .luxury-button-gold { border-color:#25251f; background:#25251f; color:#fff; }
 .luxury-button-gold:hover { border-color:#9b7952; background:#9b7952; color:#fff; }
@@ -362,7 +362,7 @@ a { color: inherit; }
 
 
 /* Sulex mobile and empty-catalogue corrections */
-.fashion-store .luxury-nav {
+.electronics-store .luxury-nav {
   display:flex !important;
   flex-direction:row !important;
   flex-wrap:nowrap !important;
@@ -373,8 +373,8 @@ a { color: inherit; }
   gap:16px;
   padding:16px clamp(18px,5vw,64px);
 }
-.fashion-store .luxury-brand { flex:0 0 auto; min-width:0; white-space:nowrap; }
-.fashion-store .luxury-menu {
+.electronics-store .luxury-brand { flex:0 0 auto; min-width:0; white-space:nowrap; }
+.electronics-store .luxury-menu {
   display:flex !important;
   flex:0 1 auto;
   flex-direction:row !important;
@@ -385,7 +385,7 @@ a { color: inherit; }
   margin:0 0 0 auto !important;
   min-width:0;
 }
-.fashion-store .luxury-menu a { display:inline-flex; flex:0 0 auto; white-space:nowrap; }
+.electronics-store .luxury-menu a { display:inline-flex; flex:0 0 auto; white-space:nowrap; }
 .editorial-brand-panel {
   display:flex; width:100%; height:100%; min-height:420px;
   flex-direction:column; justify-content:center; align-items:center;
@@ -419,14 +419,14 @@ a { color: inherit; }
   border-bottom:1px solid #b9a387; padding-bottom:5px;
 }
 @media(max-width:600px) {
-  .fashion-store .luxury-nav {
+  .electronics-store .luxury-nav {
     min-height:66px; padding:12px 16px; gap:10px;
   }
-  .fashion-store .luxury-brand { font-size:22px; }
-  .fashion-store .luxury-menu { gap:clamp(9px,3vw,15px); }
-  .fashion-store .luxury-menu a { font-size:9px; letter-spacing:.035em; }
-  .fashion-store .luxury-hero { grid-template-columns:minmax(0,1fr); }
-  .fashion-store .luxury-hero-image { height:270px; min-height:270px; }
+  .electronics-store .luxury-brand { font-size:22px; }
+  .electronics-store .luxury-menu { gap:clamp(9px,3vw,15px); }
+  .electronics-store .luxury-menu a { font-size:9px; letter-spacing:.035em; }
+  .electronics-store .luxury-hero { grid-template-columns:minmax(0,1fr); }
+  .electronics-store .luxury-hero-image { height:270px; min-height:270px; }
   .editorial-brand-panel { min-height:270px; }
   .catalogue-empty-state { margin-top:12px; padding:30px 20px; }
 }
@@ -593,7 +593,7 @@ a { color: inherit; }
 
 
 /* Sulex premium catalogue refinement — visual-only, preserves uploaded imagery */
-.fashion-store {
+.electronics-store {
   --sulex-ink:#24241f;
   --sulex-paper:#f8f6f1;
   --sulex-muted:#77736b;
@@ -602,129 +602,129 @@ a { color: inherit; }
   background:var(--sulex-paper);
   color:var(--sulex-ink);
 }
-.fashion-store .luxury-announcement { letter-spacing:.19em; }
-.fashion-store .luxury-nav {
+.electronics-store .luxury-announcement { letter-spacing:.19em; }
+.electronics-store .luxury-nav {
   position:relative;
   z-index:5;
   min-height:78px;
   border-bottom:1px solid var(--sulex-line);
   box-shadow:0 5px 22px rgba(45,39,30,.025);
 }
-.fashion-store .luxury-brand img { max-height:46px; }
-.fashion-store .luxury-menu a {
+.electronics-store .luxury-brand img { max-height:46px; }
+.electronics-store .luxury-menu a {
   padding:9px 0;
   border-bottom:1px solid transparent;
   transition:border-color .2s ease,color .2s ease;
 }
-.fashion-store .luxury-menu a:hover {
+.electronics-store .luxury-menu a:hover {
   border-bottom-color:var(--sulex-gold);
 }
-.fashion-store .luxury-hero {
+.electronics-store .luxury-hero {
   min-height:590px;
   align-items:center;
   gap:clamp(34px,5vw,78px);
   padding-top:clamp(54px,7vw,90px);
   padding-bottom:clamp(54px,7vw,90px);
 }
-.fashion-store .luxury-hero-copy { max-width:650px; }
-.fashion-store .luxury-hero .eyebrow {
+.electronics-store .luxury-hero-copy { max-width:650px; }
+.electronics-store .luxury-hero .eyebrow {
   margin-bottom:22px;
   letter-spacing:.22em;
 }
-.fashion-store .luxury-hero h1 {
+.electronics-store .luxury-hero h1 {
   max-width:650px;
   margin-bottom:24px;
   font-size:clamp(48px,5.7vw,78px);
   line-height:1.04;
 }
-.fashion-store .luxury-hero-copy p {
+.electronics-store .luxury-hero-copy p {
   max-width:540px;
   font-size:15px;
   line-height:1.85;
 }
-.fashion-store .luxury-hero-image {
+.electronics-store .luxury-hero-image {
   min-height:440px;
   height:min(43vw,570px);
   background:#e9e4da;
   box-shadow:0 18px 48px rgba(52,44,33,.09);
 }
-.fashion-store .luxury-hero-image img {
+.electronics-store .luxury-hero-image img {
   object-position:center;
 }
-.fashion-store .luxury-button {
+.electronics-store .luxury-button {
   min-height:52px;
   padding:0 23px;
   font-size:10px;
   letter-spacing:.12em;
   transition:transform .2s ease,background .2s ease,border-color .2s ease;
 }
-.fashion-store .luxury-button:hover { transform:translateY(-2px); }
-.fashion-store .luxury-proof-bar {
+.electronics-store .luxury-button:hover { transform:translateY(-2px); }
+.electronics-store .luxury-proof-bar {
   border-top:1px solid var(--sulex-line);
   border-bottom:1px solid var(--sulex-line);
 }
-.fashion-store .luxury-proof-bar > div {
+.electronics-store .luxury-proof-bar > div {
   min-height:94px;
   justify-content:center;
   padding:18px 24px;
 }
-.fashion-store .luxury-proof-bar strong {
+.electronics-store .luxury-proof-bar strong {
   font-size:10px;
   letter-spacing:.11em;
 }
-.fashion-store .luxury-proof-bar small {
+.electronics-store .luxury-proof-bar small {
   font-size:11px;
 }
-.fashion-store .luxury-collection {
+.electronics-store .luxury-collection {
   padding-top:clamp(54px,6vw,82px);
   padding-bottom:clamp(64px,7vw,90px);
 }
-.fashion-store .luxury-section-head {
+.electronics-store .luxury-section-head {
   margin-bottom:34px;
 }
-.fashion-store .luxury-section-head .eyebrow {
+.electronics-store .luxury-section-head .eyebrow {
   margin-bottom:10px;
   letter-spacing:.2em;
 }
-.fashion-store .luxury-section-head h2 {
+.electronics-store .luxury-section-head h2 {
   font-size:clamp(34px,4.2vw,52px);
   line-height:1.1;
 }
-.fashion-store .luxury-product-grid {
+.electronics-store .luxury-product-grid {
   grid-template-columns:repeat(4,minmax(0,1fr));
   column-gap:clamp(14px,2vw,28px);
   row-gap:48px;
 }
-.fashion-store .luxury-product-card {
+.electronics-store .luxury-product-card {
   min-width:0;
   transition:transform .25s ease;
 }
-.fashion-store .luxury-product-card:hover {
+.electronics-store .luxury-product-card:hover {
   transform:translateY(-3px);
 }
 /* Keep one unified catalogue: no category labels or collection badges on cards. */
-.fashion-store .luxury-product-info .product-category,
-.fashion-store .luxury-product-card .product-tag {
+.electronics-store .luxury-product-info .product-category,
+.electronics-store .luxury-product-card .product-tag {
   display:none !important;
 }
-.fashion-store .luxury-product-card .product-photo {
+.electronics-store .luxury-product-card .product-photo {
   aspect-ratio:3/4;
   background:#eeeae2;
 }
-.fashion-store .luxury-product-card .product-photo img {
+.electronics-store .luxury-product-card .product-photo img {
   display:block;
   width:100%;
   height:100%;
   object-fit:cover;
   transition:transform .55s cubic-bezier(.2,.65,.2,1);
 }
-.fashion-store .luxury-product-card:hover .product-photo img {
+.electronics-store .luxury-product-card:hover .product-photo img {
   transform:scale(1.025);
 }
-.fashion-store .luxury-product-info {
+.electronics-store .luxury-product-info {
   padding:16px 0 0;
 }
-.fashion-store .luxury-product-info h3 {
+.electronics-store .luxury-product-info h3 {
   margin:0 0 8px;
   color:var(--sulex-ink);
   font-family:var(--serif);
@@ -732,16 +732,16 @@ a { color: inherit; }
   line-height:1.25;
   font-weight:400;
 }
-.fashion-store .luxury-price {
+.electronics-store .luxury-price {
   margin:0 0 13px;
   color:#5f5b53;
   font-size:14px;
   letter-spacing:.015em;
 }
-.fashion-store .product-card-actions {
+.electronics-store .product-card-actions {
   margin-top:12px;
 }
-.fashion-store .product-whatsapp-button {
+.electronics-store .product-whatsapp-button {
   min-height:43px;
   padding:11px 15px;
   border-color:var(--sulex-ink);
@@ -750,89 +750,89 @@ a { color: inherit; }
   letter-spacing:.12em;
   transition:background .2s ease,border-color .2s ease,transform .2s ease;
 }
-.fashion-store .product-whatsapp-button:hover {
+.electronics-store .product-whatsapp-button:hover {
   transform:translateY(-1px);
   border-color:var(--sulex-gold);
   background:var(--sulex-gold);
 }
-.fashion-store .luxury-order-banner {
+.electronics-store .luxury-order-banner {
   margin-bottom:76px;
   padding:clamp(26px,4vw,44px);
   background:#f2eee6;
 }
-.fashion-store .luxury-order-banner h2 {
+.electronics-store .luxury-order-banner h2 {
   max-width:600px;
   font-size:clamp(30px,3.5vw,43px);
 }
-.fashion-store a:focus-visible {
+.electronics-store a:focus-visible {
   outline:2px solid var(--sulex-gold);
   outline-offset:4px;
 }
 @media(max-width:1100px) {
-  .fashion-store .luxury-product-grid {
+  .electronics-store .luxury-product-grid {
     grid-template-columns:repeat(3,minmax(0,1fr));
   }
 }
 @media(max-width:900px) {
-  .fashion-store .luxury-hero {
+  .electronics-store .luxury-hero {
     gap:28px;
     padding:48px 24px;
   }
-  .fashion-store .luxury-hero-image {
+  .electronics-store .luxury-hero-image {
     min-height:340px;
     height:42vw;
   }
-  .fashion-store .luxury-product-grid {
+  .electronics-store .luxury-product-grid {
     grid-template-columns:repeat(2,minmax(0,1fr));
     gap:34px 18px;
   }
-  .fashion-store .luxury-proof-bar > div {
+  .electronics-store .luxury-proof-bar > div {
     padding:14px 12px;
   }
 }
 @media(max-width:600px) {
-  .fashion-store .luxury-nav {
+  .electronics-store .luxury-nav {
     min-height:66px;
     padding:10px 16px;
   }
-  .fashion-store .luxury-brand { font-size:21px; }
-  .fashion-store .luxury-menu { gap:13px; }
-  .fashion-store .luxury-menu a {
+  .electronics-store .luxury-brand { font-size:21px; }
+  .electronics-store .luxury-menu { gap:13px; }
+  .electronics-store .luxury-menu a {
     font-size:9px;
     letter-spacing:.07em;
   }
-  .fashion-store .luxury-hero {
+  .electronics-store .luxury-hero {
     padding:42px 18px 34px;
     gap:25px;
   }
-  .fashion-store .luxury-hero h1 {
+  .electronics-store .luxury-hero h1 {
     max-width:440px;
     font-size:clamp(40px,11vw,50px);
   }
-  .fashion-store .luxury-hero-copy p {
+  .electronics-store .luxury-hero-copy p {
     font-size:14px;
     line-height:1.75;
   }
-  .fashion-store .luxury-hero-image {
+  .electronics-store .luxury-hero-image {
     height:290px;
     min-height:290px;
     box-shadow:0 12px 30px rgba(52,44,33,.07);
   }
-  .fashion-store .luxury-proof-bar > div {
+  .electronics-store .luxury-proof-bar > div {
     min-height:68px;
     justify-content:flex-start;
     padding:12px 20px;
   }
-  .fashion-store .luxury-proof-bar > div > span { font-size:19px; }
-  .fashion-store .luxury-collection { padding:44px 16px 54px; }
-  .fashion-store .luxury-section-head { margin-bottom:24px; }
-  .fashion-store .luxury-product-grid {
+  .electronics-store .luxury-proof-bar > div > span { font-size:19px; }
+  .electronics-store .luxury-collection { padding:44px 16px 54px; }
+  .electronics-store .luxury-section-head { margin-bottom:24px; }
+  .electronics-store .luxury-product-grid {
     grid-template-columns:repeat(2,minmax(0,1fr));
     gap:29px 12px;
   }
-  .fashion-store .luxury-product-card .product-photo { aspect-ratio:3/4.15; }
-  .fashion-store .luxury-product-info { padding-top:12px; }
-  .fashion-store .luxury-product-info h3 { font-size:17px; }
+  .electronics-store .luxury-product-card .product-photo { aspect-ratio:3/4.15; }
+  .electronics-store .luxury-product-info { padding-top:12px; }
+  .electronics-store .luxury-product-info h3 { font-size:17px; }
 
   .electronics-wordmark {
     display:flex;
@@ -855,50 +855,50 @@ a { color: inherit; }
     font-style:normal;
     letter-spacing:.23em;
   }
-  .fashion-store .luxury-price { font-size:13px; }
-  .fashion-store .product-whatsapp-button {
+  .electronics-store .luxury-price { font-size:13px; }
+  .electronics-store .product-whatsapp-button {
     width:100%;
     min-height:40px;
     padding:9px 5px;
     font-size:8px;
     letter-spacing:.08em;
   }
-  .fashion-store .luxury-order-banner {
+  .electronics-store .luxury-order-banner {
     margin:0 16px 46px;
     padding:24px 18px;
   }
 }
 @media(prefers-reduced-motion:reduce) {
-  .fashion-store .luxury-product-card,
-  .fashion-store .luxury-product-card .product-photo img,
-  .fashion-store .luxury-button,
-  .fashion-store .product-whatsapp-button {
+  .electronics-store .luxury-product-card,
+  .electronics-store .luxury-product-card .product-photo img,
+  .electronics-store .luxury-button,
+  .electronics-store .product-whatsapp-button {
     transition:none !important;
   }
 }
 
 
 /* Fix mobile catalogue image cropping and single-item alignment */
-.fashion-store .luxury-product-card .product-photo {
+.electronics-store .luxury-product-card .product-photo {
   display:flex;
   align-items:center;
   justify-content:center;
   aspect-ratio:3/4;
   background:#f0eee8;
 }
-.fashion-store .luxury-product-card .product-photo img {
+.electronics-store .luxury-product-card .product-photo img {
   display:block;
   width:100%;
   height:100%;
   object-fit:contain;
   object-position:center;
 }
-.fashion-store .luxury-product-grid:has(> .luxury-product-card:only-child) {
+.electronics-store .luxury-product-grid:has(> .luxury-product-card:only-child) {
   grid-template-columns:minmax(0,420px);
   justify-content:center;
 }
 @media(max-width:600px) {
-  .fashion-store .luxury-product-grid:has(> .luxury-product-card:only-child) {
+  .electronics-store .luxury-product-grid:has(> .luxury-product-card:only-child) {
     grid-template-columns:minmax(0,1fr);
     max-width:440px;
     margin-right:auto;
@@ -909,33 +909,33 @@ a { color: inherit; }
 
 /* Sulex catalogue density: 5 columns desktop, 3 columns mobile.
    Preserve the existing hero, proof points and promotional sections. */
-.fashion-store .luxury-product-grid {
+.electronics-store .luxury-product-grid {
   grid-template-columns:repeat(5,minmax(0,1fr));
   column-gap:clamp(12px,1.7vw,24px);
   row-gap:clamp(28px,3vw,44px);
 }
 @media(max-width:900px) {
-  .fashion-store .luxury-product-grid {
+  .electronics-store .luxury-product-grid {
     grid-template-columns:repeat(3,minmax(0,1fr));
     gap:26px 12px;
   }
 }
 @media(max-width:600px) {
-  .fashion-store .luxury-product-grid {
+  .electronics-store .luxury-product-grid {
     grid-template-columns:repeat(3,minmax(0,1fr));
     gap:24px 9px;
   }
-  .fashion-store .luxury-product-card .product-photo {
+  .electronics-store .luxury-product-card .product-photo {
     aspect-ratio:3/4;
   }
-  .fashion-store .luxury-product-info h3 {
+  .electronics-store .luxury-product-info h3 {
     font-size:15px;
     line-height:1.25;
   }
-  .fashion-store .luxury-price {
+  .electronics-store .luxury-price {
     font-size:12px;
   }
-  .fashion-store .product-whatsapp-button {
+  .electronics-store .product-whatsapp-button {
     min-height:36px;
     padding:8px 4px;
     font-size:8px;
@@ -943,26 +943,26 @@ a { color: inherit; }
   }
 }
 @media(max-width:380px) {
-  .fashion-store .luxury-product-grid {
+  .electronics-store .luxury-product-grid {
     column-gap:7px;
   }
-  .fashion-store .luxury-product-info h3 { font-size:14px; }
-  .fashion-store .product-whatsapp-button { font-size:7px; }
+  .electronics-store .luxury-product-info h3 { font-size:14px; }
+  .electronics-store .product-whatsapp-button { font-size:7px; }
 }
 
 
 /* Sulex catalogue: larger, clearer product photography on mobile */
 @media(max-width:600px) {
-  .fashion-store .luxury-product-grid {
+  .electronics-store .luxury-product-grid {
     grid-template-columns:repeat(2,minmax(0,1fr));
     gap:30px 14px;
   }
-  .fashion-store .luxury-product-card .product-photo {
+  .electronics-store .luxury-product-card .product-photo {
     aspect-ratio:3/4;
     overflow:hidden;
     background:#eeeae2;
   }
-  .fashion-store .luxury-product-card .product-photo img {
+  .electronics-store .luxury-product-card .product-photo img {
     width:100%;
     height:100%;
     object-fit:cover;
@@ -972,33 +972,33 @@ a { color: inherit; }
 
 
 /* Final Sulex catalogue density: 4 desktop, 3 tablet, 2 mobile */
-.fashion-store .luxury-product-grid {
+.electronics-store .luxury-product-grid {
   grid-template-columns:repeat(4,minmax(0,1fr));
 }
 @media(min-width:901px) {
-  .fashion-store .luxury-product-grid {
+  .electronics-store .luxury-product-grid {
     grid-template-columns:repeat(4,minmax(0,1fr));
   }
 }
 
 
 /* Compact editorial storefront and collection/cart experience */
-.fashion-store .luxury-nav { min-height:68px; padding:10px clamp(16px,4vw,52px); gap:18px; }
-.fashion-store .luxury-brand img { max-height:40px; }
-.fashion-store .luxury-menu { margin-left:auto !important; margin-right:0 !important; }
-.fashion-store .cart-nav-link { display:inline-flex; align-items:center; gap:8px; text-decoration:none; font-size:10px; letter-spacing:.1em; text-transform:uppercase; white-space:nowrap; }
-.fashion-store .bag-count { background:#24251f; color:#fff; min-width:21px; height:21px; }
-.fashion-store .luxury-hero { min-height:0; padding:clamp(34px,4vw,58px) clamp(18px,7vw,100px); grid-template-columns:1.05fr .95fr; gap:clamp(24px,4vw,64px); }
-.fashion-store .luxury-hero h1 { margin-bottom:14px; font-size:clamp(40px,4.8vw,66px); line-height:1.02; }
-.fashion-store .luxury-hero .eyebrow { margin-bottom:12px; }
-.fashion-store .luxury-hero-copy p { margin-bottom:20px; font-size:14px; line-height:1.65; }
-.fashion-store .luxury-hero-image { height:clamp(300px,34vw,450px); min-height:0; }
-.fashion-store .luxury-hero-image img { width:100%; height:100%; object-fit:cover; }
-.fashion-store .luxury-collection { padding:clamp(40px,5vw,64px) clamp(18px,7vw,100px) 64px; }
-.fashion-store .luxury-section-head { margin-bottom:24px; }
-.fashion-store .luxury-product-grid { grid-template-columns:repeat(4,minmax(0,1fr)); gap:30px 18px; }
-.fashion-store .luxury-product-card .product-photo { aspect-ratio:3/4; background:#eeeae2; }
-.fashion-store .luxury-product-card .product-photo img { width:100%; height:100%; object-fit:cover; }
+.electronics-store .luxury-nav { min-height:68px; padding:10px clamp(16px,4vw,52px); gap:18px; }
+.electronics-store .luxury-brand img { max-height:40px; }
+.electronics-store .luxury-menu { margin-left:auto !important; margin-right:0 !important; }
+.electronics-store .cart-nav-link { display:inline-flex; align-items:center; gap:8px; text-decoration:none; font-size:10px; letter-spacing:.1em; text-transform:uppercase; white-space:nowrap; }
+.electronics-store .bag-count { background:#24251f; color:#fff; min-width:21px; height:21px; }
+.electronics-store .luxury-hero { min-height:0; padding:clamp(34px,4vw,58px) clamp(18px,7vw,100px); grid-template-columns:1.05fr .95fr; gap:clamp(24px,4vw,64px); }
+.electronics-store .luxury-hero h1 { margin-bottom:14px; font-size:clamp(40px,4.8vw,66px); line-height:1.02; }
+.electronics-store .luxury-hero .eyebrow { margin-bottom:12px; }
+.electronics-store .luxury-hero-copy p { margin-bottom:20px; font-size:14px; line-height:1.65; }
+.electronics-store .luxury-hero-image { height:clamp(300px,34vw,450px); min-height:0; }
+.electronics-store .luxury-hero-image img { width:100%; height:100%; object-fit:cover; }
+.electronics-store .luxury-collection { padding:clamp(40px,5vw,64px) clamp(18px,7vw,100px) 64px; }
+.electronics-store .luxury-section-head { margin-bottom:24px; }
+.electronics-store .luxury-product-grid { grid-template-columns:repeat(4,minmax(0,1fr)); gap:30px 18px; }
+.electronics-store .luxury-product-card .product-photo { aspect-ratio:3/4; background:#eeeae2; }
+.electronics-store .luxury-product-card .product-photo img { width:100%; height:100%; object-fit:cover; }
 .product-description-card { display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; margin:0 0 8px; color:#77736b; font-size:12px; line-height:1.5; }
 .collection-next { display:flex; justify-content:center; margin-top:38px; }
 .collection-next .luxury-button { min-width:240px; }
@@ -1039,21 +1039,21 @@ a { color: inherit; }
 .cart-empty p { color:#77736b; }
 .cart-empty[hidden],.cart-summary[hidden] { display:none !important; }
 @media(max-width:900px) {
- .fashion-store .luxury-product-grid,.collection-product-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
- .fashion-store .luxury-hero { padding:40px 24px; }
+ .electronics-store .luxury-product-grid,.collection-product-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+ .electronics-store .luxury-hero { padding:40px 24px; }
 }
 @media(max-width:600px) {
- .fashion-store .luxury-nav { min-height:62px; padding:9px 14px; gap:10px; }
- .fashion-store .luxury-menu { gap:12px; }
- .fashion-store .luxury-menu a { font-size:9px; }
- .fashion-store .cart-nav-link { font-size:9px; }
- .fashion-store .luxury-hero { padding:30px 18px 28px; gap:20px; }
- .fashion-store .luxury-hero h1 { font-size:clamp(38px,10vw,48px); }
- .fashion-store .luxury-hero-image { height:260px; }
- .fashion-store .luxury-collection { padding:38px 14px 48px; }
- .fashion-store .luxury-product-grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:24px 12px; }
- .fashion-store .luxury-product-card .product-photo { aspect-ratio:3/4.2; }
- .fashion-store .luxury-product-info h3 { font-size:16px; }
+ .electronics-store .luxury-nav { min-height:62px; padding:9px 14px; gap:10px; }
+ .electronics-store .luxury-menu { gap:12px; }
+ .electronics-store .luxury-menu a { font-size:9px; }
+ .electronics-store .cart-nav-link { font-size:9px; }
+ .electronics-store .luxury-hero { padding:30px 18px 28px; gap:20px; }
+ .electronics-store .luxury-hero h1 { font-size:clamp(38px,10vw,48px); }
+ .electronics-store .luxury-hero-image { height:260px; }
+ .electronics-store .luxury-collection { padding:38px 14px 48px; }
+ .electronics-store .luxury-product-grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:24px 12px; }
+ .electronics-store .luxury-product-card .product-photo { aspect-ratio:3/4.2; }
+ .electronics-store .luxury-product-info h3 { font-size:16px; }
  .product-description-card { font-size:11px; }
  .luxury-footer-inner { grid-template-columns:1fr 1fr; gap:24px; padding:28px 18px; }
  .collection-page,.cart-page { padding:38px 16px 54px; }
@@ -1067,7 +1067,7 @@ a { color: inherit; }
  .cart-summary { align-items:stretch; }
  .cart-summary .luxury-button { width:100%; }
 }
-@media(prefers-reduced-motion:reduce) { .fashion-store * { scroll-behavior:auto !important; transition:none !important; } }
+@media(prefers-reduced-motion:reduce) { .electronics-store * { scroll-behavior:auto !important; transition:none !important; } }
 
 .footer-socials { display:flex; flex-wrap:wrap; gap:12px; margin-top:8px; }
 
@@ -1167,17 +1167,17 @@ a { color: inherit; }
 
 
 /* Storefront cart drawer and refined footer */
-.fashion-store .luxury-nav { justify-content:space-between; }
-.fashion-store .luxury-menu { margin-left:auto !important; margin-right:0 !important; }
-.fashion-store .luxury-menu a { display:none; }
-.fashion-store .luxury-menu a:first-child { display:inline-flex; }
-.fashion-store .cart-nav-link {
+.electronics-store .luxury-nav { justify-content:space-between; }
+.electronics-store .luxury-menu { margin-left:auto !important; margin-right:0 !important; }
+.electronics-store .luxury-menu a { display:none; }
+.electronics-store .luxury-menu a:first-child { display:inline-flex; }
+.electronics-store .cart-nav-link {
   display:inline-flex; align-items:center; justify-content:center; gap:9px;
   min-height:40px; padding:0 4px 0 14px; border:0; background:transparent;
   color:var(--sulex-ink); cursor:pointer; font:inherit; font-size:10px;
   letter-spacing:.13em; text-transform:uppercase;
 }
-.fashion-store .cart-nav-link:hover { color:var(--sulex-gold); }
+.electronics-store .cart-nav-link:hover { color:var(--sulex-gold); }
 .cart-overlay {
   position:fixed; inset:0; z-index:1000; background:rgba(22,22,19,.48);
   opacity:1; backdrop-filter:blur(2px);
@@ -1269,7 +1269,7 @@ body.cart-is-open { overflow:hidden; }
 @media(prefers-reduced-motion:reduce) { .cart-drawer { animation:none; } }
 
 /* Product cart state and premium cart drawer refinements */
-.fashion-store .add-to-cart-button {
+.electronics-store .add-to-cart-button {
   min-height:46px;
   margin-top:7px;
   border:1px solid #25251f;
@@ -1281,13 +1281,13 @@ body.cart-is-open { overflow:hidden; }
   text-transform:uppercase;
   transition:background .18s ease,border-color .18s ease,color .18s ease,transform .18s ease;
 }
-.fashion-store .add-to-cart-button:hover { transform:translateY(-1px); background:#454238; }
-.fashion-store .add-to-cart-button.is-added {
+.electronics-store .add-to-cart-button:hover { transform:translateY(-1px); background:#454238; }
+.electronics-store .add-to-cart-button.is-added {
   border-color:#b18d61;
   background:#f3eee5;
   color:#735b3d;
 }
-.fashion-store .add-to-cart-button.is-added:hover { background:#e9dfd0; }
+.electronics-store .add-to-cart-button.is-added:hover { background:#e9dfd0; }
 .cart-drawer { width:min(500px,100%); background:#fffefa; }
 .cart-drawer-header { padding:28px 30px 22px; }
 .cart-drawer-header h2 { font-size:32px; }
@@ -1305,7 +1305,7 @@ body.cart-is-open { overflow:hidden; }
 .cart-subtotal-line strong { font-size:25px; }
 .cart-checkout-button { min-height:54px; padding:0 19px; font-size:10px; letter-spacing:.1em; }
 @media(max-width:600px) {
-  .fashion-store .add-to-cart-button { min-height:42px; font-size:9px; letter-spacing:.06em; }
+  .electronics-store .add-to-cart-button { min-height:42px; font-size:9px; letter-spacing:.06em; }
   .cart-drawer-header { padding:22px 20px 18px; }
   .cart-drawer-header h2 { font-size:29px; }
   .cart-drawer-body { padding:0 20px; }
@@ -1316,9 +1316,9 @@ body.cart-is-open { overflow:hidden; }
 
 
 /* Icon-only cart control in the storefront navigation */
-.fashion-store .cart-nav-link { gap:8px; padding:0 4px 0 12px; }
-.fashion-store .cart-nav-icon { width:21px; height:21px; fill:none; stroke:currentColor; stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round; }
-.fashion-store .cart-nav-link .bag-count { font-size:10px; letter-spacing:0; text-transform:none; }
+.electronics-store .cart-nav-link { gap:8px; padding:0 4px 0 12px; }
+.electronics-store .cart-nav-icon { width:21px; height:21px; fill:none; stroke:currentColor; stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round; }
+.electronics-store .cart-nav-link .bag-count { font-size:10px; letter-spacing:0; text-transform:none; }
 .cart-quantity button:disabled { opacity:.38; cursor:not-allowed; background:#f1eee8; }
 
 
@@ -1334,28 +1334,28 @@ body.cart-is-open { overflow:hidden; }
 
 
 /* Final compact sizing for the storefront header and footer */
-.fashion-store .luxury-nav {
+.electronics-store .luxury-nav {
   min-height:60px;
   height:auto;
   padding:7px clamp(18px,4vw,56px);
   gap:16px;
 }
-.fashion-store .luxury-brand {
+.electronics-store .luxury-brand {
   font-size:clamp(18px,1.8vw,25px);
   line-height:1;
 }
-.fashion-store .luxury-brand img {
+.electronics-store .luxury-brand img {
   display:block;
   max-width:160px;
   max-height:30px;
 }
-.fashion-store .luxury-menu a {
+.electronics-store .luxury-menu a {
   font-size:12px;
 }
-.fashion-store .cart-nav-link {
+.electronics-store .cart-nav-link {
   min-height:34px;
 }
-.fashion-store .luxury-footer-inner {
+.electronics-store .luxury-footer-inner {
   display:flex;
   min-height:0;
   align-items:center;
@@ -1364,92 +1364,92 @@ body.cart-is-open { overflow:hidden; }
   padding:20px 24px;
   text-align:center;
 }
-.fashion-store .luxury-footer .footer-contact-column {
+.electronics-store .luxury-footer .footer-contact-column {
   align-items:center;
 }
-.fashion-store .luxury-footer .footer-socials {
+.electronics-store .luxury-footer .footer-socials {
   justify-content:center;
   gap:12px;
   margin:0;
 }
-.fashion-store .luxury-footer .footer-socials a {
+.electronics-store .luxury-footer .footer-socials a {
   width:32px;
   height:32px;
 }
-.fashion-store .luxury-footer .footer-socials svg {
+.electronics-store .luxury-footer .footer-socials svg {
   width:15px;
   height:15px;
 }
-.fashion-store .luxury-footer-bottom {
+.electronics-store .luxury-footer-bottom {
   min-height:0;
   padding:10px clamp(18px,4vw,56px);
   font-size:10px;
 }
-.fashion-store .luxury-footer-bottom span,
-.fashion-store .luxury-footer-bottom a {
+.electronics-store .luxury-footer-bottom span,
+.electronics-store .luxury-footer-bottom a {
   margin:0;
   line-height:1.4;
 }
 @media(max-width:700px) {
-  .fashion-store .luxury-nav {
+  .electronics-store .luxury-nav {
     min-height:54px;
     padding:6px 14px;
     gap:10px;
   }
-  .fashion-store .luxury-brand img {
+  .electronics-store .luxury-brand img {
     max-width:120px;
     max-height:28px;
   }
-  .fashion-store .luxury-footer-inner {
+  .electronics-store .luxury-footer-inner {
     padding:16px 16px;
   }
-  .fashion-store .luxury-footer-bottom {
+  .electronics-store .luxury-footer-bottom {
     padding:9px 16px;
   }
 }
 
 
 /* Tighten and slightly raise the homepage hero copy */
-.fashion-store .luxury-hero {
+.electronics-store .luxury-hero {
   padding-top:clamp(22px,2.8vw,38px);
   padding-bottom:clamp(28px,3.2vw,44px);
 }
-.fashion-store .luxury-hero-copy {
+.electronics-store .luxury-hero-copy {
   transform:translateY(-14px);
 }
-.fashion-store .luxury-hero h1 {
+.electronics-store .luxury-hero h1 {
   margin-top:8px;
   margin-bottom:10px;
 }
-.fashion-store .luxury-hero .eyebrow {
+.electronics-store .luxury-hero .eyebrow {
   margin-bottom:7px;
 }
 @media(max-width:900px) {
-  .fashion-store .luxury-hero { padding-top:28px; padding-bottom:30px; }
-  .fashion-store .luxury-hero-copy { transform:translateY(-8px); }
+  .electronics-store .luxury-hero { padding-top:28px; padding-bottom:30px; }
+  .electronics-store .luxury-hero-copy { transform:translateY(-8px); }
 }
 @media(max-width:600px) {
-  .fashion-store .luxury-hero { padding-top:22px; padding-bottom:24px; }
-  .fashion-store .luxury-hero-copy { transform:translateY(-6px); }
+  .electronics-store .luxury-hero { padding-top:22px; padding-bottom:24px; }
+  .electronics-store .luxury-hero-copy { transform:translateY(-6px); }
 }
 
 
 /* Storefront refinements: top-aligned hero, usable filters and an About footer */
-.fashion-store .luxury-hero {
+.electronics-store .luxury-hero {
   align-items:start;
   padding-top:clamp(8px,1.2vw,18px);
   padding-bottom:clamp(22px,2.6vw,36px);
 }
-.fashion-store .luxury-hero-copy { transform:none; align-self:start; padding-top:clamp(8px,1.4vw,18px); }
-.fashion-store .luxury-hero h1 { margin-top:4px; margin-bottom:10px; }
-.fashion-store .luxury-hero .eyebrow { margin-bottom:6px; }
+.electronics-store .luxury-hero-copy { transform:none; align-self:start; padding-top:clamp(8px,1.4vw,18px); }
+.electronics-store .luxury-hero h1 { margin-top:4px; margin-bottom:10px; }
+.electronics-store .luxury-hero .eyebrow { margin-bottom:6px; }
 @media(max-width:900px) {
-  .fashion-store .luxury-hero { padding-top:10px; padding-bottom:24px; }
-  .fashion-store .luxury-hero-copy { padding-top:4px; }
+  .electronics-store .luxury-hero { padding-top:10px; padding-bottom:24px; }
+  .electronics-store .luxury-hero-copy { padding-top:4px; }
 }
 @media(max-width:600px) {
-  .fashion-store .luxury-hero { padding-top:8px; padding-bottom:20px; }
-  .fashion-store .luxury-hero-copy { padding-top:2px; }
+  .electronics-store .luxury-hero { padding-top:8px; padding-bottom:20px; }
+  .electronics-store .luxury-hero-copy { padding-top:2px; }
 }
 .collection-filters {
   display:flex; flex-wrap:wrap; align-items:end; gap:12px;
@@ -1497,87 +1497,87 @@ body.cart-is-open { overflow:hidden; }
 
 
 /* Approved storefront reference: warm editorial catalogue layout */
-.fashion-store { background:#fbf9f5; color:#24170f; }
-.fashion-store .luxury-nav { min-height:60px; padding:6px clamp(20px,5.2vw,64px); display:grid; grid-template-columns:1fr auto 1fr; background:#fbf9f5; border-bottom:1px solid #e8e0d7; }
-.fashion-store .luxury-brand { justify-self:start; font:600 30px/1 var(--serif); letter-spacing:-.03em; }
-.fashion-store .luxury-menu { justify-self:center; gap:48px; margin:0; }
-.fashion-store .luxury-menu a { font:500 14px/1 Inter,"Segoe UI",sans-serif; letter-spacing:0; text-transform:none; }
-.fashion-store .luxury-nav-actions { justify-self:end; display:flex; align-items:center; gap:20px; }
-.fashion-store .nav-search-link svg { width:25px; height:25px; fill:none; stroke:currentColor; stroke-width:1.8; }
-.fashion-store .cart-nav-link { position:relative; display:flex; align-items:center; border:0; padding:0; background:transparent; }
-.fashion-store .cart-nav-icon { width:26px; height:26px; fill:none; stroke:currentColor; stroke-width:1.7; }
-.fashion-store .bag-count { position:absolute; top:-8px; right:-9px; min-width:18px; height:18px; color:white; background:#2d1a10; font-size:10px; }
-.fashion-store .luxury-hero { min-height:330px; display:grid; grid-template-columns:1.05fr .95fr; align-items:stretch; gap:0; padding:0 clamp(28px,5.2vw,64px); background:#f2e9df; }
-.fashion-store .luxury-hero-copy { align-self:center; max-width:590px; padding:28px 24px 28px 0; transform:none; }
-.fashion-store .luxury-hero .eyebrow { color:#65584e; margin-bottom:10px; font-size:11px; letter-spacing:.15em; }
-.fashion-store .luxury-hero h1 { margin:0 0 12px; color:#24170f; font:400 clamp(36px,4.2vw,58px)/.98 var(--serif); letter-spacing:-.035em; }
-.fashion-store .luxury-hero h1 em { font-style:normal; }
-.fashion-store .luxury-hero-copy p { max-width:470px; margin:0 0 20px; color:#5d554e; font-size:15px; line-height:1.55; }
-.fashion-store .hero-actions { display:flex; flex-wrap:wrap; gap:12px; }
-.fashion-store .luxury-button { min-height:46px; display:inline-flex; align-items:center; justify-content:center; gap:9px; padding:0 22px; border-radius:11px; font-size:13px; font-weight:600; text-decoration:none; }
-.fashion-store .luxury-button-gold { color:#fff; background:#3b2113; border:1px solid #3b2113; }
-.fashion-store .luxury-button-outline { color:#2a1c13; background:#fbf9f5; border:1px solid #b8a99b; }
-.fashion-store .luxury-hero-image { min-height:330px; height:100%; overflow:hidden; background:#e6d7ca; }
-.fashion-store .luxury-hero-image img { width:100%; height:100%; min-height:330px; object-fit:cover; object-position:center 35%; }
-.fashion-store .luxury-collection { padding:22px clamp(22px,4.5vw,56px) 28px; }
-.fashion-store .luxury-section-head { display:none; }
-.fashion-store .luxury-product-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:26px 22px; }
-.fashion-store .luxury-product-card { min-width:0; }
-.fashion-store .luxury-product-card .product-card-image-link { display:block; text-decoration:none; }
-.fashion-store .luxury-product-card .product-photo { position:relative; aspect-ratio:1.5/1; border-radius:12px; overflow:hidden; background:#e9ddd2; }
-.fashion-store .luxury-product-card .product-photo img { width:100%; height:100%; object-fit:cover; }
-.fashion-store .product-favourite { position:absolute; top:9px; right:9px; width:29px; height:29px; display:grid; place-items:center; border-radius:50%; color:#21160f; background:#fffdf9; font-size:22px; line-height:1; }
-.fashion-store .luxury-product-info { padding:7px 5px 0; }
-.fashion-store .luxury-product-info h3 { margin:0 0 4px; color:#21170f; font:500 15px/1.3 Inter,"Segoe UI",sans-serif; }
-.fashion-store .luxury-price { margin:0 0 9px; color:#1f1712; font-size:15px; font-weight:700; }
-.fashion-store .add-to-cart-button { min-height:36px; display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:0 17px; border:0; border-radius:9px; color:#fff; background:#3b2113; font-size:12px; font-weight:600; }
-.fashion-store .add-to-cart-button.is-added { color:#3b2113; background:#eadfd4; }
-.fashion-store .collection-next { display:none; }
-.fashion-store .luxury-footer { color:#fff; background:#2c1d15; }
-.fashion-store .luxury-footer-inner { display:grid; grid-template-columns:1.1fr 2fr .8fr 1fr; gap:32px; padding:28px clamp(22px,5.2vw,64px); align-items:center; text-align:left; }
-.fashion-store .footer-brand-mark { display:block; color:#fff; font:400 42px/1 var(--serif); text-decoration:none; }
-.fashion-store .footer-socials { display:flex; gap:12px; margin-top:18px; }
-.fashion-store .footer-socials a { width:34px; height:34px; display:grid; place-items:center; border:1px solid #b8a99b; border-radius:50%; color:#fff; text-decoration:none; }
-.fashion-store .footer-about-column { padding:0 28px; border-left:1px solid #8b796c; border-right:1px solid #8b796c; }
-.fashion-store .footer-about-column h2,.fashion-store .footer-links-column h2,.fashion-store .footer-contact-column h2 { margin:0 0 12px; color:#fff; font:600 15px/1.3 Inter,"Segoe UI",sans-serif; }
-.fashion-store .footer-about-column p { max-width:520px; margin:0; color:#e1d7cf; font-size:12px; line-height:1.55; }
-.fashion-store .footer-links-column a,.fashion-store .footer-contact-column a { display:block; margin:7px 0; color:#eee5dd; font-size:12px; text-decoration:none; }
-.fashion-store .luxury-footer-bottom { min-height:0; padding:10px clamp(22px,5.2vw,64px); border-top:1px solid #59463a; color:#cfc2b8; font-size:10px; }
-.fashion-store .luxury-footer-bottom span,.fashion-store .luxury-footer-bottom a { color:#cfc2b8; }
-.fashion-store .collection-filters { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; padding:14px 0 20px; }
-.fashion-store .collection-filters label { position:relative; display:flex; align-items:center; min-height:48px; padding:0 14px; border:1px solid #ddd4ca; border-radius:12px; color:#2b211a; font-size:13px; letter-spacing:0; text-transform:none; }
-.fashion-store .collection-filters select { width:100%; min-width:0; min-height:44px; padding:0 28px 0 6px; border:0; outline:0; background:transparent; color:#2b211a; font-size:13px; }
+.electronics-store { background:#fbf9f5; color:#24170f; }
+.electronics-store .luxury-nav { min-height:60px; padding:6px clamp(20px,5.2vw,64px); display:grid; grid-template-columns:1fr auto 1fr; background:#fbf9f5; border-bottom:1px solid #e8e0d7; }
+.electronics-store .luxury-brand { justify-self:start; font:600 30px/1 var(--serif); letter-spacing:-.03em; }
+.electronics-store .luxury-menu { justify-self:center; gap:48px; margin:0; }
+.electronics-store .luxury-menu a { font:500 14px/1 Inter,"Segoe UI",sans-serif; letter-spacing:0; text-transform:none; }
+.electronics-store .luxury-nav-actions { justify-self:end; display:flex; align-items:center; gap:20px; }
+.electronics-store .nav-search-link svg { width:25px; height:25px; fill:none; stroke:currentColor; stroke-width:1.8; }
+.electronics-store .cart-nav-link { position:relative; display:flex; align-items:center; border:0; padding:0; background:transparent; }
+.electronics-store .cart-nav-icon { width:26px; height:26px; fill:none; stroke:currentColor; stroke-width:1.7; }
+.electronics-store .bag-count { position:absolute; top:-8px; right:-9px; min-width:18px; height:18px; color:white; background:#2d1a10; font-size:10px; }
+.electronics-store .luxury-hero { min-height:330px; display:grid; grid-template-columns:1.05fr .95fr; align-items:stretch; gap:0; padding:0 clamp(28px,5.2vw,64px); background:#f2e9df; }
+.electronics-store .luxury-hero-copy { align-self:center; max-width:590px; padding:28px 24px 28px 0; transform:none; }
+.electronics-store .luxury-hero .eyebrow { color:#65584e; margin-bottom:10px; font-size:11px; letter-spacing:.15em; }
+.electronics-store .luxury-hero h1 { margin:0 0 12px; color:#24170f; font:400 clamp(36px,4.2vw,58px)/.98 var(--serif); letter-spacing:-.035em; }
+.electronics-store .luxury-hero h1 em { font-style:normal; }
+.electronics-store .luxury-hero-copy p { max-width:470px; margin:0 0 20px; color:#5d554e; font-size:15px; line-height:1.55; }
+.electronics-store .hero-actions { display:flex; flex-wrap:wrap; gap:12px; }
+.electronics-store .luxury-button { min-height:46px; display:inline-flex; align-items:center; justify-content:center; gap:9px; padding:0 22px; border-radius:11px; font-size:13px; font-weight:600; text-decoration:none; }
+.electronics-store .luxury-button-gold { color:#fff; background:#3b2113; border:1px solid #3b2113; }
+.electronics-store .luxury-button-outline { color:#2a1c13; background:#fbf9f5; border:1px solid #b8a99b; }
+.electronics-store .luxury-hero-image { min-height:330px; height:100%; overflow:hidden; background:#e6d7ca; }
+.electronics-store .luxury-hero-image img { width:100%; height:100%; min-height:330px; object-fit:cover; object-position:center 35%; }
+.electronics-store .luxury-collection { padding:22px clamp(22px,4.5vw,56px) 28px; }
+.electronics-store .luxury-section-head { display:none; }
+.electronics-store .luxury-product-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:26px 22px; }
+.electronics-store .luxury-product-card { min-width:0; }
+.electronics-store .luxury-product-card .product-card-image-link { display:block; text-decoration:none; }
+.electronics-store .luxury-product-card .product-photo { position:relative; aspect-ratio:1.5/1; border-radius:12px; overflow:hidden; background:#e9ddd2; }
+.electronics-store .luxury-product-card .product-photo img { width:100%; height:100%; object-fit:cover; }
+.electronics-store .product-favourite { position:absolute; top:9px; right:9px; width:29px; height:29px; display:grid; place-items:center; border-radius:50%; color:#21160f; background:#fffdf9; font-size:22px; line-height:1; }
+.electronics-store .luxury-product-info { padding:7px 5px 0; }
+.electronics-store .luxury-product-info h3 { margin:0 0 4px; color:#21170f; font:500 15px/1.3 Inter,"Segoe UI",sans-serif; }
+.electronics-store .luxury-price { margin:0 0 9px; color:#1f1712; font-size:15px; font-weight:700; }
+.electronics-store .add-to-cart-button { min-height:36px; display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:0 17px; border:0; border-radius:9px; color:#fff; background:#3b2113; font-size:12px; font-weight:600; }
+.electronics-store .add-to-cart-button.is-added { color:#3b2113; background:#eadfd4; }
+.electronics-store .collection-next { display:none; }
+.electronics-store .luxury-footer { color:#fff; background:#2c1d15; }
+.electronics-store .luxury-footer-inner { display:grid; grid-template-columns:1.1fr 2fr .8fr 1fr; gap:32px; padding:28px clamp(22px,5.2vw,64px); align-items:center; text-align:left; }
+.electronics-store .footer-brand-mark { display:block; color:#fff; font:400 42px/1 var(--serif); text-decoration:none; }
+.electronics-store .footer-socials { display:flex; gap:12px; margin-top:18px; }
+.electronics-store .footer-socials a { width:34px; height:34px; display:grid; place-items:center; border:1px solid #b8a99b; border-radius:50%; color:#fff; text-decoration:none; }
+.electronics-store .footer-about-column { padding:0 28px; border-left:1px solid #8b796c; border-right:1px solid #8b796c; }
+.electronics-store .footer-about-column h2,.electronics-store .footer-links-column h2,.electronics-store .footer-contact-column h2 { margin:0 0 12px; color:#fff; font:600 15px/1.3 Inter,"Segoe UI",sans-serif; }
+.electronics-store .footer-about-column p { max-width:520px; margin:0; color:#e1d7cf; font-size:12px; line-height:1.55; }
+.electronics-store .footer-links-column a,.electronics-store .footer-contact-column a { display:block; margin:7px 0; color:#eee5dd; font-size:12px; text-decoration:none; }
+.electronics-store .luxury-footer-bottom { min-height:0; padding:10px clamp(22px,5.2vw,64px); border-top:1px solid #59463a; color:#cfc2b8; font-size:10px; }
+.electronics-store .luxury-footer-bottom span,.electronics-store .luxury-footer-bottom a { color:#cfc2b8; }
+.electronics-store .collection-filters { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; padding:14px 0 20px; }
+.electronics-store .collection-filters label { position:relative; display:flex; align-items:center; min-height:48px; padding:0 14px; border:1px solid #ddd4ca; border-radius:12px; color:#2b211a; font-size:13px; letter-spacing:0; text-transform:none; }
+.electronics-store .collection-filters select { width:100%; min-width:0; min-height:44px; padding:0 28px 0 6px; border:0; outline:0; background:transparent; color:#2b211a; font-size:13px; }
 @media(max-width:760px) {
- .fashion-store .luxury-nav { min-height:56px; padding:6px 16px; }
- .fashion-store .luxury-brand { font-size:25px; }
- .fashion-store .luxury-menu { gap:18px; }
- .fashion-store .luxury-menu a { font-size:12px; }
- .fashion-store .luxury-nav-actions { gap:13px; }
- .fashion-store .luxury-hero { grid-template-columns:1fr; padding:0 20px 18px; }
- .fashion-store .luxury-hero-copy { padding:22px 0 18px; }
- .fashion-store .luxury-hero h1 { font-size:clamp(35px,9vw,48px); }
- .fashion-store .luxury-hero-copy p { font-size:13px; }
- .fashion-store .luxury-hero-image { min-height:220px; max-height:300px; }
- .fashion-store .luxury-hero-image img { min-height:220px; }
- .fashion-store .luxury-collection { padding:18px 16px 24px; }
- .fashion-store .luxury-product-grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:22px 12px; }
- .fashion-store .luxury-product-card .product-photo { aspect-ratio:1.12/1; }
- .fashion-store .luxury-product-info h3 { font-size:13px; }
- .fashion-store .luxury-price { font-size:13px; }
- .fashion-store .add-to-cart-button { min-height:34px; padding:0 12px; font-size:11px; }
- .fashion-store .luxury-footer-inner { grid-template-columns:1fr 1fr; gap:24px 18px; padding:26px 18px; }
- .fashion-store .footer-about-column { grid-column:1/-1; order:2; padding:18px 0 0; border:0; border-top:1px solid #8b796c; }
- .fashion-store .footer-brand-column { order:1; }
- .fashion-store .footer-links-column { order:3; }
- .fashion-store .footer-contact-column { order:4; }
- .fashion-store .footer-brand-mark { font-size:34px; }
- .fashion-store .collection-filters { grid-template-columns:1fr; gap:10px; }
+ .electronics-store .luxury-nav { min-height:56px; padding:6px 16px; }
+ .electronics-store .luxury-brand { font-size:25px; }
+ .electronics-store .luxury-menu { gap:18px; }
+ .electronics-store .luxury-menu a { font-size:12px; }
+ .electronics-store .luxury-nav-actions { gap:13px; }
+ .electronics-store .luxury-hero { grid-template-columns:1fr; padding:0 20px 18px; }
+ .electronics-store .luxury-hero-copy { padding:22px 0 18px; }
+ .electronics-store .luxury-hero h1 { font-size:clamp(35px,9vw,48px); }
+ .electronics-store .luxury-hero-copy p { font-size:13px; }
+ .electronics-store .luxury-hero-image { min-height:220px; max-height:300px; }
+ .electronics-store .luxury-hero-image img { min-height:220px; }
+ .electronics-store .luxury-collection { padding:18px 16px 24px; }
+ .electronics-store .luxury-product-grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:22px 12px; }
+ .electronics-store .luxury-product-card .product-photo { aspect-ratio:1.12/1; }
+ .electronics-store .luxury-product-info h3 { font-size:13px; }
+ .electronics-store .luxury-price { font-size:13px; }
+ .electronics-store .add-to-cart-button { min-height:34px; padding:0 12px; font-size:11px; }
+ .electronics-store .luxury-footer-inner { grid-template-columns:1fr 1fr; gap:24px 18px; padding:26px 18px; }
+ .electronics-store .footer-about-column { grid-column:1/-1; order:2; padding:18px 0 0; border:0; border-top:1px solid #8b796c; }
+ .electronics-store .footer-brand-column { order:1; }
+ .electronics-store .footer-links-column { order:3; }
+ .electronics-store .footer-contact-column { order:4; }
+ .electronics-store .footer-brand-mark { font-size:34px; }
+ .electronics-store .collection-filters { grid-template-columns:1fr; gap:10px; }
 }
 
 
 /* Fix product-card controls: the generic photo span rule must not turn the
    wishlist heart into a full-size overlay. Keep controls compact on mobile. */
-.fashion-store .luxury-product-card .product-photo > .product-favourite {
+.electronics-store .luxury-product-card .product-photo > .product-favourite {
   position:absolute;
   top:9px;
   right:9px;
@@ -1599,7 +1599,7 @@ body.cart-is-open { overflow:hidden; }
   text-transform:none;
   box-shadow:0 1px 5px rgba(0,0,0,.12);
 }
-.fashion-store .luxury-product-card .product-whatsapp-button.add-to-cart-button {
+.electronics-store .luxury-product-card .product-whatsapp-button.add-to-cart-button {
   width:auto;
   min-width:0;
   max-width:100%;
@@ -1608,7 +1608,7 @@ body.cart-is-open { overflow:hidden; }
   white-space:nowrap;
 }
 @media(max-width:760px) {
-  .fashion-store .luxury-product-card .product-whatsapp-button.add-to-cart-button {
+  .electronics-store .luxury-product-card .product-whatsapp-button.add-to-cart-button {
     min-height:34px;
     padding:0 12px;
     font-size:11px;
@@ -1617,7 +1617,7 @@ body.cart-is-open { overflow:hidden; }
 
 
 /* Ensure the SULEX header wordmark has an explicit visible box. */
-.fashion-store .luxury-brand img {
+.electronics-store .luxury-brand img {
   display:block;
   width:154px;
   height:42px;
@@ -1628,7 +1628,7 @@ body.cart-is-open { overflow:hidden; }
   flex:0 0 auto;
 }
 @media(max-width:700px) {
-  .fashion-store .luxury-brand img {
+  .electronics-store .luxury-brand img {
     width:132px;
     height:36px;
     max-width:132px;
@@ -1639,35 +1639,35 @@ body.cart-is-open { overflow:hidden; }
 
 /* Mobile header: keep the cart beside Home at the far right. */
 @media(max-width:760px) {
-  .fashion-store .luxury-nav {
+  .electronics-store .luxury-nav {
     display:grid;
     grid-template-columns:minmax(0,1fr) auto auto;
     align-items:center;
     column-gap:clamp(12px,3vw,22px);
   }
-  .fashion-store .luxury-brand {
+  .electronics-store .luxury-brand {
     grid-column:1;
     justify-self:start;
     min-width:0;
   }
-  .fashion-store .luxury-menu {
+  .electronics-store .luxury-menu {
     grid-column:2;
     justify-self:end;
     margin:0 !important;
     min-width:0;
   }
-  .fashion-store .luxury-menu a:first-child {
+  .electronics-store .luxury-menu a:first-child {
     display:inline-flex;
     padding:8px 0;
   }
-  .fashion-store .luxury-nav-actions {
+  .electronics-store .luxury-nav-actions {
     grid-column:3;
     justify-self:end;
     display:flex;
     align-items:center;
     margin:0;
   }
-  .fashion-store .cart-nav-link {
+  .electronics-store .cart-nav-link {
     display:inline-flex;
     align-items:center;
     justify-content:center;
@@ -1680,13 +1680,13 @@ body.cart-is-open { overflow:hidden; }
 
 /* The SULEX logo is the home link; place the cart in the old Home position. */
 @media(max-width:760px) {
-  .fashion-store .luxury-nav {
+  .electronics-store .luxury-nav {
     grid-template-columns:minmax(0,1fr) auto;
   }
-  .fashion-store .luxury-menu {
+  .electronics-store .luxury-menu {
     display:none !important;
   }
-  .fashion-store .luxury-nav-actions {
+  .electronics-store .luxury-nav-actions {
     grid-column:2;
     justify-self:end;
   }
@@ -1694,195 +1694,195 @@ body.cart-is-open { overflow:hidden; }
 
 
 /* Product detail, guest wishlist and category navigation */
-.fashion-store .wishlist-nav-link {
+.electronics-store .wishlist-nav-link {
   position:relative; display:inline-flex; align-items:center; justify-content:center;
   width:38px; height:40px; padding:0; border:0; background:transparent; color:var(--sulex-ink); text-decoration:none; cursor:pointer;
 }
-.fashion-store .wishlist-nav-link svg { width:23px; height:23px; fill:none; stroke:currentColor; stroke-width:1.7; }
-.fashion-store .wishlist-count {
+.electronics-store .wishlist-nav-link svg { width:23px; height:23px; fill:none; stroke:currentColor; stroke-width:1.7; }
+.electronics-store .wishlist-count {
   position:absolute; top:-2px; right:-3px; min-width:17px; height:17px; padding:0 4px;
   display:grid; place-items:center; border-radius:20px; color:#fff; background:#3b2113;
   font-size:10px; line-height:1;
 }
-.fashion-store .wishlist-toggle {
+.electronics-store .wishlist-toggle {
   cursor:pointer; border:0; transition:transform .18s ease, color .18s ease, background .18s ease;
 }
-.fashion-store .wishlist-toggle.is-saved { color:#a33b36; }
-.fashion-store .wishlist-pop { animation:wishlist-pop .24s ease; }
+.electronics-store .wishlist-toggle.is-saved { color:#a33b36; }
+.electronics-store .wishlist-pop { animation:wishlist-pop .24s ease; }
 @keyframes wishlist-pop { 50% { transform:scale(1.2); } }
-.fashion-store .product-card-title-link { color:inherit; text-decoration:none; }
-.fashion-store .product-card-title-link:hover { color:#8b6333; }
-.fashion-store .product-favourite { z-index:3; border:0; cursor:pointer; }
-.fashion-store .product-detail-page,.fashion-store .wishlist-page { max-width:1180px; margin:0 auto; padding:28px clamp(18px,4vw,48px) 64px; }
-.fashion-store .product-breadcrumb { margin-bottom:24px; color:#766a60; font-size:12px; }
-.fashion-store .product-breadcrumb a,.fashion-store .product-category-link { color:#6d4b2d; text-decoration:none; }
-.fashion-store .product-detail-layout { display:grid; grid-template-columns:minmax(0,1.1fr) minmax(300px,.9fr); gap:clamp(28px,5vw,64px); align-items:start; }
-.fashion-store .product-detail-main-image { aspect-ratio:4/5; overflow:hidden; border-radius:14px; background:#eee6dc; }
-.fashion-store .product-detail-main-image img { width:100%; height:100%; object-fit:contain; }
-.fashion-store .product-detail-thumbnails { display:flex; gap:10px; margin-top:12px; }
-.fashion-store .product-detail-thumb { width:76px; height:88px; padding:3px; border:1px solid #ddd1c4; border-radius:8px; background:#fff; overflow:hidden; }
-.fashion-store .product-detail-thumb.is-active { border:2px solid #a77a42; }
-.fashion-store .product-detail-thumb img { width:100%; height:100%; object-fit:cover; }
-.fashion-store .product-detail-info { padding:18px 0; }
-.fashion-store .product-detail-info h1 { margin:10px 0; font:400 clamp(32px,4vw,48px)/1.05 var(--serif); }
-.fashion-store .product-detail-price { font-size:24px; font-weight:700; }
-.fashion-store .product-stock-status { color:#52724b; font-size:13px; }
-.fashion-store .product-detail-description { margin:22px 0; color:#5e554d; line-height:1.75; white-space:pre-line; }
-.fashion-store .product-variation-list { margin:20px 0; }
-.fashion-store .product-variation-chips { display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; }
-.fashion-store .product-variation-chips span { padding:7px 10px; border:1px solid #ddd2c6; border-radius:20px; font-size:12px; }
-.fashion-store .product-detail-actions { display:flex; flex-wrap:wrap; gap:10px; margin:24px 0; }
-.fashion-store .wishlist-toggle-detail { min-height:46px; padding:0 18px; border:1px solid #cfc2b5; border-radius:10px; color:#2b1c13; background:#fffdf9; }
-.fashion-store .product-image-note { margin-top:8px; color:#857a70; font-size:11px; }
-.fashion-store .category-shortcuts,.fashion-store .home-category-links { margin:0 auto 20px; padding:0 clamp(16px,4vw,48px); }
-.fashion-store .category-shortcuts { display:flex; gap:9px; overflow-x:auto; padding-bottom:10px; }
-.fashion-store .category-shortcuts a,.fashion-store .home-category-links a { flex:0 0 auto; padding:9px 14px; border:1px solid #ddd2c6; border-radius:24px; color:#3b2a1e; text-decoration:none; font-size:12px; white-space:nowrap; }
-.fashion-store .category-shortcuts a[aria-current="page"] { color:#fff; background:#3b2113; border-color:#3b2113; }
-.fashion-store .home-category-links > div { display:flex; gap:9px; overflow-x:auto; padding:12px 0; }
-.fashion-store .wishlist-empty-state { padding:48px 20px; text-align:center; }
-.fashion-store .wishlist-empty-icon { color:#9b7651; font:64px/1 Georgia,serif; }
-.fashion-store .wishlist-empty-state h2 { margin:14px 0 8px; font:400 32px/1.1 var(--serif); }
-.fashion-store .wishlist-empty-state p { margin-bottom:22px; color:#71675e; }
+.electronics-store .product-card-title-link { color:inherit; text-decoration:none; }
+.electronics-store .product-card-title-link:hover { color:#8b6333; }
+.electronics-store .product-favourite { z-index:3; border:0; cursor:pointer; }
+.electronics-store .product-detail-page,.electronics-store .wishlist-page { max-width:1180px; margin:0 auto; padding:28px clamp(18px,4vw,48px) 64px; }
+.electronics-store .product-breadcrumb { margin-bottom:24px; color:#766a60; font-size:12px; }
+.electronics-store .product-breadcrumb a,.electronics-store .product-category-link { color:#6d4b2d; text-decoration:none; }
+.electronics-store .product-detail-layout { display:grid; grid-template-columns:minmax(0,1.1fr) minmax(300px,.9fr); gap:clamp(28px,5vw,64px); align-items:start; }
+.electronics-store .product-detail-main-image { aspect-ratio:4/5; overflow:hidden; border-radius:14px; background:#eee6dc; }
+.electronics-store .product-detail-main-image img { width:100%; height:100%; object-fit:contain; }
+.electronics-store .product-detail-thumbnails { display:flex; gap:10px; margin-top:12px; }
+.electronics-store .product-detail-thumb { width:76px; height:88px; padding:3px; border:1px solid #ddd1c4; border-radius:8px; background:#fff; overflow:hidden; }
+.electronics-store .product-detail-thumb.is-active { border:2px solid #a77a42; }
+.electronics-store .product-detail-thumb img { width:100%; height:100%; object-fit:cover; }
+.electronics-store .product-detail-info { padding:18px 0; }
+.electronics-store .product-detail-info h1 { margin:10px 0; font:400 clamp(32px,4vw,48px)/1.05 var(--serif); }
+.electronics-store .product-detail-price { font-size:24px; font-weight:700; }
+.electronics-store .product-stock-status { color:#52724b; font-size:13px; }
+.electronics-store .product-detail-description { margin:22px 0; color:#5e554d; line-height:1.75; white-space:pre-line; }
+.electronics-store .product-variation-list { margin:20px 0; }
+.electronics-store .product-variation-chips { display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; }
+.electronics-store .product-variation-chips span { padding:7px 10px; border:1px solid #ddd2c6; border-radius:20px; font-size:12px; }
+.electronics-store .product-detail-actions { display:flex; flex-wrap:wrap; gap:10px; margin:24px 0; }
+.electronics-store .wishlist-toggle-detail { min-height:46px; padding:0 18px; border:1px solid #cfc2b5; border-radius:10px; color:#2b1c13; background:#fffdf9; }
+.electronics-store .product-image-note { margin-top:8px; color:#857a70; font-size:11px; }
+.electronics-store .category-shortcuts,.electronics-store .home-category-links { margin:0 auto 20px; padding:0 clamp(16px,4vw,48px); }
+.electronics-store .category-shortcuts { display:flex; gap:9px; overflow-x:auto; padding-bottom:10px; }
+.electronics-store .category-shortcuts a,.electronics-store .home-category-links a { flex:0 0 auto; padding:9px 14px; border:1px solid #ddd2c6; border-radius:24px; color:#3b2a1e; text-decoration:none; font-size:12px; white-space:nowrap; }
+.electronics-store .category-shortcuts a[aria-current="page"] { color:#fff; background:#3b2113; border-color:#3b2113; }
+.electronics-store .home-category-links > div { display:flex; gap:9px; overflow-x:auto; padding:12px 0; }
+.electronics-store .wishlist-empty-state { padding:48px 20px; text-align:center; }
+.electronics-store .wishlist-empty-icon { color:#9b7651; font:64px/1 Georgia,serif; }
+.electronics-store .wishlist-empty-state h2 { margin:14px 0 8px; font:400 32px/1.1 var(--serif); }
+.electronics-store .wishlist-empty-state p { margin-bottom:22px; color:#71675e; }
 @media(max-width:760px) {
-  .fashion-store .luxury-nav-actions { gap:8px; }
-  .fashion-store .wishlist-nav-link { width:32px; height:36px; }
-  .fashion-store .wishlist-nav-link svg { width:21px; height:21px; }
-  .fashion-store .product-detail-page,.fashion-store .wishlist-page { padding:20px 16px 42px; }
-  .fashion-store .product-detail-layout { grid-template-columns:1fr; gap:14px; }
-  .fashion-store .product-detail-main-image { max-height:520px; }
-  .fashion-store .product-detail-info { padding:8px 2px; }
-  .fashion-store .product-detail-info h1 { font-size:34px; }
-  .fashion-store .product-detail-actions { display:grid; grid-template-columns:1fr 1fr; }
-  .fashion-store .product-detail-actions > * { width:100%; padding-left:10px; padding-right:10px; font-size:12px; }
+  .electronics-store .luxury-nav-actions { gap:8px; }
+  .electronics-store .wishlist-nav-link { width:32px; height:36px; }
+  .electronics-store .wishlist-nav-link svg { width:21px; height:21px; }
+  .electronics-store .product-detail-page,.electronics-store .wishlist-page { padding:20px 16px 42px; }
+  .electronics-store .product-detail-layout { grid-template-columns:1fr; gap:14px; }
+  .electronics-store .product-detail-main-image { max-height:520px; }
+  .electronics-store .product-detail-info { padding:8px 2px; }
+  .electronics-store .product-detail-info h1 { font-size:34px; }
+  .electronics-store .product-detail-actions { display:grid; grid-template-columns:1fr 1fr; }
+  .electronics-store .product-detail-actions > * { width:100%; padding-left:10px; padding-right:10px; font-size:12px; }
 }
 
-.fashion-store .catalogue-pagination { display:flex; align-items:center; justify-content:center; gap:18px; margin:30px auto; }
-.fashion-store .catalogue-pagination a { padding:9px 16px; border:1px solid #d8cbbf; border-radius:22px; color:#3b2113; text-decoration:none; }
-.fashion-store .catalogue-pagination span { color:#766a60; font-size:12px; }
+.electronics-store .catalogue-pagination { display:flex; align-items:center; justify-content:center; gap:18px; margin:30px auto; }
+.electronics-store .catalogue-pagination a { padding:9px 16px; border:1px solid #d8cbbf; border-radius:22px; color:#3b2113; text-decoration:none; }
+.electronics-store .catalogue-pagination span { color:#766a60; font-size:12px; }
 
 
 /* Premium product detail page — presentation only, using existing catalogue data */
-.fashion-store .premium-product-page {
+.electronics-store .premium-product-page {
   width:min(1240px,100%); margin:0 auto; padding:clamp(26px,4vw,54px) clamp(18px,4vw,48px) 72px;
 }
-.fashion-store .premium-product-layout {
+.electronics-store .premium-product-layout {
   display:grid; grid-template-columns:minmax(0,1.08fr) minmax(320px,.92fr);
   gap:clamp(30px,5vw,72px); align-items:start;
 }
-.fashion-store .premium-product-gallery {
+.electronics-store .premium-product-gallery {
   display:grid; grid-template-columns:88px minmax(0,1fr); gap:14px; align-items:start;
 }
-.fashion-store .premium-product-main-image {
+.electronics-store .premium-product-main-image {
   grid-column:2; grid-row:1; aspect-ratio:4/5; overflow:hidden;
   border-radius:15px; background:#f0e9e0; min-width:0;
 }
-.fashion-store .premium-product-main-image img {
+.electronics-store .premium-product-main-image img {
   display:block; width:100%; height:100%; object-fit:contain;
 }
-.fashion-store .premium-product-no-image {
+.electronics-store .premium-product-no-image {
   display:grid; width:100%; height:100%; min-height:300px; place-items:center;
   color:#81766d; font-size:13px;
 }
-.fashion-store .premium-product-thumbnails {
+.electronics-store .premium-product-thumbnails {
   grid-column:1; grid-row:1; display:flex; flex-direction:column; gap:12px;
 }
-.fashion-store .premium-product-thumb {
+.electronics-store .premium-product-thumb {
   display:block; width:88px; height:108px; padding:3px; overflow:hidden;
   border:1px solid #e1d7cd; border-radius:10px; background:#fffdf9; cursor:pointer;
 }
-.fashion-store .premium-product-thumb.is-active { border:2px solid #56301e; padding:2px; }
-.fashion-store .premium-product-thumb img { display:block; width:100%; height:100%; object-fit:cover; border-radius:6px; }
-.fashion-store .premium-product-info { position:sticky; top:24px; padding:12px 0 20px; min-width:0; }
-.fashion-store .premium-product-category {
+.electronics-store .premium-product-thumb.is-active { border:2px solid #56301e; padding:2px; }
+.electronics-store .premium-product-thumb img { display:block; width:100%; height:100%; object-fit:cover; border-radius:6px; }
+.electronics-store .premium-product-info { position:sticky; top:24px; padding:12px 0 20px; min-width:0; }
+.electronics-store .premium-product-category {
   margin:0 0 13px; color:#887b70; font-size:10px; letter-spacing:.2em; text-transform:uppercase;
 }
-.fashion-store .premium-product-info h1 {
+.electronics-store .premium-product-info h1 {
   margin:0 0 12px; color:#261910; font:400 clamp(36px,4.2vw,56px)/1.05 var(--serif);
 }
-.fashion-store .premium-product-price {
+.electronics-store .premium-product-price {
   margin:0 0 20px; color:#261910; font-size:clamp(20px,2.2vw,27px); font-weight:650;
 }
-.fashion-store .premium-product-description {
+.electronics-store .premium-product-description {
   margin:0 0 28px; color:#665b52; font-size:14px; line-height:1.8; white-space:pre-line;
 }
-.fashion-store .premium-product-options { margin:0 0 26px; }
-.fashion-store .premium-product-options h2 {
+.electronics-store .premium-product-options { margin:0 0 26px; }
+.electronics-store .premium-product-options h2 {
   margin:0 0 12px; color:#32241c; font-size:13px; font-weight:650;
 }
-.fashion-store .premium-product-option-list { display:flex; flex-wrap:wrap; gap:9px; }
-.fashion-store .premium-product-option {
+.electronics-store .premium-product-option-list { display:flex; flex-wrap:wrap; gap:9px; }
+.electronics-store .premium-product-option {
   display:inline-flex; align-items:center; gap:6px; min-height:36px; padding:7px 12px;
   border:1px solid #e1d6cb; border-radius:8px; background:#fffdfa;
   color:#4d4036; font-size:12px;
 }
-.fashion-store .premium-product-actions {
+.electronics-store .premium-product-actions {
   display:grid; grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr); gap:12px; margin-top:30px;
 }
-.fashion-store .premium-product-actions > button {
+.electronics-store .premium-product-actions > button {
   min-height:54px; width:100%; justify-content:center; border-radius:10px;
   font-size:13px; white-space:nowrap;
 }
-.fashion-store .premium-add-cart { display:flex; align-items:center; gap:10px; }
-.fashion-store .premium-save-later {
+.electronics-store .premium-add-cart { display:flex; align-items:center; gap:10px; }
+.electronics-store .premium-save-later {
   display:flex; align-items:center; justify-content:center; gap:8px;
   padding:0 14px; border:1px solid #ded3c9; background:#fffdf9; color:#38291f;
 }
-.fashion-store .premium-save-later.is-saved { color:#a33b36; border-color:#d8b8b5; }
+.electronics-store .premium-save-later.is-saved { color:#a33b36; border-color:#d8b8b5; }
 @media(max-width:760px) {
-  .fashion-store .premium-product-page { padding:18px 16px 44px; }
-  .fashion-store .premium-product-layout { grid-template-columns:1fr; gap:20px; }
-  .fashion-store .premium-product-gallery { grid-template-columns:minmax(0,1fr); gap:10px; }
-  .fashion-store .premium-product-main-image { grid-column:1; grid-row:1; aspect-ratio:4/4.7; max-height:560px; }
-  .fashion-store .premium-product-thumbnails {
+  .electronics-store .premium-product-page { padding:18px 16px 44px; }
+  .electronics-store .premium-product-layout { grid-template-columns:1fr; gap:20px; }
+  .electronics-store .premium-product-gallery { grid-template-columns:minmax(0,1fr); gap:10px; }
+  .electronics-store .premium-product-main-image { grid-column:1; grid-row:1; aspect-ratio:4/4.7; max-height:560px; }
+  .electronics-store .premium-product-thumbnails {
     grid-column:1; grid-row:2; flex-direction:row; overflow-x:auto; padding:2px 1px 7px;
   }
-  .fashion-store .premium-product-thumb { flex:0 0 72px; width:72px; height:88px; }
-  .fashion-store .premium-product-info { position:static; padding:5px 2px 12px; }
-  .fashion-store .premium-product-info h1 { font-size:38px; }
-  .fashion-store .premium-product-price { margin-bottom:15px; }
-  .fashion-store .premium-product-description { margin-bottom:22px; font-size:13px; }
-  .fashion-store .premium-product-actions { grid-template-columns:1fr 1fr; gap:9px; margin-top:24px; }
-  .fashion-store .premium-product-actions > button { min-height:50px; padding:0 9px; font-size:12px; }
+  .electronics-store .premium-product-thumb { flex:0 0 72px; width:72px; height:88px; }
+  .electronics-store .premium-product-info { position:static; padding:5px 2px 12px; }
+  .electronics-store .premium-product-info h1 { font-size:38px; }
+  .electronics-store .premium-product-price { margin-bottom:15px; }
+  .electronics-store .premium-product-description { margin-bottom:22px; font-size:13px; }
+  .electronics-store .premium-product-actions { grid-template-columns:1fr 1fr; gap:9px; margin-top:24px; }
+  .electronics-store .premium-product-actions > button { min-height:50px; padding:0 9px; font-size:12px; }
 }
 @media(max-width:360px) {
-  .fashion-store .premium-product-actions { grid-template-columns:1fr; }
+  .electronics-store .premium-product-actions { grid-template-columns:1fr; }
 }
 
 
 /* Instant wishlist drawer and consistently visible product hearts */
-.fashion-store .wishlist-overlay {
+.electronics-store .wishlist-overlay {
   position:fixed; inset:0; z-index:1090; background:rgba(20,14,10,.42);
   opacity:1; backdrop-filter:blur(2px);
 }
-.fashion-store .wishlist-drawer {
+.electronics-store .wishlist-drawer {
   position:fixed; z-index:1091; top:0; right:0; bottom:0;
   display:flex; flex-direction:column; width:min(440px,94vw); height:100dvh;
   padding:0; background:#fffdf9; box-shadow:-14px 0 42px rgba(24,16,10,.18);
   transform:translateX(0); transition:transform .22s ease;
 }
-.fashion-store .wishlist-drawer[hidden],.fashion-store .wishlist-overlay[hidden] { display:none !important; }
-.fashion-store .wishlist-drawer-header {
+.electronics-store .wishlist-drawer[hidden],.electronics-store .wishlist-overlay[hidden] { display:none !important; }
+.electronics-store .wishlist-drawer-header {
   display:flex; align-items:center; justify-content:space-between; gap:16px;
   padding:22px 20px; border-bottom:1px solid #e8dfd5;
 }
-.fashion-store .wishlist-drawer-header h2 { margin:5px 0 0; color:#2a1b13; font:400 27px/1.1 var(--serif); }
-.fashion-store .wishlist-drawer-body { flex:1; overflow:auto; padding:18px; }
-.fashion-store .wishlist-drawer-items { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px 12px; }
-.fashion-store .wishlist-drawer-items .product-photo { position:relative; aspect-ratio:1/1.15; overflow:hidden; border-radius:9px; background:#eee7df; }
-.fashion-store .wishlist-drawer-items .product-card-image-link { display:block; width:100%; height:100%; }
-.fashion-store .wishlist-drawer-items .product-card-image-link img { display:block; width:100%; height:100%; object-fit:cover; }
-.fashion-store .wishlist-drawer-items .product-favourite { position:absolute; top:8px; right:8px; z-index:4; display:grid; place-items:center; width:32px; height:32px; min-height:32px; padding:0; border:0; border-radius:50%; color:#a33b36; background:#fffdf9; font-size:20px; line-height:1; }
-.fashion-store .wishlist-drawer-items .luxury-product-info { padding:8px 2px; }
-.fashion-store .wishlist-drawer-items .luxury-product-info h3 { color:#2b211a; font:500 13px/1.35 Inter,"Segoe UI",sans-serif; }
-.fashion-store .wishlist-drawer-items .luxury-price { margin:4px 0 8px; color:#2b211a; font-size:13px; }
-.fashion-store .wishlist-drawer-items .add-to-cart-button { min-height:34px; padding:0 10px; font-size:11px; }
-.fashion-store .wishlist-drawer-empty { padding:65px 15px; text-align:center; }
-.fashion-store .wishlist-drawer-empty h3 { margin:14px 0 7px; color:#2b211a; font:400 24px var(--serif); }
-.fashion-store .wishlist-drawer-empty p { color:#766a60; font-size:13px; }
-.fashion-store .wishlist-drawer-footer { padding:16px 20px calc(16px + env(safe-area-inset-bottom)); border-top:1px solid #e8dfd5; }
-.fashion-store .wishlist-drawer-footer a { display:block; color:#6b472b; text-align:center; font-size:13px; font-weight:600; text-decoration:none; }
-.fashion-store .luxury-product-card .product-photo { position:relative; }
-.fashion-store .luxury-product-card .product-photo > .product-favourite {
+.electronics-store .wishlist-drawer-header h2 { margin:5px 0 0; color:#2a1b13; font:400 27px/1.1 var(--serif); }
+.electronics-store .wishlist-drawer-body { flex:1; overflow:auto; padding:18px; }
+.electronics-store .wishlist-drawer-items { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px 12px; }
+.electronics-store .wishlist-drawer-items .product-photo { position:relative; aspect-ratio:1/1.15; overflow:hidden; border-radius:9px; background:#eee7df; }
+.electronics-store .wishlist-drawer-items .product-card-image-link { display:block; width:100%; height:100%; }
+.electronics-store .wishlist-drawer-items .product-card-image-link img { display:block; width:100%; height:100%; object-fit:cover; }
+.electronics-store .wishlist-drawer-items .product-favourite { position:absolute; top:8px; right:8px; z-index:4; display:grid; place-items:center; width:32px; height:32px; min-height:32px; padding:0; border:0; border-radius:50%; color:#a33b36; background:#fffdf9; font-size:20px; line-height:1; }
+.electronics-store .wishlist-drawer-items .luxury-product-info { padding:8px 2px; }
+.electronics-store .wishlist-drawer-items .luxury-product-info h3 { color:#2b211a; font:500 13px/1.35 Inter,"Segoe UI",sans-serif; }
+.electronics-store .wishlist-drawer-items .luxury-price { margin:4px 0 8px; color:#2b211a; font-size:13px; }
+.electronics-store .wishlist-drawer-items .add-to-cart-button { min-height:34px; padding:0 10px; font-size:11px; }
+.electronics-store .wishlist-drawer-empty { padding:65px 15px; text-align:center; }
+.electronics-store .wishlist-drawer-empty h3 { margin:14px 0 7px; color:#2b211a; font:400 24px var(--serif); }
+.electronics-store .wishlist-drawer-empty p { color:#766a60; font-size:13px; }
+.electronics-store .wishlist-drawer-footer { padding:16px 20px calc(16px + env(safe-area-inset-bottom)); border-top:1px solid #e8dfd5; }
+.electronics-store .wishlist-drawer-footer a { display:block; color:#6b472b; text-align:center; font-size:13px; font-weight:600; text-decoration:none; }
+.electronics-store .luxury-product-card .product-photo { position:relative; }
+.electronics-store .luxury-product-card .product-photo > .product-favourite {
   position:absolute; top:9px; right:9px; z-index:5; display:grid;
   width:34px; min-width:34px; height:34px; min-height:34px;
   padding:0; place-items:center; border:1px solid rgba(42,28,19,.12);
@@ -1890,106 +1890,106 @@ body.cart-is-open { overflow:hidden; }
   font-size:23px; line-height:1; opacity:1; visibility:visible;
   box-shadow:0 1px 6px rgba(0,0,0,.14); cursor:pointer;
 }
-.fashion-store .luxury-product-card .product-photo > .product-favourite.is-saved { color:#b33d42; }
-.fashion-store .luxury-product-card .product-card-image-link { position:absolute; inset:0; z-index:1; }
-.fashion-store .luxury-product-card .product-card-image-link img { display:block; }
-.fashion-store .luxury-product-card .product-photo > .product-favourite { z-index:2; }
+.electronics-store .luxury-product-card .product-photo > .product-favourite.is-saved { color:#b33d42; }
+.electronics-store .luxury-product-card .product-card-image-link { position:absolute; inset:0; z-index:1; }
+.electronics-store .luxury-product-card .product-card-image-link img { display:block; }
+.electronics-store .luxury-product-card .product-photo > .product-favourite { z-index:2; }
 body.wishlist-is-open { overflow:hidden; }
 @media(max-width:760px) {
-  .fashion-store .wishlist-drawer { width:min(420px,96vw); }
-  .fashion-store .luxury-product-card .product-photo > .product-favourite { top:7px; right:7px; width:32px; min-width:32px; height:32px; min-height:32px; }
+  .electronics-store .wishlist-drawer { width:min(420px,96vw); }
+  .electronics-store .luxury-product-card .product-photo > .product-favourite { top:7px; right:7px; width:32px; min-width:32px; height:32px; min-height:32px; }
 }
 
 
 /* Unified cream-and-cocoa shopping drawers — approved SULEX direction */
-.fashion-store .cart-drawer,
-.fashion-store .wishlist-drawer {
+.electronics-store .cart-drawer,
+.electronics-store .wishlist-drawer {
   width:min(500px,100vw); background:#fffaf4; color:#2b211b;
   box-shadow:-18px 0 55px rgba(48,29,16,.16);
 }
-.fashion-store .cart-drawer-header,
-.fashion-store .wishlist-drawer-header {
+.electronics-store .cart-drawer-header,
+.electronics-store .wishlist-drawer-header {
   padding:25px 26px 18px; border-bottom:0; background:#fffaf4;
 }
-.fashion-store .cart-drawer-header .eyebrow,
-.fashion-store .wishlist-drawer-header .eyebrow { color:#9b7960; letter-spacing:.18em; }
-.fashion-store .cart-drawer-header h2,
-.fashion-store .wishlist-drawer-header h2 { color:#342319; font-size:30px; }
-.fashion-store .cart-close { width:38px; height:38px; border-color:#e7d9cb; color:#4a3020; }
-.fashion-store .drawer-tabs {
+.electronics-store .cart-drawer-header .eyebrow,
+.electronics-store .wishlist-drawer-header .eyebrow { color:#9b7960; letter-spacing:.18em; }
+.electronics-store .cart-drawer-header h2,
+.electronics-store .wishlist-drawer-header h2 { color:#342319; font-size:30px; }
+.electronics-store .cart-close { width:38px; height:38px; border-color:#e7d9cb; color:#4a3020; }
+.electronics-store .drawer-tabs {
   display:grid; grid-template-columns:1fr 1fr; gap:5px; margin:0 25px 18px;
   padding:5px; border:1px solid #eadfd4; border-radius:14px; background:#f7eee6;
 }
-.fashion-store .drawer-tab {
+.electronics-store .drawer-tab {
   min-height:43px; padding:8px 10px; border:0; border-radius:10px;
   background:transparent; color:#715b4b; font:500 12px Inter,"Segoe UI",sans-serif;
   cursor:pointer; transition:background .18s,color .18s;
 }
-.fashion-store .drawer-tab.is-active { color:#fffaf4; background:#704126; box-shadow:0 3px 9px rgba(65,38,20,.12); }
-.fashion-store .drawer-tab span { margin-left:3px; opacity:.8; }
-.fashion-store .wishlist-drawer-body,
-.fashion-store .cart-drawer-body { padding:0 25px 18px; }
-.fashion-store .wishlist-drawer-items { display:flex; flex-direction:column; gap:12px; }
-.fashion-store .wishlist-drawer-items .luxury-product-card {
+.electronics-store .drawer-tab.is-active { color:#fffaf4; background:#704126; box-shadow:0 3px 9px rgba(65,38,20,.12); }
+.electronics-store .drawer-tab span { margin-left:3px; opacity:.8; }
+.electronics-store .wishlist-drawer-body,
+.electronics-store .cart-drawer-body { padding:0 25px 18px; }
+.electronics-store .wishlist-drawer-items { display:flex; flex-direction:column; gap:12px; }
+.electronics-store .wishlist-drawer-items .luxury-product-card {
   display:grid; grid-template-columns:104px minmax(0,1fr); align-items:center; gap:15px;
   padding:10px; border:1px solid #eee2d7; border-radius:15px; background:#fffdf9;
 }
-.fashion-store .wishlist-drawer-items .product-photo {
+.electronics-store .wishlist-drawer-items .product-photo {
   width:104px; aspect-ratio:1/1.12; border-radius:10px; background:#f0e8df;
 }
-.fashion-store .wishlist-drawer-items .product-card-image-link { height:100%; }
-.fashion-store .wishlist-drawer-items .product-favourite {
+.electronics-store .wishlist-drawer-items .product-card-image-link { height:100%; }
+.electronics-store .wishlist-drawer-items .product-favourite {
   top:6px; right:6px; width:27px; min-width:27px; height:27px; min-height:27px;
   color:#76523a; font-size:16px; box-shadow:0 1px 5px rgba(0,0,0,.12);
 }
-.fashion-store .wishlist-drawer-items .luxury-product-info { min-width:0; padding:3px 0; }
-.fashion-store .wishlist-drawer-items .luxury-product-info h3 {
+.electronics-store .wishlist-drawer-items .luxury-product-info { min-width:0; padding:3px 0; }
+.electronics-store .wishlist-drawer-items .luxury-product-info h3 {
   margin:0 0 7px; color:#38271c; font:500 15px/1.35 Inter,"Segoe UI",sans-serif;
 }
-.fashion-store .wishlist-drawer-items .luxury-price { margin:0 0 10px; color:#38271c; font-size:14px; font-weight:600; }
-.fashion-store .wishlist-drawer-items .add-to-cart-button {
+.electronics-store .wishlist-drawer-items .luxury-price { margin:0 0 10px; color:#38271c; font-size:14px; font-weight:600; }
+.electronics-store .wishlist-drawer-items .add-to-cart-button {
   min-height:36px; margin:0; padding:0 13px; border:0; border-radius:8px;
   background:#704126; color:#fffaf4; font-size:10px; letter-spacing:.04em;
 }
-.fashion-store .wishlist-drawer-footer {
+.electronics-store .wishlist-drawer-footer {
   display:grid; grid-template-columns:.8fr 1.2fr; gap:10px;
   padding:16px 25px calc(18px + env(safe-area-inset-bottom));
   border-top:1px solid #eadfd4; background:#fffaf4;
 }
-.fashion-store .drawer-secondary-action,
-.fashion-store .drawer-primary-action {
+.electronics-store .drawer-secondary-action,
+.electronics-store .drawer-primary-action {
   min-height:49px; padding:0 14px; border-radius:11px; font:600 12px Inter,"Segoe UI",sans-serif; cursor:pointer;
 }
-.fashion-store .drawer-secondary-action { border:1px solid #e5d5c7; background:#fffaf4; color:#4d3829; }
-.fashion-store .drawer-primary-action { border:1px solid #704126; background:#704126; color:#fffaf4; }
-.fashion-store .drawer-full-link { grid-column:1/-1; padding-top:3px; color:#80634e; text-align:center; font-size:11px; text-decoration:none; }
-.fashion-store .drawer-cart-actions { display:grid; grid-template-columns:.75fr 1.25fr; gap:10px; align-items:center; }
-.fashion-store .drawer-cart-actions .cart-checkout-button { min-height:49px; border-radius:11px; }
-.fashion-store .cart-drawer-footer { padding:17px 25px calc(20px + env(safe-area-inset-bottom)); background:#fffaf4; border-top:1px solid #eadfd4; }
-.fashion-store .cart-row { grid-template-columns:104px minmax(0,1fr); gap:15px; padding:15px 10px; border:1px solid #eee2d7; border-radius:15px; margin-bottom:11px; background:#fffdf9; }
-.fashion-store .cart-row>img,.fashion-store .cart-row>.cart-image-placeholder { width:104px; height:116px; border-radius:10px; }
-.fashion-store .cart-item-info h3 { font:500 15px/1.35 Inter,"Segoe UI",sans-serif; color:#38271c; }
-.fashion-store .cart-item-price { margin-bottom:9px; color:#6d6258; }
-.fashion-store .cart-quantity button { border-radius:8px; border-color:#e5d5c7; }
-.fashion-store .cart-line-total { margin-top:-3px; color:#38271c; }
-.fashion-store .cart-empty { border-radius:14px; background:#f7eee6; }
-.fashion-store .cart-overlay,.fashion-store .wishlist-overlay { background:rgba(35,23,15,.38); backdrop-filter:blur(3px); }
+.electronics-store .drawer-secondary-action { border:1px solid #e5d5c7; background:#fffaf4; color:#4d3829; }
+.electronics-store .drawer-primary-action { border:1px solid #704126; background:#704126; color:#fffaf4; }
+.electronics-store .drawer-full-link { grid-column:1/-1; padding-top:3px; color:#80634e; text-align:center; font-size:11px; text-decoration:none; }
+.electronics-store .drawer-cart-actions { display:grid; grid-template-columns:.75fr 1.25fr; gap:10px; align-items:center; }
+.electronics-store .drawer-cart-actions .cart-checkout-button { min-height:49px; border-radius:11px; }
+.electronics-store .cart-drawer-footer { padding:17px 25px calc(20px + env(safe-area-inset-bottom)); background:#fffaf4; border-top:1px solid #eadfd4; }
+.electronics-store .cart-row { grid-template-columns:104px minmax(0,1fr); gap:15px; padding:15px 10px; border:1px solid #eee2d7; border-radius:15px; margin-bottom:11px; background:#fffdf9; }
+.electronics-store .cart-row>img,.electronics-store .cart-row>.cart-image-placeholder { width:104px; height:116px; border-radius:10px; }
+.electronics-store .cart-item-info h3 { font:500 15px/1.35 Inter,"Segoe UI",sans-serif; color:#38271c; }
+.electronics-store .cart-item-price { margin-bottom:9px; color:#6d6258; }
+.electronics-store .cart-quantity button { border-radius:8px; border-color:#e5d5c7; }
+.electronics-store .cart-line-total { margin-top:-3px; color:#38271c; }
+.electronics-store .cart-empty { border-radius:14px; background:#f7eee6; }
+.electronics-store .cart-overlay,.electronics-store .wishlist-overlay { background:rgba(35,23,15,.38); backdrop-filter:blur(3px); }
 @media(max-width:600px) {
-  .fashion-store .cart-drawer,.fashion-store .wishlist-drawer { width:100vw; }
-  .fashion-store .cart-drawer-header,.fashion-store .wishlist-drawer-header { padding:22px 18px 15px; }
-  .fashion-store .cart-drawer-header h2,.fashion-store .wishlist-drawer-header h2 { font-size:27px; }
-  .fashion-store .drawer-tabs { margin:0 18px 15px; }
-  .fashion-store .drawer-tab { min-height:42px; padding:7px 5px; font-size:11px; }
-  .fashion-store .wishlist-drawer-body,.fashion-store .cart-drawer-body { padding:0 16px 14px; }
-  .fashion-store .wishlist-drawer-items .luxury-product-card { grid-template-columns:88px minmax(0,1fr); gap:12px; padding:8px; }
-  .fashion-store .wishlist-drawer-items .product-photo { width:88px; }
-  .fashion-store .wishlist-drawer-items .luxury-product-info h3 { font-size:14px; }
-  .fashion-store .wishlist-drawer-footer { padding:13px 16px calc(15px + env(safe-area-inset-bottom)); gap:8px; }
-  .fashion-store .drawer-secondary-action,.fashion-store .drawer-primary-action { min-height:46px; padding:0 8px; font-size:11px; }
-  .fashion-store .cart-row { grid-template-columns:88px minmax(0,1fr); gap:12px; padding:10px; }
-  .fashion-store .cart-row>img,.fashion-store .cart-row>.cart-image-placeholder { width:88px; height:102px; }
-  .fashion-store .cart-drawer-footer { padding:14px 16px calc(17px + env(safe-area-inset-bottom)); }
-  .fashion-store .drawer-cart-actions { grid-template-columns:.75fr 1.25fr; }
+  .electronics-store .cart-drawer,.electronics-store .wishlist-drawer { width:100vw; }
+  .electronics-store .cart-drawer-header,.electronics-store .wishlist-drawer-header { padding:22px 18px 15px; }
+  .electronics-store .cart-drawer-header h2,.electronics-store .wishlist-drawer-header h2 { font-size:27px; }
+  .electronics-store .drawer-tabs { margin:0 18px 15px; }
+  .electronics-store .drawer-tab { min-height:42px; padding:7px 5px; font-size:11px; }
+  .electronics-store .wishlist-drawer-body,.electronics-store .cart-drawer-body { padding:0 16px 14px; }
+  .electronics-store .wishlist-drawer-items .luxury-product-card { grid-template-columns:88px minmax(0,1fr); gap:12px; padding:8px; }
+  .electronics-store .wishlist-drawer-items .product-photo { width:88px; }
+  .electronics-store .wishlist-drawer-items .luxury-product-info h3 { font-size:14px; }
+  .electronics-store .wishlist-drawer-footer { padding:13px 16px calc(15px + env(safe-area-inset-bottom)); gap:8px; }
+  .electronics-store .drawer-secondary-action,.electronics-store .drawer-primary-action { min-height:46px; padding:0 8px; font-size:11px; }
+  .electronics-store .cart-row { grid-template-columns:88px minmax(0,1fr); gap:12px; padding:10px; }
+  .electronics-store .cart-row>img,.electronics-store .cart-row>.cart-image-placeholder { width:88px; height:102px; }
+  .electronics-store .cart-drawer-footer { padding:14px 16px calc(17px + env(safe-area-inset-bottom)); }
+  .electronics-store .drawer-cart-actions { grid-template-columns:.75fr 1.25fr; }
 }
 
 /* Lightweight feedback while a cached storefront page is being fetched. */

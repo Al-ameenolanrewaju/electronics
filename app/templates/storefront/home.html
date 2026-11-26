@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block title %}{{ settings.seo_title if settings and settings.seo_title else business.name ~ ' | Premium Electronics' }}{% endblock %}
 {% block meta_description %}{{ settings.seo_description if settings and settings.seo_description else (business.description or 'Discover premium smartphones, laptops, audio, gaming and everyday technology.') }}{% endblock %}
-{% block body_class %}fashion-store electronics-store{% endblock %}
+{% block body_class %}electronics-store{% endblock %}
 {% block body %}
 {% include "storefront/_nav.html" %}
 <main class="electronics-home">
@@ -17,7 +17,7 @@
       <div class="electronics-hero-notes"><span>Carefully selected devices</span><span>Reliable everyday technology</span></div>
     </div>
     <div class="luxury-hero-image">
-      {% if business.banner_url %}<img src="{{ business.banner_url }}?v={{ business.updated_at.timestamp()|int }}" alt="{{ business.name }} electronics collection" fetchpriority="high">{% elif featured and featured[0].images %}<img src="{{ featured[0].images[0].url }}" alt="{{ featured[0].images[0].alt_text or featured[0].name }}" fetchpriority="high">{% else %}<div class="editorial-brand-panel"><span class="editorial-brand-name">{{ business.name }}</span><span class="editorial-brand-caption">Premium electronics, selected with care</span></div>{% endif %}
+      {% if featured and featured[0].images %}<img src="{{ featured[0].images[0].url }}" alt="{{ featured[0].images[0].alt_text or featured[0].name }}" fetchpriority="high">{% else %}<div class="editorial-brand-panel"><span class="editorial-brand-name">{{ business.name }}</span><span class="editorial-brand-caption">Premium electronics, selected with care</span></div>{% endif %}
     </div>
   </section>
   {% if categories %}

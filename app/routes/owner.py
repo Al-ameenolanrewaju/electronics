@@ -41,7 +41,7 @@ class ProductForm(FlaskForm):
     )
     category_id = StringField("Category")
     gender = StringField("Gender", default="Unisex", validators=[Optional(), Length(max=20)])
-    fashion_type = StringField("Fashion type", validators=[Optional(), Length(max=30)])
+    fashion_type = StringField("Device type", validators=[Optional(), Length(max=30)])
     sku = StringField("SKU", validators=[Optional(), Length(max=100)])
     brand = StringField("Brand", validators=[Optional(), Length(max=120)])
     condition = SelectField("Condition", choices=[("New", "New"), ("Refurbished", "Refurbished"), ("Open box", "Open box"), ("Used", "Used")], default="New", validate_choice=False)
@@ -354,7 +354,7 @@ def edit_product(product_id):
             category_id = category.id
         product.category_id = category_id
         product.gender = form.gender.data or "Unisex"
-        product.fashion_type = form.fashion_type.data or "Ready-to-wear"
+        product.fashion_type = form.fashion_type.data or "Device"
         product.description = form.description.data
         product.regular_price = form.regular_price.data
         product.discounted_price = form.discounted_price.data

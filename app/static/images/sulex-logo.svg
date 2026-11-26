@@ -1,5 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="620" height="170" viewBox="0 0 620 170" role="img" aria-labelledby="title desc">
-<title id="title">SULEX Fashion Store</title><desc id="desc">Luxury SULEX wordmark with a champagne-gold shopping bag and S monogram.</desc>
+<title id="title">SULEX Premium Electronics</title>
+<desc id="desc">SULEX electronics wordmark with a minimalist smartphone and circuit-inspired mark in champagne gold.</desc>
 <defs><linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e8cb93"/><stop offset=".55" stop-color="#c99a4f"/><stop offset="1" stop-color="#f0d9a7"/></linearGradient></defs>
-<g transform="translate(10 8)"><path d="M26 57h112l-8 91H34z" fill="none" stroke="url(#gold)" stroke-width="5" stroke-linejoin="round"/><path d="M52 59V43c0-22 13-35 30-35s30 13 30 35v16" fill="none" stroke="url(#gold)" stroke-width="5" stroke-linecap="round"/><path d="M105 83c-9-11-22-15-36-11-14 4-22 13-22 25 0 12 9 18 25 23l14 5c10 3 14 7 14 13 0 8-8 13-20 13-13 0-24-6-31-16" fill="none" stroke="#2b190f" stroke-width="10" stroke-linecap="round"/><path d="M48 132c12-12 28-17 44-13" fill="none" stroke="url(#gold)" stroke-width="5" stroke-linecap="round"/><path d="M71 28l8-11 8 11 9-7 2 17H60l2-17z" fill="url(#gold)"/></g>
-<text x="175" y="101" fill="#2b190f" font-family="Georgia, 'Times New Roman', serif" font-size="76" letter-spacing="4">SULEX</text><path d="M180 120h385" stroke="url(#gold)" stroke-width="2"/><text x="181" y="148" fill="#8b6333" font-family="Arial, sans-serif" font-size="18" letter-spacing="10">FASHION STORE</text></svg>
+<g transform="translate(20 18)" fill="none" stroke="url(#gold)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+<rect x="18" y="4" width="82" height="126" rx="12"/>
+<path d="M43 19h32M54 113h10"/>
+<path d="M100 35h28M100 66h28M100 97h28"/>
+<circle cx="136" cy="35" r="5" fill="#c99a4f" stroke="none"/><circle cx="136" cy="66" r="5" fill="#c99a4f" stroke="none"/><circle cx="136" cy="97" r="5" fill="#c99a4f" stroke="none"/>
+</g>
+<text x="190" y="101" fill="#2b190f" font-family="Georgia, 'Times New Roman', serif" font-size="76" letter-spacing="4">SULEX</text>
+<path d="M194 120h385" stroke="url(#gold)" stroke-width="2"/>
+<text x="195" y="148" fill="#8b6333" font-family="Arial, sans-serif" font-size="18" letter-spacing="8">PREMIUM ELECTRONICS</text>
+</svg>

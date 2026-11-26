@@ -151,7 +151,7 @@ def create_app(config_object=None):
         business = models.Business.query.filter_by(status="ACTIVE").order_by(models.Business.id.asc()).first()
         if business is None:
             raise RuntimeError("Create a store and owner first with bootstrap-store.")
-        if models.Product.query.filter_by(business_id=business.id).first():
+        if models.Product.query.filter_by(business_id=business.id, is_published=True).first():
             print("Electronics preview catalogue already exists.")
             return
 
@@ -266,7 +266,7 @@ def create_app(config_object=None):
             business = existing_business or models.Business(
                 name="Sulex",
                 slug="sulex",
-                description="Sulex clothing store",
+                description="Sulex premium electronics store",
                 contact_email=owner_email,
                 status="ACTIVE",
             )
