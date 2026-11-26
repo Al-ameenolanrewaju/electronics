@@ -72,6 +72,11 @@ def upgrade():
     ]
     if clothing_ids:
         bind.execute(
+            sa.text("UPDATE product SET category_id = NULL WHERE business_id = :business_id AND category_id IN :ids")
+            .bindparams(sa.bindparam("ids", expanding=True)),
+            {"business_id": business_id, "ids": clothing_ids},
+        )
+        bind.execute(
             sa.text("DELETE FROM category WHERE business_id = :business_id AND id IN :ids")
             .bindparams(sa.bindparam("ids", expanding=True)),
             {"business_id": business_id, "ids": clothing_ids},
